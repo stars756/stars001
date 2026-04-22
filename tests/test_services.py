@@ -49,7 +49,7 @@ def _create_bayke_user(user):
     from baykeshop.contrib.member.models import BaykeShopUser
     bayke_user = BaykeShopUser.objects.create(
         user=user,
-        nickname=f'{username}的昵称',
+        nickname=f'{user.username}的昵称',
     )
     return bayke_user
 
@@ -84,12 +84,13 @@ def _create_order(user, status='UNPAID', total_price=199.00, minutes_old=60):
     """创建订单（默认已过期1小时）"""
     from baykeshop.contrib.shop.models.orders import BaykeShopOrders
     created_time = timezone.now() - datetime.timedelta(minutes=minutes_old)
+    order_sn = f'TEST{timezone.now().strftime("%Y%m%d%H%M%S")}'
     order = BaykeShopOrders.objects.create(
         user=user,
         total_price=total_price,
         status=status,
         created_time=created_time,
-        order_sn=f'TEST{timezone.now().strftime("%Y%m%d%H%M%S")}{order.pk or ""}',
+        order_sn=order_sn,
     )
     return order
 
@@ -511,7 +512,7 @@ class CeleryPeriodicTasksTestCase(TestCase):
         expired_order = _create_order(self.user, 'UNPAID', 100.00, minutes_old=60)
 
         with override_settings(ORDER_EXPIRE_MINUTES=30):
-            task = auto_close_expired_requests.Mock()
+            task = MagicMock()
             task.request = MagicMock()
             result = auto_close_expired_orders(task)
 
@@ -527,7 +528,7 @@ class CeleryPeriodicTasksTestCase(TestCase):
         new_order = _create_order(self.user, 'UNPAID', 200.00, minutes_old=10)
 
         with override_settings(ORDER_EXPIRE_MINUTES=30):
-            task = auto_close_expired_requests.Mock()
+            task = MagicMock()
             result = auto_close_expired_orders(task)
 
         self.assertEqual(result['closed'], 0)
@@ -547,7 +548,7 @@ class CeleryPeriodicTasksTestCase(TestCase):
         bayke_user.is_email_verified = False
         bayke_user.save()
 
-        task = cleanup_expired_tokens.Mock()
+        task = MagicMock()
         result = cleanup_expired_tokens(task)
 
         self.assertEqual(result['cleared'], 1)
@@ -558,7 +559,7 @@ class CeleryPeriodicTasksTestCase(TestCase):
         """首页缓存预热"""
         from baykeshop.contrib.shop.tasks import cache_warmup_homepage
 
-        task = cache_warmup_homepage.Mock()
+        task = MagicMock()
         result = cache_warmup_homepage(task)
 
         self.assertEqual(result['status'], 'ok')

@@ -249,8 +249,8 @@ SPECTACULAR_SETTINGS = {
         '- 用户中心（资料/地址/SMS验证/邮箱验证）\n'
         '- 图片上传\n'
         '- 订单评论\n\n'
-        '**认证方式：** Session 认证（登录后访问）\n\n'
-        **技术栈：** Django 4.2 + DRF + PostgreSQL + Redis + Celery'
+            '**认证方式：** Session 认证（登录后访问）\n\n'
+            '**技术栈：** Django 4.2 + DRF + PostgreSQL + Redis + Celery'
     ),
     'VERSION': '1.3.20',
     'SERVE_INCLUDE_SCHEMA': False,  # 不在根路径展示 schema JSON
