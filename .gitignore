@@ -64,6 +64,9 @@ docker/nginx/certs/
 # Redis
 dump.rdb
 
+# 面试资料（只保留 .md，忽略重复的 .txt）
+面试专用对策.txt
+
 # Logs
 *.log
 logger

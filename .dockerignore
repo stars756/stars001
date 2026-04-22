@@ -1,0 +1,68 @@
+# ============================================================
+# .dockerignore — 排除 Docker 构建上下文中的无关文件
+# ============================================================
+
+# Git
+.git
+.gitignore
+
+# Python 缓存 & 编译
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+
+# 虚拟环境（Docker 里会重新安装）
+venv/
+env/
+ENV/
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# IDE
+.vscode/
+.idea/
+.claude/
+.workbuddy/
+*.swp
+*.swo
+
+# 测试
+.pytest_cache/
+htmlcov/
+.coverage
+.tox/
+
+# 日志 & 临时文件
+*.log
+logs/
+*.sqlite3
+*.sqlite3-journal
+media/
+
+# 环境变量（通过 docker-compose env_file 注入）
+.env
+.env.local
+
+# 文档 & 非项目文件
+*.md
+*.txt
+docker/
+
+# Docker 自身
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Redis 持久化
+dump.rdb
+
+# Celery
+celerybeat-schedule
+var/
