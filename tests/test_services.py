@@ -55,9 +55,9 @@ def _create_bayke_user(user):
 
 
 def _create_goods(name='测试商品', price=99.00, is_virtual=False, is_show=True):
-    """创建测试商品 SPU"""
-    from baykeshop.contrib.shop.models.goods import BaykeShopGoodsSPU
-    goods, _ = BaykeShopGoodsSPU.objects.get_or_create(
+    """创建测试商品"""
+    from baykeshop.contrib.shop.models.goods import BaykeShopGoods
+    goods, _ = BaykeShopGoods.objects.get_or_create(
         name=name,
         defaults={
             'price': price,

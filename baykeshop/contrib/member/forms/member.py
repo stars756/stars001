@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from baykeshop.forms.mixins import BaseFormMixins
-from baykeshop.forms.widgets import WF, WidgetFactory  # 工厂方法 + 地址字段
+from baykeshop.forms.widgets import WF, WidgetFactory, TextInput  # 工厂方法 + 地址字段 + 基础输入框
 from baykeshop.db.validators import sms_code_validator, sms_code_field
 from baykeshop.contrib.shop.models import BaykeShopOrdersComment
 from baykeshop.contrib.member.models import BaykeShopUserAddress, BaykeShopUser
@@ -69,8 +69,6 @@ class BaykeShopUserProfileForm(BaseFormMixins, forms.ModelForm):
         }
 
 
-# 需要从 widgets 导入基础 TextInput（用于 qq/wechat 等非预定义字段）
-from baykeshop.forms.widgets import TextInput
 
 
 class BaykeShopOrdersCommentForm(BaseFormMixins, forms.ModelForm):
