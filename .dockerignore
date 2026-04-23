@@ -6,18 +6,15 @@
 .git
 .gitignore
 
+# 虚拟环境（Docker 容器内会重新 pip install）
+venv/
+!venv/.keep
+
 # Python 缓存 & 编译
 __pycache__
 *.py[cod]
 *$py.class
 *.so
-
-# 虚拟环境（Docker 里会重新安装）
-# 注意：baykeshop/ 目录已在项目根目录，不能排除
-Lib/
-Scripts/
-Include/
-pyvenv.cfg
 
 # IDE
 .vscode/
@@ -32,7 +29,6 @@ pyvenv.cfg
 htmlcov/
 .coverage
 .tox/
-tests/
 
 # 日志 & 临时文件
 *.log
@@ -46,7 +42,6 @@ media/
 .env.local
 
 # 非项目文件（保留 .env.example、README.md）
-docker/
 
 # Docker 自身
 Dockerfile

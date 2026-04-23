@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     # drf-spectacular: OpenAPI/Swagger 文档
-    'drf_spectacular.frontend',   # 提供 Swagger UI + ReDoc 前端静态文件
+    # 'drf_spectacular.frontend',   # Swagger UI + ReDoc 通过 URL 路由提供，不需在 INSTALLED_APPS 中注册
     *baykeshop.INSTALLED_APPS,
 ]
 
@@ -286,11 +286,10 @@ LOGGING = {
             'style': '{',
             'datefmt': '%Y-%m-%d %H:%M:%S',
         },
-        # 生产环境：结构化 JSON 风格，方便 ELK/日志平台采集
+        # 生产环境：结构化风格，方便 ELK/日志平台采集
+        # 注意：避免在 format 字符串中混用 JSON 引号和 {style} 字段，Python 3.13 会误解析
         'structured': {
-            'format': '{"timestamp":"{asctime}","level":"{levelname}","logger":"{name}",'
-                       '"module":"{module}","function":"{funcName}","line":{lineno},'
-                       '"message":"{message}"}',
+            'format': '[{asctime}] {levelname:>8} | {name}:{module}:{funcName}:{lineno} | {message}',
             'style': '{',
             'datefmt': '%Y-%m-%dT%H:%M:%S',
         },
