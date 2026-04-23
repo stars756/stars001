@@ -39,6 +39,7 @@ def auto_close_expired_orders(self):
     支持在 BAYKE_SETTINGS 中配置 ORDER_EXPIRE_MINUTES 覆盖默认值
     """
     try:
+        from baykeshop.db.orders import BaseOrdersModel
         from baykeshop.contrib.shop.models.orders import BaykeShopOrders
         from baykeshop.conf import bayke_settings
         
@@ -48,10 +49,11 @@ def auto_close_expired_orders(self):
             expire_minutes = 30
             
         # 查找所有待支付且已过期的订单
+        # 注意：StatusChoices 定义在 BaseOrdersModel 上
         cutoff = timezone.now() - timedelta(minutes=expire_minutes)
         
         expired_orders = BaykeShopOrders.objects.filter(
-            status=BaykeShopOrders.StatusChoices.UNPAID,
+            status=BaseOrdersModel.OrderStatus.UNPAID,
             created_time__lte=cutoff,
         )
         
@@ -59,8 +61,8 @@ def auto_close_expired_orders(self):
         if expired_count == 0:
             return {'status': 'ok', 'closed': 0}
             
-        # 批量关闭
-        updated = expired_orders.update(status=BaykeShopOrders.StatusChoices.CANCELED)
+        # 批量关闭（标记为已取消/EXPIRED）
+        updated = expired_orders.update(status=BaseOrdersModel.OrderStatus.EXPIRED)
         
         logger.info(
             f"[自动关单] 已关闭 {updated} 个超时未支付订单 "
@@ -91,6 +93,7 @@ def daily_order_statistics(self):
     结果写入 Redis，供后台仪表盘读取
     """
     try:
+        from baykeshop.db.orders import BaseOrdersModel
         from baykeshop.contrib.shop.models.orders import BaykeShopOrders
         
         today = timezone.now().date()
@@ -109,21 +112,21 @@ def daily_order_statistics(self):
         
         total_count = orders.count()
         paid_count = orders.filter(status__in=[
-            BaykeShopOrders.StatusChoices.PAID,
-            BaykeShopOrders.StatusChoices.SHIPPED,
-            BaykeShopOrders.StatusChoices.COMPLETED,
+            BaseOrdersModel.OrderStatus.PAID,
+            BaseOrdersModel.OrderStatus.SHIPPED,
+            BaseOrdersModel.OrderStatus.DONE,
         ]).count()
         
         total_amount = orders.filter(
             status__in=[
-                BaykeShopOrders.StatusChoices.PAID,
-                BaykeShopOrders.StatusChoices.SHIPPED,
-                BaykeShopOrders.StatusChoices.COMPLETED,
+                BaseOrdersModel.OrderStatus.PAID,
+                BaseOrdersModel.OrderStatus.SHIPPED,
+                BaseOrdersModel.OrderStatus.DONE,
             ]
-        ).aggregate(total=Sum('total_price'))['total'] or 0
+        ).aggregate(total=Sum('pay_price'))['total'] or 0  # pay_price 是实际数据库字段
         
         canceled_count = orders.filter(
-            status=BaykeShopOrders.StatusChoices.CANCELED
+            status=BaseOrdersModel.OrderStatus.EXPIRED
         ).count()
         
         stats = {
@@ -173,28 +176,29 @@ def cache_warmup_homepage(self):
     """
     try:
         warmed_keys = []
-        
-        # 1. 预热轮播图
-        from baykeshop.contrib.system.models import BaykeBannerModel
-        banners = list(BaykeBannerModel.objects.filter(is_active=True).values())
+
+        # 1. 预热轮播图（模型名是 BaykeBanners，字段名 is_show）
+        from baykeshop.contrib.system.models.banners import BaykeBanners
+        banners = list(BaykeBanners.objects.filter(is_show=True, is_delete=False).values())
         django_cache.set('banners:active', banners, timeout=600)
         warmed_keys.append('banners:active')
-        
-        # 2. 预热推荐商品（按创建时间倒序取前20）
-        from baykeshop.contrib.shop.models.goods import BaykeShopGoodsSPU
+
+        # 2. 预热推荐商品（模型名是 BaykeShopGoods，用 status 字段）
+        from baykeshop.contrib.shop.models.goods import BaykeShopGoods
         recommended = list(
-            BaykeShopGoodsSPU.objects.filter(
-                is_show=True, is_delete=False,
-            ).select_related('category').order_by('-created_time')[:20]
+            BaykeShopGoods.objects.filter(
+                status=1,  # ONLINE
+                is_delete=False,
+            ).select_related().order_by('-created_time')[:20]
         )
         django_cache.set('goods:recommended_top20', recommended, timeout=300)
         warmed_keys.append('goods:recommended_top20')
-        
-        # 3. 预热分类导航（带商品计数）
-        from baykeshop.contrib.shop.models.goods import BaykeShopCategory
+
+        # 3. 预热分类导航（M2M 反向关系名需要查实际模型）
+        from baykeshop.contrib.shop.models.goods import BaykeShopCategory, BaykeShopGoods
         categories_with_counts = list(
             BaykeShopCategory.objects.annotate(
-                goods_count=Count('goodsspu_set')
+                goods_count=Count('baykeshopgoods')
             ).filter(goods_count__gt=0)[:15]
         )
         django_cache.set('nav:categories_with_counts', categories_with_counts, timeout=300)

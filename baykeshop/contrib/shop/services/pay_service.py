@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from alipay.aop.api.util.SignatureUtils import verify_with_rsa
 from baykeshop.contrib.shop.models.orders import BaykeShopOrders
+from baykeshop.db.orders import BaseOrdersModel  # OrderStatus 定义在基类上
 from baykeshop.contrib.system.models import BaykeDictModel
 from baykeshop.db.security import security_logger
 
@@ -66,9 +67,9 @@ class PayService:
             order.pay_time = timezone.now()
             order.pay_sn = data.get("trade_no")
             order.status = (
-                BaykeShopOrders.OrderStatus.SHIPPED
+                BaseOrdersModel.OrderStatus.VERIFY  # 虚拟商品 → 待核销
                 if PayService.is_virtual_order(order)
-                else BaykeShopOrders.OrderStatus.PAID
+                else BaseOrdersModel.OrderStatus.PAID  # 实物商品 → 待发货（PAID）
             )
             order.save()
 

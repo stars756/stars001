@@ -43,8 +43,8 @@ class UserInteractionServiceBase:
 
     @classmethod
     def _build_filter(cls, user, goods_id, **extra_filters):
-        """构建查询过滤条件"""
-        f = {cls.USER_FIELD: user, cls.GOODS_ID_FIELD: goods_id}
+        """构建查询过滤条件（自动排除软删除记录）"""
+        f = {cls.USER_FIELD: user, cls.GOODS_ID_FIELD: goods_id, 'is_delete': False}
         f.update(cls.EXTRA_FILTER_FIELDS)
         f.update(extra_filters)
         return f
@@ -61,7 +61,7 @@ class UserInteractionServiceBase:
             filter_kwargs = cls._build_filter(user, goods_id, **extra_filters)
             
             obj, created = cls.MODEL.objects.get_or_create(
-                defaults={cls.Goods_FIELD: goods, **extra_filters},
+                defaults={cls.GOODS_FIELD: goods, **extra_filters},
                 **filter_kwargs
             )
             if not created:
@@ -82,7 +82,8 @@ class UserInteractionServiceBase:
         log = cls._get_logger()
         try:
             filter_kwargs = cls._build_filter(user, goods_id, **extra_filters)
-            deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+            # Django 4.2+ delete() 返回整数（删除行数），不是元组
+            deleted_count = cls.MODEL.objects.filter(**filter_kwargs).delete()
 
             if deleted_count == 0:
                 return {'success': False, 'message': f'未{cls.ACTION_NAME}该{cls.ITEM_NAME}'}
