@@ -1,0 +1,38 @@
+{% extends 'baykeshop/base_site.html' %}
+{% load i18n static baykeshop %}
+
+{% block main %}
+<section class="bk-section">
+    <div class="bk-container">
+        <div class="bk-columns bk-is-multiline">
+            <div class="bk-column bk-is-3">
+                <div class="bk-is-relative">
+                    {% if spu.is_virtual %}
+                        <div style="position: absolute; top:10px; left: 0; z-index: 999;">
+                            <button class="bk-button bk-is-danger bk-is-light bk-is-radiusless">虚拟商品</button>
+                        </div>
+                    {% endif %}
+                    {% include 'baykeshop/includes/carousel.html' with images=images %}
+                </div>
+            </div>
+            <div class="bk-column bk-is-7">
+                <div class="bk-is-flex bk-is-align-items-center">
+                    <h1 class="bk-is-size-3 ml-2">{{ spu.name }}</h1> 
+                </div>
+                {% sku_template spu %}
+                {% include 'baykeshop/shop/includes/content.html' with spu=spu %}
+            </div>
+            <div class="bk-column bk-is-2">
+                <div class="bk-box bk-is-shadowless" style="border: 1px solid #eee;">
+                    <h1 class="bk-has-text-centered  bk-has-text-weight-bold">优品推荐</h1>
+                    <hr class="my-2">
+                    {% for spu in recommends %}
+                        {% include 'baykeshop/shop/includes/spu.html' with spu=spu %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+    

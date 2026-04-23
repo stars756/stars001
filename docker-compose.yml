@@ -124,7 +124,7 @@ services:
       - media_data:/app/media
       - logs_data:/app/logs
     command: >
-      celery -A project.celery_app worker
+      celery -A project.celery:app worker
         --loglevel=info
         --concurrency=${CELERY_CONCURRENCY:-4}
         --queues=default,email,sms
@@ -155,10 +155,9 @@ services:
       - beat_schedule:/app/var/celery  # Beat 调度状态持久化
       - logs_data:/app/logs
     command: >
-      celery -A project.celery_app beat
+      celery -A project.celery:app beat
         --loglevel=info
         --scheduler django_celery_beat.schedulers:DatabaseScheduler
-        --pidfile=/var/run/celery/beat.pid
     networks:
       - backend
 

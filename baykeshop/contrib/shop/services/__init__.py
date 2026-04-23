@@ -1,0 +1,3 @@
+"""
+Shop services package
+"""

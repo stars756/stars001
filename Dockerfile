@@ -23,11 +23,15 @@ RUN groupadd -r baykeuser && useradd -r -g baykeuser -d /app -s /sbin/nologin ba
 
 WORKDIR /app
 
+# 先复制 baykeshop 本地包源码（含 setup.py）
+COPY baykeshop/ baykeshop/
+
 # 先复制 requirements.txt（Docker 缓存优化：只有依赖变化才重新安装）
 COPY requirements.txt .
 
-# 安装 Python 依赖
-RUN pip install --no-cache-dir -r requirements.txt
+# 安装 Python 依赖 + baykeshop 本地包
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -e ./baykeshop
 
 # ---- 阶段 2: 运行时镜像（更小） ----
 FROM python:3.11-slim as runtime
@@ -51,7 +55,7 @@ RUN groupadd -r baykeuser && useradd -r -g baykeuser -d /app -s /sbin/nologin ba
 
 WORKDIR /app
 
-# 复制项目代码（排除 .gitignore 中列出的文件）
+# 复制项目代码
 COPY --chown=baykeuser:baykeuser . .
 
 # 创建必要目录并设置权限

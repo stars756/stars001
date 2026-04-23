@@ -13,9 +13,7 @@ __pycache__
 *.so
 
 # 虚拟环境（Docker 里会重新安装）
-venv/
-env/
-ENV/
+# 注意：baykeshop/ 目录已在项目根目录，不能排除
 Lib/
 Scripts/
 Include/
@@ -34,6 +32,7 @@ pyvenv.cfg
 htmlcov/
 .coverage
 .tox/
+tests/
 
 # 日志 & 临时文件
 *.log
@@ -46,9 +45,7 @@ media/
 .env
 .env.local
 
-# 文档 & 非项目文件
-*.md
-*.txt
+# 非项目文件（保留 .env.example、README.md）
 docker/
 
 # Docker 自身
@@ -66,3 +63,6 @@ dump.rdb
 # Celery
 celerybeat-schedule
 var/
+
+# 面试资料（不需要进容器）
+面试专用对策.md
