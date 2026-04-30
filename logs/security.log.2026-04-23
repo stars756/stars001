@@ -1,0 +1,188 @@
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804' 的用户...
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804
+[2026-04-23T12:25:21]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg' 的用户...
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY' 的用户...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms' 的用户...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg' 的用户...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4' 的用户...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI' 的用户...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI
+[2026-04-23T12:36:42]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA' 的用户...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:36:42]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:36:43]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:36:43]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:45:04]     INFO | baykeshop.security:pay_service:handle_payment_success:76 | PAYMENT_SUCCESS | user=pay_user | order_sn=TEST202604230445047036 | trade_no=ALI_TEST_12345 | amount=599.00 | status=待发货
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q' 的用户...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I' 的用户...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:47:11]     INFO | baykeshop.security:pay_service:handle_payment_success:77 | PAYMENT_SUCCESS | user=pay_user | order_sn=TEST202604230447113734 | trade_no=ALI_TEST_12345 | amount=599.00 | status=待发货
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8' 的用户...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY' 的用户...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:48:56]     INFO | baykeshop.security:pay_service:handle_payment_success:77 | PAYMENT_SUCCESS | user=pay_user | order_sn=TEST202604230448565270 | trade_no=ALI_TEST_12345 | amount=599.00 | status=待发货
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk' 的用户...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI' 的用户...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:50:23]     INFO | baykeshop.security:pay_service:handle_payment_success:77 | PAYMENT_SUCCESS | user=pay_user | order_sn=TEST202604230450239044 | trade_no=ALI_TEST_12345 | amount=599.00 | status=待发货
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0' 的用户...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE' 的用户...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]

@@ -1,0 +1,613 @@
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804' 的用户...
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:25:21]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 64KeVgd8DNXj_xNa6x34vrubCy675BTxJ6qncMLL804
+[2026-04-23T12:25:21]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg' 的用户...
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: IoSpKw8eeBcuablO7eCEFu_FkGElSup74mkSPJKI0Kg
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:25:22]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:25:22]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:28:23]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:24]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:24]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:25]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:25]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:25]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:28:25]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:28:26]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:26]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:26]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:26]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:27]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:27]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:28:27]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消关注失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:28:29]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY' 的用户...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 64HRr-vlMweF9Mu8mn_jfrHjyOJrCx6-DGRA_dbqJlY
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms' 的用户...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: TuWEEIQ1HTdyaQk1LlgUPkBMdCfTZ2SpRfFrTAbrdms
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:28:30]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:28:30]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:31:14]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:14]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:14]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:15]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:15]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:15]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:31:16]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:31:16]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:16]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:16]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:17]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:17]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:17]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:31:17]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消关注失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:31:19]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg' 的用户...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: CQ9OPAwbL649LVUHOb9SWlTUO95NLXsUxvxFdapcMWg
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4' 的用户...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: Zgfxni04Cmd6-o4t7Bibq1zKUSe2Zis61F9QJhmXFM4
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:31:20]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:31:20]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:31:21]    ERROR | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:77 | [自动关单] 任务执行失败: type object 'BaykeShopOrders' has no attribute 'StatusChoices'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\tasks.py", line 54, in auto_close_expired_orders
+    status=BaykeShopOrders.StatusChoices.UNPAID,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'BaykeShopOrders' has no attribute 'StatusChoices'
+[2026-04-23T12:31:21]    ERROR | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:77 | [自动关单] 任务执行失败: type object 'BaykeShopOrders' has no attribute 'StatusChoices'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\tasks.py", line 54, in auto_close_expired_orders
+    status=BaykeShopOrders.StatusChoices.UNPAID,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'BaykeShopOrders' has no attribute 'StatusChoices'
+[2026-04-23T12:31:21]    ERROR | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:212 | [缓存预热] 任务执行失败: cannot import name 'BaykeBannerModel' from 'baykeshop.contrib.system.models' (C:\Users\34902\baykeshop\baykeshop\contrib\system\models\__init__.py)
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\tasks.py", line 178, in cache_warmup_homepage
+    from baykeshop.contrib.system.models import BaykeBannerModel
+ImportError: cannot import name 'BaykeBannerModel' from 'baykeshop.contrib.system.models' (C:\Users\34902\baykeshop\baykeshop\contrib\system\models\__init__.py)
+[2026-04-23T12:31:21]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:254 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-23T12:36:36]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:36]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:37]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:37]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:38]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:38]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:36:38]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:36:38]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:38]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:39]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:39]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:39]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:39]    ERROR | baykeshop.contrib.shop:base:add:76 | 关注失败: type object 'FollowService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FollowService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:36:39]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消关注失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI' 的用户...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: bN8aDjP-jRj8SuxExJ3ZhRRnpeg6r7bNrBdyvIZH7GI
+[2026-04-23T12:36:42]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA' 的用户...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: MPMlbmJkzszVsLzFwZvgYYPGsjnlbbBKt7H8_MkOcXA
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:36:42]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:36:42]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:36:43]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:36:43]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:36:43]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:36:43]    ERROR | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:216 | [缓存预热] 任务执行失败: Cannot resolve keyword 'baykeshopgoods_set' into field. Choices are: baykeshopcategory, baykeshopgoods, created_time, icon, id, is_delete, is_floor, is_nav, is_show, name, order, parent, parent_id, site, site_id, updated_time
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\tasks.py", line 200, in cache_warmup_homepage
+    BaykeShopCategory.objects.annotate(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        goods_count=Count('baykeshopgoods_set')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).filter(goods_count__gt=0)[:15]
+    ^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\query.py", line 1590, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\query.py", line 1638, in _annotate
+    clone.query.add_annotation(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        annotation,
+        ^^^^^^^^^^^
+        alias,
+        ^^^^^^
+        select=select,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+                                ~~~~~~~~~~~~~~~~~~~~~~^
+        query, allow_joins, reuse, summarize, for_save
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\sql\query.py", line 1977, in resolve_ref
+    join_info = self.setup_joins(
+        field_list, self.get_meta(), self.get_initial_alias(), can_reuse=reuse
+    )
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\sql\query.py", line 1824, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+                                       ~~~~~~~~~~~~~~~~~~^
+        names[:pivot],
+        ^^^^^^^^^^^^^^
+    ...<2 lines>...
+        fail_on_missing=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\django\db\models\sql\query.py", line 1725, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'baykeshopgoods_set' into field. Choices are: baykeshopcategory, baykeshopgoods, created_time, icon, id, is_delete, is_floor, is_nav, is_show, name, order, parent, parent_id, site, site_id, updated_time
+[2026-04-23T12:36:44]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-23T12:44:43]    ERROR | baykeshop.contrib.shop:base:add:76 | 收藏失败: type object 'FavoriteService' has no attribute 'Goods_FIELD'
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 64, in add
+    defaults={cls.Goods_FIELD: goods, **extra_filters},
+              ^^^^^^^^^^^^^^^
+AttributeError: type object 'FavoriteService' has no attribute 'Goods_FIELD'. Did you mean: 'GOODS_FIELD'?
+[2026-04-23T12:45:00]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:45:00]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:45:00]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:45:01]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:45:01]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:45:01]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:45:02]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:45:02]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:02]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:02]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:45:03]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消关注失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:45:05]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q' 的用户...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: YaI7pUhdcxVCvRdJQX6MZFTs5t3to47qROp10vNOV3Q
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I' 的用户...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: Gjplvmv4J7TJvxIrTClyPrnboJI0_WebFSF0laMOj8I
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:45:06]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:45:06]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:45:07]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-23T12:45:07]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-23T12:47:07]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:47:07]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:47:08]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:47:08]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:47:09]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:47:09]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:47:09]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消收藏失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:47:09]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:47:10]    ERROR | baykeshop.contrib.shop:base:remove:96 | 取消关注失败: cannot unpack non-iterable int object
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\base.py", line 85, in remove
+    deleted_count, _ = cls.MODEL.objects.filter(**filter_kwargs).delete()
+    ^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable int object
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:47:13]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8' 的用户...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: WiG9tXl4y4LfVzc7KaT7SmasX6VAOZ4OSvAb7wwivr8
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY' 的用户...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 9oS-mFYHJhwc4Ew2cEl_UC1N-zb7lcyM-RPu1vPajPY
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:47:14]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:47:14]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:47:15]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-23T12:47:15]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-23T12:48:51]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:48:52]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:48:52]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:48:53]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:48:53]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:48:53]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:48:54]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:48:57]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk' 的用户...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: wpfX0QCCCi4QJF5p5m73VeEfvTCFF7_EcBmLxnasxhk
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI' 的用户...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 2Hk1oFcQ-aDHcn2v9uMLXfMkvzWpExMx1LqJ-RV-WPI
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:48:58]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:48:58]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:48:59]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-23T12:48:59]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-23T12:50:19]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:50:19]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:50:20]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:50:20]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:50:20]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-23T12:50:21]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-23T12:50:21]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:21]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:22]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:22]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:22]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:22]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-23T12:50:22]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0' 的用户...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: UuzfUaY7pcpGJzqbmrdMSslmfk2V_BQwFiouDJKlcF0
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE' 的用户...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 94avWKV2zBLGJxNqf8JTvas9dEc_8HLT8X_Bx2OeQAE
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-23T12:50:25]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-23T12:50:25]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-23T12:50:26]     INFO | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:67 | [自动关单] 已关闭 1 个超时未支付订单 (超时阈值: 30分钟)
+[2026-04-23T12:50:26]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-23T12:50:26]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token

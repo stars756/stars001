@@ -592,13 +592,54 @@ class CeleryPeriodicTasksTestCase(TestCase):
 
         self.assertEqual(result['status'], 'ok')
         self.assertGreaterEqual(len(result['warmed_keys']), 1)
-        # 验证缓存确实写入
-        self.assertIsNotNone(cache.get('banners:active'))
+        # 验证缓存确实写入（key 已对齐页面实际读取路径）
+        self.assertIn('banners:index', result['warmed_keys'])
+        self.assertIsNotNone(cache.get('banners:index'))
 
 
 # ============================================================
 # 7. API 限流测试
 # ============================================================
+
+class AutoCloseStockRestoreTestCase(TestCase):
+    """自动关单 — 库存恢复回归测试"""
+
+    def setUp(self):
+        self.user = _create_user('autoclose_user', 'autoclose@test.com')
+        self.goods = _create_goods()
+        self.sku = _create_sku(self.goods, stock=10)
+        cache.clear()
+
+    def test_auto_close_restores_stock(self):
+        """自动关单后库存被恢复（pre_save 信号 → apply_status_transition）"""
+        from baykeshop.contrib.shop.tasks import auto_close_expired_orders
+        from baykeshop.contrib.shop.models.orders import BaykeShopOrders, BaykeShopOrdersGoods
+        from django.utils import timezone
+        from django.db.models import F
+
+        # 创建订单商品关联 + 手动扣减库存（模拟下单）
+        order = _create_order(self.user, status=0, pay_price=99.00, minutes_old=60)
+        og = BaykeShopOrdersGoods.objects.create(
+            orders=order, sku=self.sku, quantity=3,
+            name=self.goods.name, price=99.00,
+        )
+        self.sku.stock = F("stock") - 3
+        self.sku.save(update_fields=['stock'])
+        self.sku.refresh_from_db()
+        stock_after_deduct = self.sku.stock  # 10 - 3 = 7
+
+        # 强制回填 created_time 确保超时
+        BaykeShopOrders.objects.filter(pk=order.pk).update(
+            created_time=timezone.now() - datetime.timedelta(minutes=60)
+        )
+
+        with override_settings(ORDER_EXPIRE_MINUTES=30):
+            result = auto_close_expired_orders.__wrapped__()
+
+        self.assertEqual(result['closed'], 1)
+        self.sku.refresh_from_db()
+        self.assertEqual(self.sku.stock, stock_after_deduct + 3)  # 恢复 3
+
 
 class APIThrottleTestCase(TestCase):
     """API 限流防刷单元测试"""
