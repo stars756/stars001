@@ -1,6 +1,8 @@
+from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 
 from baykeshop.contrib.shop.models import (
@@ -19,6 +21,7 @@ class BaykeShopGoodsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = "商品列表"
+        context['breadcrumbs'] = [{'name': _('商品列表'), 'url': None}]
         return context
     
     def get_queryset(self):
@@ -46,8 +49,12 @@ class BaykeShopCategoryListView(SingleObjectMixin, BaykeShopGoodsListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = self.object.name
+        context['breadcrumbs'] = [
+            {'name': _('商品列表'), 'url': reverse('shop:list')},
+            {'name': self.object.name, 'url': None},
+        ]
         return context
-    
+
 
 class BaykeShopGoodsDetailView(DetailView):
     """商品详情"""
@@ -56,29 +63,29 @@ class BaykeShopGoodsDetailView(DetailView):
     context_object_name = 'spu'
 
     def get_object(self, queryset=None):
-        """
-        获取商品对象，优先从缓存获取
-
-        重写DetailView的get_object方法，使用缓存提升性能
-        """
-        # 获取pk参数
         if queryset is None:
             queryset = self.get_queryset()
 
         pk = self.kwargs.get(self.pk_url_kwarg)
         if pk is not None:
-            # 尝试从缓存获取，如果未命中则使用父类查询结果作为default
             goods = GoodsService.get_goods_spu_detail(pk)
             if goods is not None:
+                # 缓存命中也需确认商品未被物理删除
+                try:
+                    BaykeShopGoods.objects.get(pk=goods.pk)
+                except BaykeShopGoods.DoesNotExist:
+                    GoodsService.update_goods_spu_detail_cache(pk)
+                    raise Http404(f'商品不存在 (id={pk})')
                 return goods
 
-            # 缓存未命中，调用父类方法查询数据库
-            goods = super().get_object(queryset)
-            # 将查询结果传递给get_goods_spu_detail进行缓存
+            try:
+                goods = super().get_object(queryset)
+            except Http404:
+                GoodsService.update_goods_spu_detail_cache(pk)
+                raise Http404(f'商品不存在 (id={pk})')
             GoodsService.get_goods_spu_detail(pk, default=goods)
             return goods
 
-        # 如果没有pk，使用slug或其他参数
         return super().get_object(queryset)
 
     def get(self, request, *args, **kwargs):
@@ -95,6 +102,10 @@ class BaykeShopGoodsDetailView(DetailView):
         context['score_avg'] = GoodsService.get_goods_score_avg(goods)
         context['like_score'] = GoodsService.get_goods_like_score(goods)
         context['comments_count'] = GoodsService.get_goods_comments_count(goods)
+        context['breadcrumbs'] = [
+            {'name': _('商品列表'), 'url': reverse('shop:list')},
+            {'name': goods.name, 'url': None},
+        ]
         return context
     
 
@@ -105,6 +116,7 @@ class BaykeShopSearchView(BaykeShopGoodsListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = "商品搜索"
+        context['breadcrumbs'] = [{'name': _('商品搜索'), 'url': None}]
         return context
     
     def get_queryset(self):

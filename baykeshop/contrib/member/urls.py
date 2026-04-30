@@ -51,9 +51,21 @@ urlpatterns = [
         views.BaykeShopUserAddressDeleteView.as_view(),
         name="address-delete",
     ),
+    # 收藏列表
+    path(
+        "favorites/",
+        views.BaykeShopFavoritesView.as_view(),
+        name="favorites-list",
+    ),
+    # 消息中心
+    path(
+        "notifications/",
+        views.BaykeShopNotificationsView.as_view(),
+        name="notifications",
+    ),
     # 订单列表
     path(
-        "orders/", 
+        "orders/",
         views.BaykeShopOrdersListView.as_view(), 
         name="orders-list"
     ),

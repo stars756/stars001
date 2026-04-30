@@ -1,0 +1,87 @@
+{% extends 'baykeshop/member/profile.html' %}
+{% load i18n %}
+
+{% block profile_header %}
+<h1 class="bk-is-size-4 bk-has-text-weight-bold">{% translate '我的收藏' %}</h1>
+{% endblock %}
+
+{% block profile_content %}
+{% if favorites %}
+<div class="bk-fixed-grid bk-has-4-cols">
+    <div class="bk-grid">
+    {% for item in favorites %}
+        <div class="bk-cell">
+            <div class="bk-box bk-is-relative" id="fav-{{ item.goods_id }}">
+                <button class="bk-button bk-is-text bk-is-small unfavorite-btn"
+                        style="position:absolute;top:8px;right:8px;z-index:10;"
+                        data-goods-id="{{ item.goods_id }}"
+                        title="{% translate '取消收藏' %}">
+                    <span class="mdi mdi-heart bk-has-text-danger"></span>
+                </button>
+                <a href="{% url 'shop:detail' item.goods_id %}">
+                    <figure class="bk-image bk-is-1by1">
+                        <img src="{{ MEDIA_URL }}{{ item.image_url }}" alt="{{ item.goods_name }}" />
+                    </figure>
+                    <h1 class="py-2" title="{{ item.goods_name }}">
+                        {{ item.goods_name|truncatechars:15 }}
+                    </h1>
+                    <div>
+                        <span class="bk-is-size-5 bk-has-text-danger bk-has-text-weight-bold">
+                            ￥{{ item.goods_price|floatformat:"-2g" }}
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+{% if total_pages > 1 %}
+<nav class="bk-pagination bk-is-centered mt-5" role="navigation">
+    <ul class="bk-pagination-list">
+        {% for p in page_range %}
+        <li>
+            <a class="bk-pagination-link {% if p == page %}bk-is-current{% endif %}"
+               href="?page={{ p }}">{{ p }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
+
+{% else %}
+<div class="bk-has-text-centered py-6">
+    <span class="mdi mdi-heart-outline bk-has-text-grey" style="font-size:3rem;"></span>
+    <p class="bk-has-text-grey mt-3">{% translate '暂无收藏，去逛逛吧~' %}</p>
+    <a href="{% url 'shop:list' %}" class="bk-button bk-is-primary bk-is-light mt-3">
+        {% translate '随便逛逛' %}
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.unfavorite-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const goodsId = this.dataset.goodsId;
+        const csrfToken = Cookies.get('csrftoken');
+        fetch('/api/favorites/toggle/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({goods_id: parseInt(goodsId)}),
+        }).then(r => r.json()).then(data => {
+            if (data.favorited === false) {
+                const card = document.getElementById('fav-' + goodsId);
+                if (card) card.parentElement.remove();
+                Qmsg.success(data.message || '已取消收藏');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

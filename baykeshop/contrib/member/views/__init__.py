@@ -13,6 +13,8 @@ from .auth import (
 )
 from .orders import BaykeShopOrdersListView, BaykeShopOrdersDetailView
 from .actions import OrderStatusActionView, CommentActionView
+from .favorites import BaykeShopFavoritesView
+from .notifications import BaykeShopNotificationsView
 from .profile import (
     BaykeShopUserProfileView,
     BaykeShopUserPasswordView,

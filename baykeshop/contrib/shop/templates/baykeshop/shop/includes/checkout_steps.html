@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="checkout-steps mb-5">
+    <div class="bk-is-flex bk-is-align-items-center bk-is-justify-content-center">
+        {% for step in steps %}
+        <div class="bk-has-text-centered" style="flex:1;max-width:160px;">
+            <div class="step-circle {% if step.active %}bk-has-background-primary bk-has-text-white{% elif step.done %}bk-has-background-success bk-has-text-white{% else %}bk-has-background-light bk-has-text-grey{% endif %}"
+                 style="width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:bold;">
+                {% if step.done %}
+                <span class="mdi mdi-check"></span>
+                {% else %}
+                {{ forloop.counter }}
+                {% endif %}
+            </div>
+            <div class="bk-is-size-7 mt-1 {% if step.active %}bk-has-text-primary bk-has-text-weight-bold{% elif step.done %}bk-has-text-success{% else %}bk-has-text-grey{% endif %}">
+                {{ step.label }}
+            </div>
+        </div>
+        {% if not forloop.last %}
+        <div class="step-line {% if step.done %}bk-has-background-success{% else %}bk-has-background-light{% endif %}"
+             style="flex:0.5;height:2px;margin:0 4px;margin-bottom:18px;"></div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

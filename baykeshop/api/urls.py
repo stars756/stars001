@@ -7,6 +7,7 @@ from baykeshop.api.pay import views as pay_views
 from baykeshop.api.comments import views as comments_views
 from baykeshop.api.upload import views as upload_views
 from baykeshop.api.member import views as member_views
+from baykeshop.api.favorites import views as favorites_views
 
 
 router = routers.DefaultRouter()
@@ -33,5 +34,9 @@ urlpatterns = [
     path('send-sms/', member_views.BaykeShopSMSVerifyView.as_view(), name='send-sms'),
     # 个人资料更新
     path('profile/update/', member_views.BaykeShopProfileUpdateView.as_view(), name='profile-update'),
+    # 收藏切换
+    path('favorites/toggle/', favorites_views.FavoriteToggleView.as_view(), name='favorites-toggle'),
+    # 收藏列表
+    path('favorites/', favorites_views.FavoriteListView.as_view(), name='favorites-list'),
     *router.urls
 ]
