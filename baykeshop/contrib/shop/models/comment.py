@@ -72,7 +72,7 @@ class BaykeShopOrdersComment(BaseModel):
     @classmethod
     def get_spu_queryset(cls, spu):
         orders = BaykeShopOrdersGoods.objects.filter(sku__goods=spu).values_list('orders', flat=True).distinct()
-        queryset = cls.objects.filter(order_id__in=orders, status=True)
+        queryset = cls.objects.select_related('user__baykeshopuser', 'order').filter(order_id__in=orders, status=True)
         return queryset.order_by('-created_time')
     
     @classmethod
