@@ -32,14 +32,32 @@ class FavoriteService(UserInteractionServiceBase):
 
     @classmethod
     def get_user_favorites(cls, user, page_number=1, per_page=20):
-        """获取用户收藏列表（兼容旧接口）"""
-        result = cls.get_list(user, page_number, per_page)
-        # 将通用 key 'favorites' 映射回原有返回格式
+        """获取用户收藏列表，含商品完整信息（图片/价格）"""
+        from django.core.paginator import Paginator
+        favorites = BaykeShopGoodsFavorite.objects.filter(
+            user=user
+        ).select_related('goods').order_by('-created_time')
+        total = favorites.count()
+        paginator = Paginator(favorites, per_page)
+        page_obj = paginator.get_page(page_number)
+
+        items = []
+        for fav in page_obj:
+            goods = fav.goods
+            # goods 自带 image_url / price 注解（来自 BaykeShopGoodsManager）
+            items.append({
+                'id': fav.id,
+                'goods_id': goods.id,
+                'goods_name': goods.name,
+                'goods_price': float(getattr(goods, 'price', 0) or 0),
+                'image_url': str(getattr(goods, 'image_url', '') or ''),
+            })
+
         return {
-            'favorites': result.get('favorites', []),
-            'total': result['total'],
-            'page': result['page'],
-            'total_pages': result['total_pages'],
+            'favorites': items,
+            'total': total,
+            'page': page_number,
+            'total_pages': paginator.num_pages,
         }
 
     @classmethod

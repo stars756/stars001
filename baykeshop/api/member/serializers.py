@@ -27,6 +27,7 @@ class BaykeShopUserAddressSerializer(serializers.ModelSerializer):
 class BaykeShopUserSerializer(serializers.ModelSerializer):
     """用户信息序列化器"""
 
+    email = serializers.CharField(source='user.email', read_only=True)
     address_count = serializers.SerializerMethodField()
     default_address = serializers.SerializerMethodField()
 

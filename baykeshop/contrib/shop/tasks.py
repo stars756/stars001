@@ -61,8 +61,14 @@ def auto_close_expired_orders(self):
         if expired_count == 0:
             return {'status': 'ok', 'closed': 0}
             
-        # 批量关闭（标记为已取消/EXPIRED）
-        updated = expired_orders.update(status=BaseOrdersModel.OrderStatus.EXPIRED)
+        # 逐条 save 触发 pre_save 信号 → apply_status_transition 恢复库存
+        from django.db import transaction
+        with transaction.atomic():
+            updated = 0
+            for order in expired_orders:
+                order.status = BaseOrdersModel.OrderStatus.EXPIRED
+                order.save(update_fields=['status'])
+                updated += 1
         
         logger.info(
             f"[自动关单] 已关闭 {updated} 个超时未支付订单 "
@@ -139,9 +145,6 @@ def daily_order_statistics(self):
             'cancel_rate': round(canceled_count / total_count * 100, 2) if total_count > 0 else 0,
         }
         
-        # 写入 Redis（保留90天）
-        django_cache.set(f"stats:daily:{yesterday}", stats, timeout=90 * 86400)
-        
         logger.info(
             f"[日统计] {yesterday} — 总订单: {total_count}, "
             f"已支付: {paid_count}, 成交额: ¥{total_amount}, 取消率: {stats['cancel_rate']}%"
@@ -166,52 +169,43 @@ def daily_order_statistics(self):
 def cache_warmup_homepage(self):
     """
     [每10分钟] 首页热点数据缓存预热
-    
+
     预热数据：
-    - 轮播图列表
-    - 首页楼层商品
-    - 热门/推荐商品
-    
-    目的：避免用户访问首页时触发冷查询
+    - 轮播图列表 (banners:index)
+    - 首页楼层商品 (floors:index)
+
+    注意：预热 key 必须与页面实际读取的 key 一致。
+    页面读取路径：
+    - 轮播图：baykeconfig.py → PublicService.get_index_banners() → "banners:index"
+    - 导航分类：header.html → {% navs %} → "tt:navs:{is_nav}"（模板标签自带 5 分钟缓存，无需预热）
     """
     try:
         warmed_keys = []
+        from baykeshop.contrib.shop.services.public_service import PublicService
 
-        # 1. 预热轮播图（模型名是 BaykeBanners，字段名 is_show）
-        from baykeshop.contrib.system.models.banners import BaykeBanners
-        banners = list(BaykeBanners.objects.filter(is_show=True, is_delete=False).values())
-        django_cache.set('banners:active', banners, timeout=600)
-        warmed_keys.append('banners:active')
-
-        # 2. 预热推荐商品（模型名是 BaykeShopGoods，用 status 字段）
-        from baykeshop.contrib.shop.models.goods import BaykeShopGoods
-        recommended = list(
-            BaykeShopGoods.objects.filter(
-                status=1,  # ONLINE
-                is_delete=False,
-            ).select_related().order_by('-created_time')[:20]
+        # 轮播图和楼层统一通过 Service 方法预热，避免查询逻辑重复
+        banners = PublicService.get_index_banners()
+        django_cache.set(
+            PublicService._BANNERS_CACHE_KEY, banners,
+            timeout=PublicService._BANNERS_CACHE_TTL
         )
-        django_cache.set('goods:recommended_top20', recommended, timeout=300)
-        warmed_keys.append('goods:recommended_top20')
+        warmed_keys.append(PublicService._BANNERS_CACHE_KEY)
 
-        # 3. 预热分类导航（M2M 反向关系名需要查实际模型）
-        from baykeshop.contrib.shop.models.goods import BaykeShopCategory, BaykeShopGoods
-        categories_with_counts = list(
-            BaykeShopCategory.objects.annotate(
-                goods_count=Count('baykeshopgoods')
-            ).filter(goods_count__gt=0)[:15]
+        floors = PublicService.get_index_floors()
+        django_cache.set(
+            PublicService._FLOORS_CACHE_KEY, floors,
+            timeout=PublicService._FLOORS_CACHE_TTL
         )
-        django_cache.set('nav:categories_with_counts', categories_with_counts, timeout=300)
-        warmed_keys.append('nav:categories_with_counts')
-        
+        warmed_keys.append(PublicService._FLOORS_CACHE_KEY)
+
         logger.info(f"[缓存预热] 首页数据预热完成, 共 {len(warmed_keys)} 个key: {warmed_keys}")
-        
+
         return {
             'status': 'ok',
             'warmed_keys': warmed_keys,
             'count': len(warmed_keys),
         }
-        
+
     except Exception as e:
         logger.exception(f"[缓存预热] 任务执行失败: {str(e)}")
         raise self.retry(exc=e, countdown=60)
