@@ -88,6 +88,15 @@
         </ul>
     </div>
 </div>
+    {% if not page_obj %}
+    <div class="bk-has-text-centered py-6">
+        <span class="mdi mdi-package-variant-closed bk-has-text-grey" style="font-size:4rem;"></span>
+        <p class="bk-has-text-grey bk-is-size-5 mt-3">{% translate '暂无此类订单' %}</p>
+        <a href="{% url 'shop:list' %}" class="bk-button bk-is-primary bk-is-light mt-3">
+            {% translate '去逛逛' %}
+        </a>
+    </div>
+    {% endif %}
     {% for order in page_obj %}
     <div class="bk-box bk-is-shadowless p-6" style="border: 1px solid #e6e6e6;">
         <div class="bk-is-flex bk-is-align-items-center bk-is-justify-content-space-between">
@@ -141,6 +150,10 @@
                     <span class="bk-icon"><i class="mdi mdi-cash"></i></span>
                     <span>{% translate '立即支付' %}</span>
                 </a>
+                <button class="bk-button bk-is-warning bk-is-light cancel-order-btn"
+                        data-api="{% url 'baykeshop_api:orders-detail' order.order_sn %}">
+                    <span>{% translate '取消订单' %}</span>
+                </button>
                 {% elif order.status == 2 %}
                 <a class="bk-button bk-is-link receipt" data-api="{% url 'member:orders-receipt' order.order_sn %}">
                     <span class="icon"><i class="mdi mdi-truck-delivery"></i></span>
@@ -213,8 +226,68 @@
 {% endblock %}
 
 {% block extrajs %}
+<!-- 取消订单模态框 -->
+<div class="bk-modal" id="modal-cancel">
+    <div class="bk-modal-background"></div>
+    <div class="bk-modal-content">
+        <div class="bk-box p-6">
+            <h1 class="bk-title bk-is-5">{% translate '取消订单' %}</h1>
+            <p class="mb-3">{% translate '请选择取消原因：' %}</p>
+            <div class="bk-control mb-4">
+                <div class="bk-select">
+                    <select id="cancel-reason-select">
+                        <option value="">{% translate '请选择原因' %}</option>
+                        <option value="不想要了">{% translate '不想要了' %}</option>
+                        <option value="信息填写有误">{% translate '信息填写有误' %}</option>
+                        <option value="重复下单">{% translate '重复下单' %}</option>
+                        <option value="配送时间太长">{% translate '配送时间太长' %}</option>
+                        <option value="其他">{% translate '其他' %}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bk-buttons bk-is-justify-content-end">
+                <button class="bk-button cancel" id="modal-cancel-cancel">{% translate '返回' %}</button>
+                <button class="bk-button bk-is-danger" id="modal-cancel-confirm">{% translate '确认取消' %}</button>
+            </div>
+        </div>
+    </div>
+    <button class="bk-modal-close bk-is-large cancel" aria-label="close"></button>
+</div>
+
 <script src="{% static 'baykeshop/js/actions.js' %}"></script>
 <script>
+    // 取消订单
+    (function() {
+        var cancelModal = document.getElementById('modal-cancel');
+        var cancelApi = '';
+        function openModal(api) { cancelApi = api; cancelModal.classList.add('bk-is-active'); }
+        function closeModal() { cancelModal.classList.remove('bk-is-active'); }
+        document.querySelectorAll('.bk-modal-background, .bk-modal-close, #modal-cancel-cancel').forEach(function(el) {
+            el.addEventListener('click', closeModal);
+        });
+        document.querySelectorAll('.cancel-order-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(btn.dataset.api);
+            });
+        });
+        document.getElementById('modal-cancel-confirm').addEventListener('click', function() {
+            var reason = document.getElementById('cancel-reason-select').value;
+            if (!reason) { alert('请选择取消原因'); return; }
+            var formData = new URLSearchParams();
+            formData.append('status', '5');
+            formData.append('cancel_reason', reason);
+            fetch(cancelApi, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': bayke.csrftoken },
+                body: formData,
+            }).then(function(r) {
+                if (r.ok) window.location.reload();
+                else alert('取消失败，请重试');
+            });
+        });
+    })();
+
     // 删除订单
     // 获取aria-label="delete"的元素
     const delBtns = document.querySelectorAll('[aria-label="delete"]')

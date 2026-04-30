@@ -1,4 +1,5 @@
 {% extends 'baykeshop/base.html' %}
+{% load i18n %}
 
 {% block title %}{{ title|default:"BaykeShop" }}{% endblock %}
 
@@ -6,6 +7,48 @@
 {% include 'baykeshop/includes/header.html' %}
 {% endblock %}
 
+{# 面包屑导航 #}
+{% block breadcrumb %}{% endblock %}
+
+{% block main %}{% endblock %}
+
 {% block footer %}
 {% include 'baykeshop/includes/footer.html' %}
+{% endblock %}
+
+{# 收藏切换全局脚本 #}
+{% block favorite_js %}
+<script>
+(function() {
+    const csrfToken = Cookies.get('csrftoken');
+    if (!csrfToken) return;
+
+    document.querySelectorAll('.favorite-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const goodsId = this.dataset.goodsId;
+            const icon = this.querySelector('.mdi');
+            fetch('/api/favorites/toggle/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({goods_id: parseInt(goodsId)}),
+            }).then(r => r.json()).then(data => {
+                if (data.favorited) {
+                    icon.className = 'mdi mdi-heart bk-has-text-danger';
+                    Qmsg.success(data.message || '已收藏');
+                } else {
+                    icon.className = 'mdi mdi-heart-outline bk-has-text-grey';
+                    Qmsg.info(data.message || '已取消收藏');
+                }
+            }).catch(err => {
+                Qmsg.error('操作失败，请重试');
+            });
+        });
+    });
+})();
+</script>
 {% endblock %}

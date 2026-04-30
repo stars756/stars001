@@ -2,10 +2,19 @@
 
 {% load i18n baykeshop %}
 
+{% block breadcrumb %}
+{% include 'baykeshop/shop/includes/breadcrumb.html' with breadcrumbs=breadcrumbs %}
+{% endblock %}
+
 {% block main %}
     <section class="bk-section">
         <div class="bk-container">
             {% filters_template request %}
+
+            {% if page_obj %}
+            <div class="bk-has-text-grey mb-3 px-2">
+                {% blocktranslate with count=page_obj.paginator.count %}共 {{ count }} 件商品{% endblocktranslate %}
+            </div>
             <div class="bk-fixed-grid bk-has-5-cols-fullhd bk-has-5-cols-widescreen bk-has-5-cols-desktop bk-has-4-cols-tablet bk-has-2-cols-mobile">
                 <div class="bk-grid">
                     {% for spu in page_obj %}
@@ -16,6 +25,16 @@
                 </div>
             </div>
             {% paginator_template page_obj request %}
+            {% else %}
+            <div class="bk-has-text-centered py-6">
+                <span class="mdi mdi-magnify bk-has-text-grey" style="font-size:4rem;"></span>
+                <p class="bk-has-text-grey bk-is-size-5 mt-3">{% translate '没有找到相关商品' %}</p>
+                <p class="bk-has-text-grey mb-4">{% translate '试试其他关键词，或浏览以下推荐' %}</p>
+                <a href="{% url 'shop:list' %}" class="bk-button bk-is-primary bk-is-light">
+                    {% translate '查看全部商品' %}
+                </a>
+            </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

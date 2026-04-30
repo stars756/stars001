@@ -2,6 +2,10 @@
 
 {% load i18n baykeshop %}
 
+{% block breadcrumb %}
+{% include 'baykeshop/shop/includes/checkout_steps.html' with steps=checkout_steps %}
+{% endblock %}
+
 {% block main %}
     <section class="bk-section">
         <div class="bk-container">

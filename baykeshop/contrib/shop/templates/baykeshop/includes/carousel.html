@@ -60,6 +60,17 @@
         height: 100%;
         object-fit: cover;
     }
+
+    .mySwiper swiper-slide {
+        overflow: hidden;
+        cursor: crosshair;
+    }
+    .mySwiper swiper-slide img {
+        transition: transform 0.3s ease;
+    }
+    .mySwiper swiper-slide:hover img {
+        transform: scale(1.5);
+    }
 </style>
 <script src="{% static 'baykeshop/js/swiper-element-bundle.min.js' %}"></script>
 <div class="gallery">

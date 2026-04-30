@@ -4,8 +4,21 @@
         <div class="bk-container">
             <div class="bk-is-flex bk-is-align-items-center">
                 <div>欢迎光临本店！</div>
-                <div class="ml-auto">
+                <div class="ml-auto bk-is-flex bk-is-align-items-center">
                     {% if request.user.is_authenticated %}
+                    <a href="{% url 'member:notifications' %}"
+                       class="bk-button bk-is-ghost bk-has-text-grey-light mr-2"
+                       style="height:40px;position:relative;"
+                       title="{% translate '消息中心' %}">
+                        <span class="mdi mdi-bell"></span>
+                        {% unread_count request.user as unread %}
+                        {% if unread %}
+                        <span class="bk-tag bk-is-danger bk-is-small"
+                              style="position:absolute;top:2px;right:2px;border-radius:10px;min-width:18px;height:18px;line-height:18px;padding:0 5px;">
+                            {{ unread }}
+                        </span>
+                        {% endif %}
+                    </a>
                     <div class="bk-dropdown bk-is-hoverable" style="z-index: 100;">
                         <div class="bk-dropdown-trigger">
                           <button class="bk-button bk-is-ghost bk-has-text-grey-light" aria-haspopup="true" aria-controls="dropdown-menu4" style="height: 40px;">
@@ -122,10 +135,12 @@
 
             <div class="bk-navbar-end">
                 <div class="bk-navbar-item">
-                    <form action="{% url 'shop:search' %}" method="get">
+                    <form action="{% url 'shop:search' %}" method="get" class="search-form">
                         <div class="bk-field bk-has-addons">
                             <div class="bk-control bk-has-icons-left">
-                                <input class="bk-input" type="text" name="keyword" placeholder="搜索商品">
+                                <input class="bk-input" type="text" name="keyword"
+                                       placeholder="搜索商品" value="{{ request.GET.keyword|default:'' }}"
+                                       autocomplete="off">
                                 <span class="bk-icon bk-is-left">
                                     <i class="mdi mdi-magnify"></i>
                                  </span>
@@ -135,6 +150,13 @@
                                     <span>搜索</span>
                                 </button>
                             </div>
+                        </div>
+                        <div class="search-suggestions bk-has-text-grey bk-is-size-7 mt-1">
+                            <span class="mdi mdi-fire bk-has-text-danger"></span>
+                            {% translate '热门搜索' %}：
+                            <a href="?keyword=手机">手机</a>
+                            <a href="?keyword=电脑">电脑</a>
+                            <a href="?keyword=耳机">耳机</a>
                         </div>
                     </form>
                 </div>
