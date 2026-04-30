@@ -245,14 +245,16 @@ def paydata(skus, has_carts=False):
 
 @register.simple_tag
 def score_avg(spu):
-    """商品平均评分"""
-    return BaykeShopOrdersComment.get_score_avg(spu)
+    """商品平均评分（走 Redis 缓存，1 小时 TTL）"""
+    from baykeshop.contrib.shop.services.comment_service import CommentService
+    return CommentService.get_score_avg(spu)
 
 
 @register.simple_tag
 def rate(spu):
-    """商品评论率"""
-    return BaykeShopOrdersComment.get_spu_comment_avg_score(spu)
+    """商品评论率（走 Redis 缓存，1 小时 TTL）"""
+    from baykeshop.contrib.shop.services.comment_service import CommentService
+    return CommentService.get_spu_comment_avg_score(spu)
 
 @register.simple_tag
 def navs(is_nav=True):
@@ -266,5 +268,21 @@ def navs(is_nav=True):
         is_nav=is_nav, parent__isnull=True
     ).prefetch_related("baykeshopcategory_set")
     
-    cache.set(cache_key, category_queryset, timeout=_TT_CACHE_TIMEOUT['navs'])
-    return category_queryset
+    result = list(category_queryset)  # 先求值再缓存，避免 prefetch 丢失
+    cache.set(cache_key, result, timeout=_TT_CACHE_TIMEOUT['navs'])
+    return result
+
+
+@register.simple_tag
+def unread_count(user):
+    """未读通知数（60秒缓存）"""
+    if not user or not user.is_authenticated:
+        return 0
+    cache_key = f"tt:unread:{user.id}"
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+    from baykeshop.contrib.member.models import UserNotification
+    count = UserNotification.objects.filter(user=user, is_read=False).count()
+    cache.set(cache_key, count, timeout=60)
+    return count

@@ -1,72 +1,12 @@
-"""
-缓存工具 — 统一 11+ 处重复的 cache-get/check-null/set 模式
-
-提供两种使用方式：
-1. 函数式：cache_query(key_fn, query_fn, timeout)
-2. 类方法 Mixin：继承 CacheableService 即可获得 _cached_get / _cached_list 方法
-"""
+"""缓存工具 — CacheableService Mixin 提供通用的带锁缓存查询能力"""
 
 import logging
 import random
 import time
-from typing import Any, Callable, Optional, TypeVar
-from functools import wraps
+from typing import Callable
 from django.core.cache import cache
 
 logger = logging.getLogger("baykeshop.contrib.shop")
-
-T = TypeVar('T')
-
-
-def cache_query(
-    key_fn: Callable[..., str],
-    query_fn: Callable[[], T],
-    timeout: int = 1800,
-    null_timeout: int = 60,
-) -> T:
-    """
-    缓存查询装饰器/函数
-    
-    统一处理：缓存命中 → 直接返回；未命中 → 查DB → 写缓存 → 返回
-    自动处理空值防穿透（null_timeout 短过期）
-    
-    Args:
-        key_fn: 缓存键生成函数（无参，返回字符串）
-        query_fn: 数据库查询函数（无参，返回数据或 None）
-        timeout: 正常数据缓存时间（秒），默认 30 分钟
-        null_timeout: 空值缓存时间（秒），默认 1 分钟（防穿透）
-    
-    Returns:
-        查询结果（可能为 None）
-    
-    示例：
-        def get_banners():
-            return cache_query(
-                key_fn=lambda: "banners:index",
-                query_fn=lambda: list(BaykeBanners.objects.filter(is_show=True).order_by('-order')),
-                timeout=None,  # 永不过期
-            )
-    """
-    cache_key = key_fn()
-    
-    cached = cache.get(cache_key)
-    if cached is not None:
-        return cached if cached != "__NULL__" else None
-
-    data = query_fn()
-
-    if data:
-        # 防雪崩：基础超时 + 随机偏移
-        actual_timeout = (
-            timeout
-            if timeout is None or not isinstance(timeout, int) or timeout <= 0
-            else timeout + random.randint(60, 300) if timeout > 300 else timeout
-        )
-        cache.set(cache_key, data, timeout=actual_timeout)
-    else:
-        cache.set(cache_key, "__NULL__", timeout=null_timeout)
-
-    return data
 
 
 class CacheableService:
@@ -184,7 +124,8 @@ class CacheableService:
         if cached is not None:
             return cached
 
-        data = list(query_fn()) if not isinstance(query_fn(), list) else query_fn()
+        result = query_fn()
+        data = list(result) if not isinstance(result, list) else result
 
         if data:
             cache.set(cache_key, data, timeout=timeout)

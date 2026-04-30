@@ -28,11 +28,11 @@ class GoodsService(CacheableService):
 
     @staticmethod
     def get_category_goods(category, request_params):
-        """根据分类获取商品"""
-        queryset = BaykeShopGoods.objects.filter(category__id=category.id)
+        """根据分类获取商品（补上 select_related 避免模板遍历 brand N+1）"""
+        queryset = BaykeShopGoods.objects.select_related('brand').filter(category__id=category.id)
         if category.parent is None:
             baykeshopcategory_set = category.baykeshopcategory_set.all()
-            queryset = BaykeShopGoods.objects.filter(category__in=baykeshopcategory_set)
+            queryset = BaykeShopGoods.objects.select_related('brand').filter(category__in=baykeshopcategory_set)
             return GoodsService.filter_goods_queryset(queryset, request_params)
         return GoodsService.filter_goods_queryset(queryset, request_params)
 
@@ -74,18 +74,21 @@ class GoodsService(CacheableService):
 
     @staticmethod
     def get_goods_score_avg(goods):
-        """获取商品平均评分"""
-        return BaykeShopOrdersComment.get_score_avg(goods)
+        """获取商品平均评分（走 Redis 缓存）"""
+        from baykeshop.contrib.shop.services.comment_service import CommentService
+        return CommentService.get_score_avg(goods)
 
     @staticmethod
     def get_goods_like_score(goods):
-        """获取商品好评率"""
-        return BaykeShopOrdersComment.get_spu_comment_avg_score(goods)
+        """获取商品好评率（走 Redis 缓存）"""
+        from baykeshop.contrib.shop.services.comment_service import CommentService
+        return CommentService.get_spu_comment_avg_score(goods)
 
     @staticmethod
     def get_goods_comments_count(goods):
-        """获取商品评论数"""
-        return BaykeShopOrdersComment.get_comment_count(goods)
+        """获取商品评论数（走 Redis 缓存）"""
+        from baykeshop.contrib.shop.services.comment_service import CommentService
+        return CommentService.get_comment_count(goods)
 
     # ============================================================
     # 缓存方法 — 使用基类 _cached_get_with_lock 消灭重复代码

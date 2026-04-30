@@ -31,19 +31,25 @@ class BaykeDictModelAdmin(bayke_admin.ModelAdmin):
     fieldsets = ((None, {"fields": ("key", "name", "value")}),)
 
     def get_readonly_fields(self, request, obj=None):
-        # 判断是否是系统内置字典
         if obj and hasattr(bayke_settings, obj.key):
-            return [
-                "key",
-            ]
+            return ["key"]
         return super().get_readonly_fields(request, obj)
 
     def has_delete_permission(self, request, obj=None):
-        # 判断是否是系统内置字典
         if obj and hasattr(bayke_settings, obj.key):
             self.message_user(request, _(f"{obj.key}为系统内置字典不允许删除"), "WARNING")
             return False
         return super().has_delete_permission(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        from django.core.cache import cache
+        cache.delete(f"dict:value:{obj.key}")
+
+    def delete_model(self, request, obj):
+        from django.core.cache import cache
+        cache.delete(f"dict:value:{obj.key}")
+        super().delete_model(request, obj)
 
 
 @admin.register(BaykeBanners)

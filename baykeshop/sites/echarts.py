@@ -6,7 +6,7 @@ from pyecharts.charts import Bar, Line, Pie
 from pyecharts import options as opts
 from pyecharts.globals import ThemeType
 
-from baykeshop.db.analysis import (
+from baykeshop.contrib.shop.services.analysis_service import (
     OrderAnalysisService,
     VisitAnalysisService,
     UserAnalysisService,

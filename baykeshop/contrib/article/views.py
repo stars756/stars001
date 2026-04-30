@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.utils.translation import gettext_lazy as _
 # Create your views here.
 from baykeshop.contrib.article.models import BaykeArticleCategory, BaykeArticleTags, BaykeArticleContent
-from baykeshop.contrib.article.services.article_service import ArticleService
+from baykeshop.contrib.article.services.article_service import article_service
 
 # Create your views here.
 
@@ -20,7 +20,7 @@ class BaykeArticleContentListView(ListView):
 
     def get_queryset(self):
         """获取文章列表查询集"""
-        return ArticleService.get_article_list_queryset()
+        return article_service.get_article_list_queryset()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,7 +33,7 @@ class BaykeArticleSearchView(BaykeArticleContentListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         queryset = super().get_queryset()
-        return ArticleService.search_articles(queryset, query)
+        return article_service.search_articles(queryset, query)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,7 +53,7 @@ class BaykeArticleCategoryListView(SingleObjectMixin, ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ArticleService.get_category_articles(self.object)
+        return article_service.get_category_articles(self.object)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -73,7 +73,7 @@ class BaykeArticleTagsListView(SingleObjectMixin, ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ArticleService.get_tag_articles(self.object)
+        return article_service.get_tag_articles(self.object)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -89,7 +89,7 @@ class BaykeArticleContentDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
-        return ArticleService.create_article_pv_uv(self.request, obj)
+        return article_service.create_article_pv_uv(self.request, obj)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -107,7 +107,7 @@ class BaykeArticleArchiveView(MonthArchiveView):
     paginate_by = 10
 
     def get_queryset(self):
-        return ArticleService.get_article_list_queryset()
+        return article_service.get_article_list_queryset()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -127,7 +127,7 @@ class BaykeArticleUserListView(SingleObjectMixin, ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ArticleService.get_user_articles(self.object)
+        return article_service.get_user_articles(self.object)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
