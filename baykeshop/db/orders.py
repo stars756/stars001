@@ -66,6 +66,13 @@ class BaseOrdersModel(BaseModel):
     is_verify = models.BooleanField(default=False, verbose_name=_('核销订单'))
     verify_time = models.DateTimeField(blank=True, null=True, verbose_name=_('核销时间'))
     is_comment = models.BooleanField(default=False, verbose_name=_('是否评价'))
+    # 物流信息
+    carrier = models.CharField(max_length=30, verbose_name=_('快递公司'), blank=True, default='')
+    tracking_number = models.CharField(max_length=50, verbose_name=_('运单号'), blank=True, default='')
+    # 取消原因
+    cancel_reason = models.CharField(
+        max_length=100, verbose_name=_('取消原因'), blank=True, default=''
+    )
 
     class Meta:
         abstract = True

@@ -156,3 +156,24 @@ class SecurityLog(BaseModel):
 
     def __str__(self):
         return f"{self.user.username} - {self.get_action_type_display()} - {self.get_status_display()}"
+
+
+class UserNotification(BaseModel):
+    """用户通知"""
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_('用户')
+    )
+    title = models.CharField(max_length=100, verbose_name=_('标题'))
+    content = models.TextField(verbose_name=_('内容'), blank=True, default='')
+    is_read = models.BooleanField(default=False, verbose_name=_('已读'))
+    related_url = models.CharField(
+        max_length=255, verbose_name=_('关联链接'), blank=True, default=''
+    )
+
+    class Meta:
+        verbose_name = _('用户通知')
+        verbose_name_plural = _('用户通知')
+        ordering = ['-created_time']
+
+    def __str__(self):
+        return self.title
