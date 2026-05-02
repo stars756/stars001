@@ -26,7 +26,12 @@ class UploadImageView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         image = serializer.validated_data["file"]
 
-        ext = image.name.rsplit('.', 1)[-1].lower() if '.' in image.name else 'jpg'
+        # 从已验证的 MIME 类型推导扩展名（防御深度）
+        MIME_EXT = {'image/jpeg': 'jpg', 'image/png': 'png',
+                     'image/gif': 'gif', 'image/webp': 'webp'}
+        content_type = getattr(image, 'content_type', '')
+        ext = MIME_EXT.get(content_type, 'jpg')
+
         safe_name = f"{uuid.uuid4()}.{ext}"
 
         storage = FileSystemStorage(
