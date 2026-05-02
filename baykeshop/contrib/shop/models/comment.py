@@ -19,7 +19,7 @@ class BaykeShopOrdersComment(BaseModel):
         FIVE = 5, _('⭐⭐⭐⭐⭐')
 
     order = models.ForeignKey(
-        'baykeshop.BaykeShopOrders',
+        'shop.BaykeShopOrders',
         verbose_name=_('订单'),
         on_delete=models.CASCADE,
         related_name='comments'
