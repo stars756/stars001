@@ -236,7 +236,7 @@ CELERY_TASK_EAGER_PROPAGATES = True  # 任务异常直接抛出，方便调试
 
 # Flower 监控配置（启动: celery -A baykeshop flower --port=5555 --basic_auth=admin:changeme）
 FLOWER_PORT = 5555
-FLOWER_BASIC_AUTH = 'admin:changeme'
+FLOWER_BASIC_AUTH = config('FLOWER_BASIC_AUTH', default='admin:changeme')
 
 # Celery Beat 定时任务调度配置
 from celery.schedules import crontab
