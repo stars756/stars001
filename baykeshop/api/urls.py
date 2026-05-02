@@ -7,6 +7,7 @@ from baykeshop.api.favorites import views as favorites_views
 from baykeshop.api.member import views as member_views
 from baykeshop.api.orders import views as orders_views
 from baykeshop.api.pay import views as pay_views
+from baykeshop.api.goods import views as goods_views
 from baykeshop.api.upload import views as upload_views
 
 router = routers.DefaultRouter()
@@ -37,5 +38,11 @@ urlpatterns = [
     path('favorites/toggle/', favorites_views.FavoriteToggleView.as_view(), name='favorites-toggle'),
     # 收藏列表
     path('favorites/', favorites_views.FavoriteListView.as_view(), name='favorites-list'),
+    # 商品列表
+    path('goods/', goods_views.GoodsListView.as_view(), name='goods-list'),
+    # 商品详情
+    path('goods/<int:goods_id>/', goods_views.GoodsDetailView.as_view(), name='goods-detail'),
+    # 商品分类
+    path('categories/', goods_views.CategoryListView.as_view(), name='category-list'),
     *router.urls
 ]
