@@ -29,10 +29,10 @@ class UploadImageView(GenericAPIView):
         ext = image.name.rsplit('.', 1)[-1].lower() if '.' in image.name else 'jpg'
         safe_name = f"{uuid.uuid4()}.{ext}"
 
-        storeage = FileSystemStorage(
+        storage = FileSystemStorage(
             location=settings.MEDIA_ROOT / "uploads",
             base_url=settings.MEDIA_URL + "uploads/",
         )
-        file_name = storeage.save(safe_name, image)
-        url = storeage.url(file_name)
+        file_name = storage.save(safe_name, image)
+        url = storage.url(file_name)
         return Response({"location": url})

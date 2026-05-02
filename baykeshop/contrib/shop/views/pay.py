@@ -64,7 +64,7 @@ class AlipayCallbackView(AlipayCallBackVerifySignMixin, View):
         logger.warning(
             "Alipay sync callback: sign verification failed for order_sn=%s", order_sn
         )
-        return HttpResponse("success")
+        return HttpResponse("fail", status=400)
 
     def post(self, request, *args, **kwargs):
         """支付宝异步通知"""
