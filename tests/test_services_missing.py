@@ -912,10 +912,10 @@ class PayServiceVerifyTradeTestCase(TestCase):
     @patch('baykeshop.contrib.shop.services.pay_service.sign_with_rsa2')
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
     @patch('baykeshop.contrib.shop.services.pay_service.verify_with_rsa')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
-    def test_trade_success(self, mock_keys, mock_verify, mock_post, mock_sign):
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
+    def test_trade_success(self, mock_config, mock_verify, mock_post, mock_sign):
         """TRADE_SUCCESS 返回 True"""
-        mock_keys.return_value = 'dummy_key'
+        mock_config.return_value = 'dummy_key'
         mock_verify.return_value = True
         mock_sign.return_value = 'dummy_signature'
         mock_response = MagicMock()
@@ -943,10 +943,10 @@ class PayServiceVerifyTradeTestCase(TestCase):
     @patch('baykeshop.contrib.shop.services.pay_service.sign_with_rsa2')
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
     @patch('baykeshop.contrib.shop.services.pay_service.verify_with_rsa')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
-    def test_trade_closed(self, mock_keys, mock_verify, mock_post, mock_sign):
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
+    def test_trade_closed(self, mock_config, mock_verify, mock_post, mock_sign):
         """TRADE_CLOSED 返回 False"""
-        mock_keys.return_value = 'dummy_key'
+        mock_config.return_value = 'dummy_key'
         mock_verify.return_value = True
         mock_sign.return_value = 'dummy_signature'
         mock_response = MagicMock()
@@ -972,10 +972,10 @@ class PayServiceVerifyTradeTestCase(TestCase):
 
     @patch('baykeshop.contrib.shop.services.pay_service.sign_with_rsa2')
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
-    def test_network_error_returns_none(self, mock_keys, mock_post, mock_sign):
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
+    def test_network_error_returns_none(self, mock_config, mock_post, mock_sign):
         """网络异常返回 None"""
-        mock_keys.return_value = 'dummy_key'
+        mock_config.return_value = 'dummy_key'
         mock_sign.return_value = 'dummy_signature'
         mock_post.side_effect = requests.ConnectionError('timeout')
 
@@ -985,10 +985,10 @@ class PayServiceVerifyTradeTestCase(TestCase):
 
     @patch('baykeshop.contrib.shop.services.pay_service.sign_with_rsa2')
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
-    def test_malformed_json_returns_none(self, mock_keys, mock_post, mock_sign):
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
+    def test_malformed_json_returns_none(self, mock_config, mock_post, mock_sign):
         """响应不是有效 JSON 返回 None"""
-        mock_keys.return_value = 'dummy_key'
+        mock_config.return_value = 'dummy_key'
         mock_sign.return_value = 'dummy_signature'
         mock_response = MagicMock()
         mock_response.text = 'not-json'
@@ -1002,12 +1002,12 @@ class PayServiceVerifyTradeTestCase(TestCase):
     @patch('baykeshop.contrib.shop.services.pay_service.sign_with_rsa2')
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
     @patch('baykeshop.contrib.shop.services.pay_service.verify_with_rsa')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
     def test_response_sign_failure_still_returns_trade_status(
-        self, mock_keys, mock_verify, mock_post, mock_sign
+        self, mock_config, mock_verify, mock_post, mock_sign
     ):
         """响应签名失败返回实际交易状态（不返回 None）"""
-        mock_keys.return_value = 'dummy_key'
+        mock_config.return_value = 'dummy_key'
         mock_verify.return_value = False  # 响应签名验证失败
         mock_sign.return_value = 'dummy_signature'
         mock_response = MagicMock()
@@ -1032,10 +1032,10 @@ class PayServiceVerifyTradeTestCase(TestCase):
         self.assertTrue(result)
 
     @patch('baykeshop.contrib.shop.services.pay_service.requests.post')
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel.get_key_value')
-    def test_missing_keys_returns_none(self, mock_keys, mock_post):
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
+    def test_missing_keys_returns_none(self, mock_config, mock_post):
         """配置缺失跳过查询返回 None"""
-        mock_keys.return_value = None
+        mock_config.return_value = None
 
         from baykeshop.contrib.shop.services.pay_service import PayService
         result = PayService.verify_trade(self.order.order_sn)

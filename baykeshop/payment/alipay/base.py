@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib import messages
 
 from baykeshop.contrib.shop.models import BaykeShopOrders
-from baykeshop.contrib.system.models import BaykeDictModel
+from decouple import config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -47,12 +47,10 @@ class Alipay:
 
     def config(self, **kwargs):
         _config = AlipayClientConfig()
-        _config.app_id = self.app_id or BaykeDictModel.get_key_value("ALIPAY_APPID")
-        _config.app_private_key = self.app_private_key or BaykeDictModel.get_key_value(
-            "ALIPAY_PRIVATE_KEY"
-        )
+        _config.app_id = self.app_id or config('ALIPAY_APPID', default='')
+        _config.app_private_key = self.app_private_key or config('ALIPAY_PRIVATE_KEY', default='')
         _config.alipay_public_key = (
-            self.alipay_public_key or BaykeDictModel.get_key_value("ALIPAY_PUBLIC_KEY")
+            self.alipay_public_key or config('ALIPAY_PUBLIC_KEY', default='')
         )
         _config.server_url = self.server_url
         # 参数覆盖

@@ -1,6 +1,7 @@
 import logging
 
 from celery import shared_task
+from decouple import config
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives, get_connection
 
@@ -21,7 +22,7 @@ def _build_email_connection():
     email_host = BaykeDictModel.get_key_value("EMAIL_HOST")
     email_port = int(BaykeDictModel.get_key_value("EMAIL_PORT"))
     email_username = BaykeDictModel.get_key_value("EMAIL_HOST_USER")
-    email_password = BaykeDictModel.get_key_value("EMAIL_HOST_PASSWORD")
+    email_password = config('EMAIL_HOST_PASSWORD', default='')
     email_use_ssl = BaykeDictModel.get_key_value("EMAIL_USE_SSL")
 
     # 邮件后端选择：开发环境用控制台，生产环境用SMTP
@@ -117,16 +118,16 @@ def send_sms_verify_task(
     Demo阶段打印到控制台，生产环境替换为短信SDK
     """
     try:
-        # Demo阶段：打印到控制台
+        # Demo阶段：通过 logger 输出，避免 print() 泄露到生产日志
         if settings.DEBUG:
-            print("=== SMS验证码发送 (Demo模式) ===")
-            print(f"用户ID: {user_id}")
-            print(f"手机号: {phone_number}")
-            print(f"验证码: {code}")
-            print(f"操作类型: {operation_type}")
-            print(f"消息: {message or '请使用验证码进行验证'}")
-            print("=" * 40)
-            logger.info(f"短信验证码已发送（Demo模式）- 用户ID: {user_id}, 手机号: {phone_number}, 操作类型: {operation_type}")
+            logger.debug("=== SMS验证码发送 (Demo模式) ===")
+            logger.debug("用户ID: %s", user_id)
+            logger.debug("手机号: %s", phone_number)
+            logger.debug("验证码: %s", code)
+            logger.debug("操作类型: %s", operation_type)
+            logger.debug("消息: %s", message or '请使用验证码进行验证')
+            logger.debug("=" * 40)
+            logger.info("短信验证码已发送（Demo模式）- 用户ID: %s, 手机号: %s, 操作类型: %s", user_id, phone_number, operation_type)
             return
 
         # 生产环境：集成短信SDK

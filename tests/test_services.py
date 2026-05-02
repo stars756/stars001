@@ -283,13 +283,13 @@ class PayServiceTestCase(TestCase):
         self.virtual_goods = _create_goods('虚拟商品', is_virtual=True)
         cache.clear()
 
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel')
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
     @patch('baykeshop.contrib.shop.services.pay_service.verify_with_rsa')
-    def test_verify_sign_success(self, mock_verify, mock_dict_model):
+    def test_verify_sign_success(self, mock_verify, mock_config):
         """验签成功"""
         from baykeshop.contrib.shop.services.pay_service import PayService
 
-        mock_dict_model.get_key_value.return_value = 'fake_public_key'
+        mock_config.return_value = 'fake_public_key'
         mock_verify.return_value = True
 
         data = {
@@ -302,13 +302,13 @@ class PayServiceTestCase(TestCase):
 
         self.assertTrue(PayService.has_verify_sign(data))
 
-    @patch('baykeshop.contrib.shop.services.pay_service.BaykeDictModel')
+    @patch('baykeshop.contrib.shop.services.pay_service.config')
     @patch('baykeshop.contrib.shop.services.pay_service.verify_with_rsa')
-    def test_verify_sign_fail(self, mock_verify, mock_dict_model):
+    def test_verify_sign_fail(self, mock_verify, mock_config):
         """验签失败"""
         from baykeshop.contrib.shop.services.pay_service import PayService
 
-        mock_dict_model.get_key_value.return_value = 'fake_public_key'
+        mock_config.return_value = 'fake_public_key'
         mock_verify.return_value = False
 
         data = {

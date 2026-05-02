@@ -57,23 +57,25 @@ class SystemConfigService:
 
     @staticmethod
     def get_alipay_app_id():
-        """支付宝 APPID（Sandbox 模式下自动切换）"""
+        """支付宝 APPID — 从环境变量读取（Sandbox 模式下自动切换）"""
         from django.conf import settings
+        from decouple import config
         key = "ALIPAY_SANDBOX_APPID" if settings.DEBUG else "ALIPAY_APPID"
-        return SystemConfigService.get_config(key)
+        return config(key, default='')
 
     @staticmethod
     def get_alipay_keys():
-        """获取支付宝公私钥"""
+        """获取支付宝公私钥 — 从环境变量读取"""
         from django.conf import settings
+        from decouple import config
         if settings.DEBUG:
             return (
-                SystemConfigService.get_config("ALIPAY_SANDBOX_PRIVATE_KEY"),
-                SystemConfigService.get_config("ALIPAY_SANDBOX_PUBLIC_KEY"),
+                config('ALIPAY_SANDBOX_PRIVATE_KEY', default=''),
+                config('ALIPAY_SANDBOX_PUBLIC_KEY', default=''),
             )
         return (
-            SystemConfigService.get_config("ALIPAY_PRIVATE_KEY"),
-            SystemConfigService.get_config("ALIPAY_PUBLIC_KEY"),
+            config('ALIPAY_PRIVATE_KEY', default=''),
+            config('ALIPAY_PUBLIC_KEY', default=''),
         )
 
     # ============================================================

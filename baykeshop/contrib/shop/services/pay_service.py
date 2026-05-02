@@ -12,7 +12,7 @@ from django.utils import timezone
 
 from baykeshop.contrib.shop.models.orders import BaykeShopOrders
 from baykeshop.contrib.shop.services.order_service import OrderService
-from baykeshop.contrib.system.models import BaykeDictModel
+from decouple import config
 from baykeshop.db.orders import BaseOrdersModel  # OrderStatus 定义在基类上
 from baykeshop.db.security import security_logger
 
@@ -35,7 +35,7 @@ class PayService:
         """
         sign = data.pop("sign")
         sign_type = data.pop("sign_type")
-        alipay_public_key = BaykeDictModel.get_key_value("ALIPAY_PUBLIC_KEY")
+        alipay_public_key = config('ALIPAY_PUBLIC_KEY', default='')
         if not alipay_public_key:
             logger.error("has_verify_sign: ALIPAY_PUBLIC_KEY 未配置，验签中止")
             return False
@@ -69,9 +69,9 @@ class PayService:
             False — 交易状态为其他（未支付、已关闭等）
             None  — 查询失败（网络超时、配置缺失等）
         """
-        app_id = BaykeDictModel.get_key_value("ALIPAY_APPID")
-        app_private_key = BaykeDictModel.get_key_value("ALIPAY_PRIVATE_KEY")
-        alipay_public_key = BaykeDictModel.get_key_value("ALIPAY_PUBLIC_KEY")
+        app_id = config('ALIPAY_APPID', default='')
+        app_private_key = config('ALIPAY_PRIVATE_KEY', default='')
+        alipay_public_key = config('ALIPAY_PUBLIC_KEY', default='')
 
         if not all([app_id, app_private_key, alipay_public_key]):
             logger.error("verify_trade: Alipay 配置缺失（APPID/密钥）")
