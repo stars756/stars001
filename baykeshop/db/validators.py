@@ -8,8 +8,8 @@ from baykeshop.conf import bayke_settings
 def validate_phone(value):
     # 中国区手机号验证
     validators.RegexValidator(
-        bayke_settings.REGEX_PHONE, 
-        _("手机号码格式有误"), 
+        bayke_settings.REGEX_PHONE,
+        _("手机号码格式有误"),
         "invalid"
     )(value)
 
@@ -18,7 +18,7 @@ def validate_image_size(value):
     """ 对图片大小进行验证 """
     if value.size > bayke_settings.MAX_IMAGE_SIZE:
         raise ValidationError(
-            _("图片大小超过限制"), 
+            _("图片大小超过限制"),
             code='invalid'
         )
 
@@ -73,6 +73,7 @@ def sms_code_field(**overrides):
         forms.CharField: 配置好的SMS验证码字段
     """
     from django import forms as django_forms
+
     from baykeshop.forms import widgets
 
     label = overrides.pop('label', _('短信验证码'))

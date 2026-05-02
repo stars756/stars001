@@ -1,9 +1,9 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db import BaseModel
 from baykeshop.contrib.shop.models import BaykeShopOrders, BaykeShopOrdersGoods
+from baykeshop.db import BaseModel
 
 User = get_user_model()
 
@@ -59,7 +59,7 @@ class BaykeShopOrdersComment(BaseModel):
         verbose_name=_('评分'),
         choices=ScoreChoices.choices,
         default=ScoreChoices.FIVE
-    )   
+    )
 
     class Meta:
         verbose_name = _('订单评论')
@@ -68,32 +68,32 @@ class BaykeShopOrdersComment(BaseModel):
 
     def __str__(self):
         return f'{self.order.order_sn}'
-    
+
     @classmethod
     def get_spu_queryset(cls, spu):
         orders = BaykeShopOrdersGoods.objects.filter(sku__goods=spu).values_list('orders', flat=True).distinct()
         queryset = cls.objects.select_related('user__baykeshopuser', 'order').filter(order_id__in=orders, status=True)
         return queryset.order_by('-created_time')
-    
+
     @classmethod
     def get_user_queryset(cls, user):
         queryset = cls.objects.filter(user=user)
         return queryset.order_by('-created_time')
-    
+
     def save(self, *args, **kwargs):
         self.user = self.order.user
         return super().save(*args, **kwargs)
-    
+
     def get_reply_user(self):
         if self.reply_user:
             return self.reply_user.username
         return ''
-    
+
     def get_reply_content(self):
         if self.reply_content:
             return self.reply_content
         return ''
-    
+
     # 获取平均分
     @classmethod
     def get_score_avg(cls, spu):
@@ -101,12 +101,12 @@ class BaykeShopOrdersComment(BaseModel):
             score_avg=models.Avg('score')
         ).get('score_avg') or 4.8
         return round(score_avg, 1)
-    
+
     # 获取评论总数
     @classmethod
     def get_comment_count(cls, spu):
         return cls.get_spu_queryset(spu).count()
-    
+
     # 获取好评率
     @classmethod
     def get_spu_comment_avg_score(cls, spu):
@@ -114,7 +114,7 @@ class BaykeShopOrdersComment(BaseModel):
         gte_3 = cls.get_spu_queryset(spu).filter(score__gte=3).count()
         rate = gte_3 / cls.get_comment_count(spu) if cls.get_comment_count(spu) else 0.98
         return round(rate * 100, 1)
-    
+
     @classmethod
     def get_user_comment_avg_score(cls, user):
         """ 获取用户好评率 """

@@ -1,10 +1,10 @@
-from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from baykeshop.contrib.shop.services.favorite_service import FavoriteService
-from .serializers import FavoriteToggleSerializer, FavoriteListSerializer
+
+from .serializers import FavoriteListSerializer, FavoriteToggleSerializer
 
 
 class FavoriteToggleView(APIView):

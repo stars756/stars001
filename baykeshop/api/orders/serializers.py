@@ -1,16 +1,17 @@
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
 from baykeshop.contrib.shop.models import (
-    BaykeShopOrdersGoods, BaykeShopOrders, BaykeShopGoodsImages,
-    BaykeShopCarts
+    BaykeShopCarts,
+    BaykeShopGoodsImages,
+    BaykeShopOrders,
+    BaykeShopOrdersGoods,
 )
 from baykeshop.contrib.shop.services.order_service import OrderService
 
- 
+
 class BaykeShopOrdersGoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaykeShopOrdersGoods
@@ -26,8 +27,8 @@ class BaykeShopOrdersCreateSerializer(serializers.ModelSerializer):
         default: 直接创建不做任何处理
     """
     source = serializers.ChoiceField(
-        choices=('carts', 'default'), 
-        help_text=_('订单来源'), 
+        choices=('carts', 'default'),
+        help_text=_('订单来源'),
         required=False,
         write_only=True,
         default='default'
@@ -37,11 +38,11 @@ class BaykeShopOrdersCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaykeShopOrders
         fields = (
-            'user', 'baykeshopordersgoods_set', 
+            'user', 'baykeshopordersgoods_set',
             'receiver', 'phone', 'address', 'source','email',
             'pay_url'
         )
-    
+
     def validate(self, attrs):
         """验证数据"""
         baykeshopordersgoods_set = attrs.get('baykeshopordersgoods_set')
@@ -86,7 +87,7 @@ class BaykeShopOrdersCreateSerializer(serializers.ModelSerializer):
         orders.pay_url = reverse('shop:orders-pay', kwargs={'order_sn': orders.order_sn})
         messages.success(self.context['request'], _('订单创建成功, 请尽快支付, 否则订单会自动取消'))
         return orders
-    
+
     def goods_format(self, item, goods_first_image=None):
         """商品格式化（支持预取图片字典，避免 N+1）"""
         sku = item['sku']

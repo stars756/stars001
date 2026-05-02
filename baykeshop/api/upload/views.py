@@ -2,13 +2,13 @@ import uuid
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
-from rest_framework.generics import GenericAPIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from baykeshop.api.throttles import UploadRateThrottle
+
 from .serializers import UploadImageSerializer
 
 

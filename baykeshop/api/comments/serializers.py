@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from baykeshop.contrib.shop.models import BaykeShopOrdersComment, BaykeShopOrders
+
+from baykeshop.contrib.shop.models import BaykeShopOrders, BaykeShopOrdersComment
 
 
 class BaykeShopOrdersCommentSerializer(serializers.ModelSerializer):
@@ -21,7 +22,7 @@ class BaykeShopOrdersCommentSerializer(serializers.ModelSerializer):
             messages.error(request, _('订单已评论, 请勿重复评论'))
             raise serializers.ValidationError(_('订单已评论, 请勿重复评论'))
         return value
-    
+
     def create(self, validated_data):
         """ 创建评论 """
         instance = super().create(validated_data)
@@ -30,4 +31,3 @@ class BaykeShopOrdersCommentSerializer(serializers.ModelSerializer):
         instance.order.save()
         messages.success(self.context.get('request'), _('评论成功'))
         return instance
-    

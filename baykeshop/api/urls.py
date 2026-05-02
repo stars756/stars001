@@ -2,13 +2,12 @@ from django.urls import path
 from rest_framework import routers
 
 from baykeshop.api.carts import views as carts_views
+from baykeshop.api.comments import views as comments_views
+from baykeshop.api.favorites import views as favorites_views
+from baykeshop.api.member import views as member_views
 from baykeshop.api.orders import views as orders_views
 from baykeshop.api.pay import views as pay_views
-from baykeshop.api.comments import views as comments_views
 from baykeshop.api.upload import views as upload_views
-from baykeshop.api.member import views as member_views
-from baykeshop.api.favorites import views as favorites_views
-
 
 router = routers.DefaultRouter()
 # 路由命名空间

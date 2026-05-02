@@ -1,6 +1,6 @@
+from django.core.exceptions import ValidationError
 from PIL import Image
 from rest_framework import serializers
-from django.core.exceptions import ValidationError
 
 ALLOWED_MIME = {'image/jpeg', 'image/png', 'image/gif', 'image/webp'}
 MAX_SIZE = 2 * 1024 * 1024

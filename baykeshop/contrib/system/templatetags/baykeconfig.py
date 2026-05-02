@@ -1,7 +1,8 @@
 from django.core.cache import cache
 from django.template import Library
-from baykeshop.contrib.system.models import Visit, BaykeBanners, BaykeDictModel
+
 from baykeshop.contrib.shop.services.public_service import PublicService
+from baykeshop.contrib.system.models import BaykeDictModel, Visit
 
 register = Library()
 

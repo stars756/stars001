@@ -1,15 +1,15 @@
 import json
+
 from django.core.cache import cache
 from django.template import Library
 from django.urls import reverse
 
 from baykeshop.contrib.shop.models import (
-    BaykeShopCategory,
     BaykeShopBrand,
-    BaykeShopGoods,
     BaykeShopCarts,
+    BaykeShopCategory,
+    BaykeShopGoods,
     BaykeShopOrders,
-    BaykeShopOrdersComment,
 )
 
 register = Library()
@@ -263,11 +263,11 @@ def navs(is_nav=True):
     cached = cache.get(cache_key)
     if cached is not None:
         return cached
-    
+
     category_queryset = BaykeShopCategory.objects.filter(
         is_nav=is_nav, parent__isnull=True
     ).prefetch_related("baykeshopcategory_set")
-    
+
     result = list(category_queryset)  # 先求值再缓存，避免 prefetch 丢失
     cache.set(cache_key, result, timeout=_TT_CACHE_TIMEOUT['navs'])
     return result

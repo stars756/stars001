@@ -1,7 +1,9 @@
 import logging
+
 from celery import shared_task
-from django.core.mail import get_connection, EmailMultiAlternatives
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives, get_connection
+
 from baykeshop.contrib.system.models import BaykeDictModel
 
 logger = logging.getLogger("baykeshop.contrib.member")
@@ -117,7 +119,7 @@ def send_sms_verify_task(
     try:
         # Demo阶段：打印到控制台
         if settings.DEBUG:
-            print(f"=== SMS验证码发送 (Demo模式) ===")
+            print("=== SMS验证码发送 (Demo模式) ===")
             print(f"用户ID: {user_id}")
             print(f"手机号: {phone_number}")
             print(f"验证码: {code}")

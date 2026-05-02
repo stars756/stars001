@@ -1,17 +1,18 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db.fields import RichTextField
 from baykeshop.db import (
-    BaseModel,
+    BaseCartsModel,
+    BaseCategoryModel,
     BaseGoodsModel,
     BaseGoodsSKUModel,
-    BaseCategoryModel,
-    BaseCartsModel,
+    BaseModel,
 )
+from baykeshop.db.fields import RichTextField
+
 from .managers import (
-    BaykeShopGoodsManager,
     BaykeShopCartsManager,
+    BaykeShopGoodsManager,
     BaykeShopGoodsSKUManager,
 )
 
@@ -70,8 +71,8 @@ class BaykeShopGoods(BaseGoodsModel):
     is_recommend = models.BooleanField(default=False, verbose_name=_("商品推荐"))
     # 是否为虚拟商品
     is_virtual = models.BooleanField(
-        default=False, 
-        verbose_name=_("是否为虚拟商品"), 
+        default=False,
+        verbose_name=_("是否为虚拟商品"),
         help_text=_("虚拟商品不需要物流")
     )
 
@@ -128,7 +129,7 @@ class BaykeShopGoodsSKU(BaseGoodsSKUModel):
                 self.refresh_from_db()
                 if self.stock > 0:
                     from baykeshop.contrib.member.services.notification_service import (
-                        NotificationService
+                        NotificationService,
                     )
                     NotificationService.notify_stock_arrival(self.goods)
             elif old_stock > 0:
@@ -251,4 +252,3 @@ class BaykeShopGoodsImages(BaseModel):
 
     def __str__(self):
         return self.goods.name
-    

@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db import BaseOrdersModel, BaseOrdersGoodsModel
+from baykeshop.db import BaseOrdersGoodsModel, BaseOrdersModel
+
 from .goods import BaykeShopGoodsSKU
 
 
@@ -12,29 +13,29 @@ class BaykeShopOrders(BaseOrdersModel):
         verbose_name = _('订单')
         verbose_name_plural = verbose_name
         ordering = ['-created_time']
-        
+
     def __str__(self):
         return self.order_sn
-    
+
     @property
     def total_price(self):
         return self.pay_price
-    
+
     @property
     def total_quantity(self):
         return self.baykeshopordersgoods_set.count()
-    
+
     # 判断是否为虚拟商品订单,并且订单状态为待收货
     @property
     def is_virtual(self):
         order_goods = self.baykeshopordersgoods_set.first()
         return order_goods.sku.goods.is_virtual and (1 < self.status < 5)
-    
+
     @property
     def virtual_content(self):
         order_goods = self.baykeshopordersgoods_set.first()
         return order_goods.sku.email_message
-    
+
 
 class BaykeShopOrdersGoods(BaseOrdersGoodsModel):
     """订单商品表"""

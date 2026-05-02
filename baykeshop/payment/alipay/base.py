@@ -1,17 +1,14 @@
 import logging
-import traceback
-
-from django.conf import settings
-from django.contrib import messages
 
 from alipay.aop.api.AlipayClientConfig import AlipayClientConfig
 from alipay.aop.api.DefaultAlipayClient import DefaultAlipayClient
 from alipay.aop.api.domain.AlipayTradePagePayModel import AlipayTradePagePayModel
 from alipay.aop.api.request.AlipayTradePagePayRequest import AlipayTradePagePayRequest
+from django.conf import settings
+from django.contrib import messages
 
-from baykeshop.contrib.system.models import BaykeDictModel
 from baykeshop.contrib.shop.models import BaykeShopOrders
-
+from baykeshop.contrib.system.models import BaykeDictModel
 
 logging.basicConfig(
     level=logging.INFO,

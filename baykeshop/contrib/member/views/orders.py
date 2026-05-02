@@ -1,10 +1,9 @@
-from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView, ListView
 
-from baykeshop.contrib.shop.models import BaykeShopOrders
-from baykeshop.contrib.member.forms import BaykeShopOrdersCommentForm
 from baykeshop.contrib.common.mixins import UserOwnedBaseView
+from baykeshop.contrib.member.forms import BaykeShopOrdersCommentForm
+from baykeshop.contrib.shop.models import BaykeShopOrders
 
 
 class BaykeShopOrdersListView(UserOwnedBaseView, ListView):

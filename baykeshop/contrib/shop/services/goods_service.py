@@ -1,13 +1,14 @@
 import logging
-from django.core.paginator import Paginator
-from django.core.cache import cache
 
-from baykeshop.contrib.system.models import Visit
+from django.core.paginator import Paginator
+
 from baykeshop.contrib.shop.models import (
-    BaykeShopCategory, BaykeShopGoods,
-    BaykeShopOrdersComment, BaykeShopGoodsSKU
+    BaykeShopGoods,
+    BaykeShopGoodsSKU,
+    BaykeShopOrdersComment,
 )
 from baykeshop.contrib.shop.services.cache_utils import CacheableService
+from baykeshop.contrib.system.models import Visit
 
 logger = logging.getLogger("baykeshop.contrib.shop")
 

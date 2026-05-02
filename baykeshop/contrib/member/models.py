@@ -1,15 +1,13 @@
 import ipaddress
 import json
 
-from django.db import models
-from django.contrib.sites.managers import CurrentSiteManager
 import django.db.models.deletion
 from django.contrib.auth import get_user_model
+from django.contrib.sites.managers import CurrentSiteManager
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db import BaseModel, BaseUserModel
-from baykeshop.db import validators
-
+from baykeshop.db import BaseModel, BaseUserModel, validators
 
 User = get_user_model()
 
@@ -115,12 +113,7 @@ class BaykeShopUserAddress(BaseModel):
         return self.name
 
     def get_full_address(self):
-        return "{province}{city}{district}{address}".format(
-            province=self.province,
-            city=self.city,
-            district=self.district,
-            address=self.address,
-        )
+        return f"{self.province}{self.city}{self.district}{self.address}"
 
 
 class SecurityLog(BaseModel):

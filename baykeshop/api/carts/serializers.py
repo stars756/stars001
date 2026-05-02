@@ -1,13 +1,11 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.utils import IntegrityError
-from django.contrib.auth import get_user_model
-from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-
 from rest_framework import serializers
 
 from baykeshop.contrib.shop.models import BaykeShopCarts
-
 
 User = get_user_model()
 
@@ -33,7 +31,7 @@ class BaykeShopCartsSerializer(serializers.ModelSerializer):
             queryset.update(quantity=models.F('quantity') + validated_data['quantity'])
             instance = queryset.first()
         return instance
-    
+
     def update(self, instance, validated_data):
         instance.quantity = validated_data['quantity']
         instance.save()

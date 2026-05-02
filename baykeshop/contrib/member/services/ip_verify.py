@@ -1,7 +1,7 @@
 import logging
 
-from baykeshop.db.security import get_client_ip, is_ip_trusted, add_trusted_ip
 from baykeshop.contrib.member.models import BaykeShopUser, SecurityLog
+from baykeshop.db.security import add_trusted_ip, get_client_ip, is_ip_trusted
 
 logger = logging.getLogger("baykeshop.contrib.member")
 

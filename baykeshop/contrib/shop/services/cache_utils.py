@@ -3,7 +3,8 @@
 import logging
 import random
 import time
-from typing import Callable
+from collections.abc import Callable
+
 from django.core.cache import cache
 
 logger = logging.getLogger("baykeshop.contrib.shop")

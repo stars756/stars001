@@ -19,6 +19,8 @@ LOGIN_URL = reverse_lazy('member:login')
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-in-production')
 
+DEBUG = config('DEBUG', default=True, cast=bool)
+
 # 生产环境保护：使用默认 SECRET_KEY 时拒绝启动，强制通过 .env 配置
 if not DEBUG and SECRET_KEY == 'django-insecure-dev-key-change-in-production':
     from django.core.exceptions import ImproperlyConfigured
@@ -26,8 +28,6 @@ if not DEBUG and SECRET_KEY == 'django-insecure-dev-key-change-in-production':
         '生产环境必须设置 SECRET_KEY，请在 .env 中配置随机密钥。\n'
         '生成方式: python -c "import secrets; print(secrets.token_urlsafe(50))"'
     )
-
-DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 

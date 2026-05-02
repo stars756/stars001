@@ -1,15 +1,14 @@
- 
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from pyecharts.charts import Bar, Line, Pie
 from pyecharts import options as opts
+from pyecharts.charts import Bar, Line, Pie
 from pyecharts.globals import ThemeType
 
 from baykeshop.contrib.shop.services.analysis_service import (
     OrderAnalysisService,
-    VisitAnalysisService,
     UserAnalysisService,
+    VisitAnalysisService,
 )
 
 order_analysis_service = OrderAnalysisService()

@@ -1,20 +1,21 @@
 import io
 import random
+
+from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
 from django.db import transaction
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
+from baykeshop.contrib.member.models import BaykeShopUser
 from baykeshop.contrib.shop.models import (
-    BaykeShopCategory,
     BaykeShopBrand,
+    BaykeShopCategory,
     BaykeShopGoods,
-    BaykeShopGoodsSKU,
     BaykeShopGoodsImages,
+    BaykeShopGoodsSKU,
     BaykeShopSpec,
 )
-from baykeshop.contrib.member.models import BaykeShopUser
 
 User = get_user_model()
 
@@ -347,7 +348,7 @@ class Command(BaseCommand):
                     gender=random.choice(["male", "female"]),
                 )
             users.append(user)
-        self.stdout.write(f"  [OK] users (10)")
+        self.stdout.write("  [OK] users (10)")
         return users
 
     # ── Products ───────────────────────────────────────────────────

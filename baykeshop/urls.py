@@ -1,10 +1,9 @@
-from django.urls import path, include
+from django.urls import include, path
 from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
+                                   SpectacularAPIView,
+                                   SpectacularRedocView,
+                                   SpectacularSwaggerView,
 )
-
 
 urlpatterns = [
     path('member/', include('baykeshop.contrib.member.urls')),

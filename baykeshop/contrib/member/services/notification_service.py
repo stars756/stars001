@@ -61,7 +61,7 @@ class NotificationService:
         for follow in follows:
             cls.create(
                 user=follow.user,
-                title=f'商品到货通知',
+                title='商品到货通知',
                 content=f'您关注的「{goods.name}」已到货，快去看看吧！',
                 related_url=f'/detail/{goods.id}/',
             )
@@ -79,7 +79,7 @@ class NotificationService:
         for follow in follows:
             cls.create(
                 user=follow.user,
-                title=f'商品降价通知',
+                title='商品降价通知',
                 content=f'您关注的「{goods.name}」已从 ¥{old_price} 降至 ¥{new_price}',
                 related_url=f'/detail/{goods.id}/',
             )

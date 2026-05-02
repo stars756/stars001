@@ -1,4 +1,5 @@
 import logging
+
 from django.core.cache import cache
 
 from baykeshop.contrib.shop.models.goods import BaykeShopGoods, BaykeShopGoodsFavorite
@@ -9,17 +10,17 @@ logger = logging.getLogger("baykeshop.contrib.shop")
 
 class FavoriteService(UserInteractionServiceBase):
     """商品收藏服务 — 继承泛型基类，只需定义元数据"""
-    
+
     MODEL = BaykeShopGoodsFavorite
     GOODS_MODEL = BaykeShopGoods
     CACHE_PREFIX = "user_favorites"
     ITEM_NAME = "商品"
     ACTION_NAME = "收藏"
-    
+
     logger = logger
 
     # ---- 向后兼容：保留原有方法名，委托给基类 ----
-    
+
     @classmethod
     def add_favorite(cls, user, goods_id):
         """添加收藏（兼容旧接口）"""

@@ -1,11 +1,15 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.forms.mixins import BaseFormMixins
-from baykeshop.forms.widgets import WF, WidgetFactory, TextInput  # 工厂方法 + 地址字段 + 基础输入框
-from baykeshop.db.validators import sms_code_validator, sms_code_field
+from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress
 from baykeshop.contrib.shop.models import BaykeShopOrdersComment
-from baykeshop.contrib.member.models import BaykeShopUserAddress, BaykeShopUser
+from baykeshop.db.validators import sms_code_field, sms_code_validator
+from baykeshop.forms.mixins import BaseFormMixins
+from baykeshop.forms.widgets import (  # 工厂方法 + 地址字段 + 基础输入框
+    WF,
+    TextInput,
+    WidgetFactory,
+)
 
 
 class BaykeShopUserAddressForm(BaseFormMixins, forms.ModelForm):

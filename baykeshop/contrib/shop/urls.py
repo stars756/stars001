@@ -6,7 +6,7 @@ app_name = 'shop'
 
 urlpatterns = [
     # 支付宝支付回调(必须在第一个)
-    path('pay/callback/', views.AlipayCallbackView.as_view(), name='alipay-callback'),   
+    path('pay/callback/', views.AlipayCallbackView.as_view(), name='alipay-callback'),
     # 商品列表
     path('list/', views.BaykeShopGoodsListView.as_view(), name='list'),
     # 搜索

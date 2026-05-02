@@ -1,9 +1,11 @@
 import logging
 
-from django.utils.translation import gettext_lazy as _
-
-from baykeshop.db.security import verify_sms_code_from_request, clear_trusted_ips, record_security_operation
 from baykeshop.contrib.member.models import BaykeShopUser, SecurityLog
+from baykeshop.db.security import (
+    clear_trusted_ips,
+    record_security_operation,
+    verify_sms_code_from_request,
+)
 
 logger = logging.getLogger("baykeshop.contrib.member")
 
@@ -81,7 +83,7 @@ class MemberProfileService:
             record_security_operation(
                 bayke_user=bayke_user,
                 action_type=SecurityLog.ActionTypes.CHANGE_MOBILE,
-                action_detail=f"修改手机号，已清空白名单",
+                action_detail="修改手机号，已清空白名单",
                 ip_address=client_ip
             )
 
@@ -107,16 +109,15 @@ class MemberProfileService:
             dict: {'success': bool, 'errors': dict}
                  errors 的 key 是字段名（如 'email', 'mobile'），value 是错误消息
         """
-        from django.contrib import messages
-        
+
         user = request.user
         client_ip = getattr(request, '_client_ip', None)
         if not client_ip:
             from baykeshop.db.security import get_client_ip
             client_ip = get_client_ip(request)
-        
+
         errors = {}
-        
+
         # 邮箱更新
         email = form.cleaned_data.get('email')
         if email and email != user.email:
@@ -133,7 +134,7 @@ class MemberProfileService:
                 default_addr_phone = default_addr.phone if default_addr else ''
             except Exception:
                 pass
-                
+
             if mobile != default_addr_phone:
                 result = MemberProfileService.update_mobile(user, mobile, client_ip, request)
                 if not result['success']:

@@ -1,7 +1,7 @@
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-from baykeshop.contrib.shop.services.cash_service import CashService
+
 from baykeshop.contrib.common.mixins import BaykeLoginRequiredMixin
+from baykeshop.contrib.shop.services.cash_service import CashService
 
 
 class BaykeShopCashView(BaykeLoginRequiredMixin, TemplateView):

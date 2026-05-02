@@ -1,6 +1,5 @@
-from django.core import management
-from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Permission
+from django.core.management.base import BaseCommand
 
 from baykeshop.contrib.system.models import BaykeMenus
 
@@ -123,13 +122,13 @@ class Command(BaseCommand):
             for child in menu["children"]:
                 app_label, codename = child["permission"].split(".")
                 permission_obj = Permission.objects.filter(
-                    codename=codename, 
+                    codename=codename,
                     content_type__app_label=app_label
                 )
                 if not permission_obj.exists(): continue
                 child_obj, _iscreated = BaykeMenus.objects.update_or_create(
-                    parent=menu_obj, 
-                    name=child["name"], 
+                    parent=menu_obj,
+                    name=child["name"],
                     defaults={
                         "name": child["name"],
                         "parent": menu_obj,

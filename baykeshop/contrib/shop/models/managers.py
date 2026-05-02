@@ -54,7 +54,7 @@ class BaykeShopCartsManager(BaseManager):
             ),
             price=models.F('price'),
         )
-    
+
 
 class BaykeShopGoodsSKUManager(models.Manager):
     """ sku 管理器 """

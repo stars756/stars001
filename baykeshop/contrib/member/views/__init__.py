@@ -1,27 +1,26 @@
+from .actions import CommentActionView, OrderStatusActionView
 from .auth import (
-    BaykeShopUserLoginView,
-    BaykeShopUserLogoutView,
-    BaykeShopUserRegisterView,
-    BaykePasswordResetView,
-    BaykePasswordResetDoneView,
-    BaykePasswordResetConfirmView,
-    BaykePasswordResetCompleteView,
-    EmailVerificationView,
-    ResendVerificationEmailView,
-    IPVerificationView,
-    SendSMSVerificationView,
+                   BaykePasswordResetCompleteView,
+                   BaykePasswordResetConfirmView,
+                   BaykePasswordResetDoneView,
+                   BaykePasswordResetView,
+                   BaykeShopUserLoginView,
+                   BaykeShopUserLogoutView,
+                   BaykeShopUserRegisterView,
+                   EmailVerificationView,
+                   IPVerificationView,
+                   ResendVerificationEmailView,
+                   SendSMSVerificationView,
 )
-from .orders import BaykeShopOrdersListView, BaykeShopOrdersDetailView
-from .actions import OrderStatusActionView, CommentActionView
 from .favorites import BaykeShopFavoritesView
 from .notifications import BaykeShopNotificationsView
+from .orders import BaykeShopOrdersDetailView, BaykeShopOrdersListView
 from .profile import (
-    BaykeShopUserProfileView,
-    BaykeShopUserPasswordView,
-    BaykeShopUserAddressListView,
-    BaykeShopUserAddressCreateView,
-    BaykeShopUserAddressUpdateView,
-    BaykeShopUserAddressDeleteView,
-    BaykeShopUserProfileUpdateView,
+                   BaykeShopUserAddressCreateView,
+                   BaykeShopUserAddressDeleteView,
+                   BaykeShopUserAddressListView,
+                   BaykeShopUserAddressUpdateView,
+                   BaykeShopUserPasswordView,
+                   BaykeShopUserProfileUpdateView,
+                   BaykeShopUserProfileView,
 )
-

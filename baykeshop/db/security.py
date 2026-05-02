@@ -9,34 +9,34 @@
 
 本文件保留依赖 BaykeShopUser 模型的函数，并从 utils 重新导出以保持向后兼容。
 """
-import json
 import ipaddress
+import json
 import logging
 
-from django.core.cache import cache
 from django.conf import settings
+from django.contrib import messages
+from django.core.cache import cache
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from django.contrib import messages
 
+from baykeshop.conf import bayke_settings
 from baykeshop.contrib.member.models import BaykeShopUser, SecurityLog
 from baykeshop.contrib.member.tasks import send_email_verification_task
-from baykeshop.conf import bayke_settings
 
 # 从 utils 重新导出纯工具函数（向后兼容）
 from baykeshop.utils.ip import get_client_ip
-from baykeshop.utils.tokens import generate_verification_token
 from baykeshop.utils.security_log import security_logger
 from baykeshop.utils.sms import (
-    generate_sms_code,
     cache_sms_code,
-    get_sms_cache_key,
     check_sms_rate_limit,
+    generate_sms_code,
+    get_sms_cache_key,
     increment_sms_rate_limit,
 )
+from baykeshop.utils.tokens import generate_verification_token
 
 __all__ = [
     "get_client_ip",

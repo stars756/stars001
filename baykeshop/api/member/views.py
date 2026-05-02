@@ -1,24 +1,21 @@
-from rest_framework import viewsets, mixins, views
+from django.utils.translation import gettext_lazy as _
+from rest_framework import mixins, views, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from django.utils.translation import gettext_lazy as _
-
-from baykeshop.api.throttles import WriteRateThrottle, SensitiveRateThrottle
 
 from baykeshop.api.member.serializers import (
-    BaykeShopUserSerializer,
-    BaykeShopUserAddressSerializer,
     BaykeShopEmailVerifySerializer,
-    BaykeShopSMSVerifySerializer,
     BaykeShopProfileUpdateSerializer,
+    BaykeShopSMSVerifySerializer,
+    BaykeShopUserAddressSerializer,
+    BaykeShopUserSerializer,
 )
+from baykeshop.api.throttles import SensitiveRateThrottle, WriteRateThrottle
 from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress
 from baykeshop.contrib.member.services.email_verify import MemberVerificationService
-from baykeshop.contrib.member.services.sms_verify import MemberSMSAuthService
 from baykeshop.contrib.member.services.profile import MemberProfileService
+from baykeshop.contrib.member.services.sms_verify import MemberSMSAuthService
 from baykeshop.db.security import get_client_ip
-
 
 
 class BaykeShopUserViewSet(mixins.RetrieveModelMixin,
@@ -62,7 +59,7 @@ class BaykeShopEmailVerifyView(views.APIView):
         """验证邮箱"""
         serializer = BaykeShopEmailVerifySerializer(
             data=request.data,
-            context={'request': request}        
+            context={'request': request}
         )
         serializer.is_valid(raise_exception=True)
 
@@ -98,7 +95,7 @@ class BaykeShopSMSVerifyView(views.APIView):
 
         result = MemberSMSAuthService.send_verification_code(
             serializer.validated_data['user'],
-            request,        
+            request,
             serializer.validated_data.get('operation_type', 'general')          # 默认操作类型为'general'，可以根据需要调整或扩展
         )
 

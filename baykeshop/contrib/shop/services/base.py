@@ -1,5 +1,6 @@
 import logging
-from typing import Any, Type, Optional
+from typing import Any
+
 from django.core.cache import cache
 from django.core.paginator import Paginator
 
@@ -17,12 +18,12 @@ class UserInteractionServiceBase:
     """
 
     # ==================== 子类必须设置 ====================
-    MODEL: Type[Any] = None           # Django Model 类（如 BaykeShopGoodsFavorite）
+    MODEL: type[Any] = None           # Django Model 类（如 BaykeShopGoodsFavorite）
     CACHE_PREFIX: str = ""            # 缓存键前缀（如 "user_favorites"）
     ITEM_NAME: str = "项目"            # 中文名称（用于日志和消息，如 "商品"）
     ACTION_NAME: str = "操作"          # 动作名称（如 "收藏"、"关注"）
-    GOODS_MODEL: Type[Any] = None        # 目标模型类（如 BaykeShopGoods），
-    
+    GOODS_MODEL: type[Any] = None        # 目标模型类（如 BaykeShopGoods），
+
     # 字段映射（大多数情况下不需要覆盖）
     USER_FIELD: str = 'user'          # 用户外键字段名
     GOODS_FIELD: str = 'goods'        # 商品外键字段名
@@ -59,7 +60,7 @@ class UserInteractionServiceBase:
                 return {'success': False, 'message': f'{cls.ITEM_NAME}不存在'}
 
             filter_kwargs = cls._build_filter(user, goods_id, **extra_filters)
-            
+
             obj, created = cls.MODEL.objects.get_or_create(
                 defaults={cls.GOODS_FIELD: goods, **extra_filters},
                 **filter_kwargs

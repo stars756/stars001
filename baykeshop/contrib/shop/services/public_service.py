@@ -1,5 +1,5 @@
 import logging
-import random
+
 from django.core.cache import cache
 
 from baykeshop.contrib.shop.models import BaykeShopCategory, BaykeShopGoods

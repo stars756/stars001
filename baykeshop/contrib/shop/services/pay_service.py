@@ -5,15 +5,15 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation
 
 import requests
+from alipay.aop.api.util.SignatureUtils import sign_with_rsa2, verify_with_rsa
 from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
 
-from alipay.aop.api.util.SignatureUtils import sign_with_rsa2, verify_with_rsa
 from baykeshop.contrib.shop.models.orders import BaykeShopOrders
 from baykeshop.contrib.shop.services.order_service import OrderService
-from baykeshop.db.orders import BaseOrdersModel  # OrderStatus 定义在基类上
 from baykeshop.contrib.system.models import BaykeDictModel
+from baykeshop.db.orders import BaseOrdersModel  # OrderStatus 定义在基类上
 from baykeshop.db.security import security_logger
 
 logger = logging.getLogger("baykeshop.contrib.shop")

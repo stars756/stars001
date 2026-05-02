@@ -1,9 +1,9 @@
 # Generated for account security system - 2026-03-14
 
-from django.conf import settings
 import django.contrib.sites.managers
-from django.db import migrations, models
 import django.db.models.deletion
+from django.conf import settings
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):

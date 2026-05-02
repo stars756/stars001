@@ -1,12 +1,15 @@
 import logging
-from django.utils.translation import gettext_lazy as _
-from django.core.paginator import Paginator
 
-from baykeshop.contrib.system.models import Visit
+from django.core.paginator import Paginator
+from django.utils.translation import gettext_lazy as _
+
 from baykeshop.contrib.article.models import (
-    BaykeArticleCategory, BaykeArticleTags, BaykeArticleContent
+    BaykeArticleCategory,
+    BaykeArticleContent,
+    BaykeArticleTags,
+    BaykeSidebar,
 )
-from baykeshop.contrib.article.models import BaykeSidebar
+from baykeshop.contrib.system.models import Visit
 
 logger = logging.getLogger("baykeshop.contrib.article")
 

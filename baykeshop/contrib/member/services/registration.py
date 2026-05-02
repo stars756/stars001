@@ -1,9 +1,14 @@
 import logging
+
 from django.db import transaction
 from django.utils.translation import gettext as _
 
-from baykeshop.db.security import get_client_ip, add_trusted_ip
-from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress, SecurityLog
+from baykeshop.contrib.member.models import (
+    BaykeShopUser,
+    BaykeShopUserAddress,
+    SecurityLog,
+)
+from baykeshop.db.security import add_trusted_ip, get_client_ip
 
 logger = logging.getLogger("baykeshop.contrib.member")
 

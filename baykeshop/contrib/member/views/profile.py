@@ -1,19 +1,29 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import TemplateView, FormView, UpdateView, ListView, CreateView, DeleteView
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
-from baykeshop.contrib.member.models import BaykeShopUserAddress, BaykeShopUser
-from baykeshop.contrib.member.forms import ChangePasswordForm, BaykeShopUserAddressForm, BaykeShopUserProfileForm
-from baykeshop.contrib.member.services.profile import MemberProfileService
-from baykeshop.db.security import get_client_ip
 from baykeshop.contrib.common.mixins import (
-    UserOwnedBaseView,
     AddressFormHandlingMixin,
     BaykeLoginRequiredMixin,
+    UserOwnedBaseView,
 )
+from baykeshop.contrib.member.forms import (
+    BaykeShopUserAddressForm,
+    BaykeShopUserProfileForm,
+    ChangePasswordForm,
+)
+from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress
+from baykeshop.contrib.member.services.profile import MemberProfileService
+from baykeshop.db.security import get_client_ip
 
 
 class BaykeShopUserProfileView(LoginRequiredMixin, TemplateView):

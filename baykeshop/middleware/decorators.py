@@ -1,15 +1,16 @@
 from functools import wraps
-from django.shortcuts import redirect
+
 from django.contrib import messages
+from django.shortcuts import redirect
 from django.urls import reverse
 
 from baykeshop.db.security import (
-    get_client_ip,
-    verify_user_extensions,
     check_email_verified,
     check_ip_trusted,
     check_phone_bound,
+    get_client_ip,
     record_security_operation,
+    verify_user_extensions,
 )
 
 

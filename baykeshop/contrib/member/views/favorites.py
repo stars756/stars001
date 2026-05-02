@@ -1,5 +1,5 @@
-from django.views.generic import TemplateView
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView
 
 from baykeshop.contrib.common.mixins import BaykeLoginRequiredMixin
 from baykeshop.contrib.shop.services.favorite_service import FavoriteService

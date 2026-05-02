@@ -9,4 +9,4 @@ class ShopConfig(AppConfig):
     verbose_name_plural = _('商品管理')
 
     def ready(self):
-        from . import signals
+        pass

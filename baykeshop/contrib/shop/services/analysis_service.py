@@ -1,12 +1,13 @@
 import logging
 
-from django.db import models
-from django.db.models import Sum, Q
-from django.db.models.functions import TruncDate
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.db.models import Q, Sum
+from django.db.models.functions import TruncDate
 from django.utils import timezone
-from baykeshop.contrib.system.models import Visit
+
 from baykeshop.contrib.shop.models import BaykeShopOrders
+from baykeshop.contrib.system.models import Visit
 
 logger = logging.getLogger("baykeshop.contrib.shop")
 

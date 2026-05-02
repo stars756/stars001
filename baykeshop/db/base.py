@@ -1,8 +1,9 @@
-from django.db import models
 from django.contrib.auth import get_user_model
-from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
+from django.contrib.sites.models import Site
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from .manager import BaseManager
 
 User = get_user_model()

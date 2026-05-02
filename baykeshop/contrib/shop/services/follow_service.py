@@ -1,5 +1,4 @@
 import logging
-from django.core.cache import cache
 
 from baykeshop.contrib.shop.models.goods import BaykeShopGoods, BaykeShopGoodsFollow
 from baykeshop.contrib.shop.services.base import UserInteractionServiceBase
@@ -9,16 +8,16 @@ logger = logging.getLogger("baykeshop.contrib.shop")
 
 class FollowService(UserInteractionServiceBase):
     """商品关注服务（到货通知/降价通知）— 继承泛型基类"""
-    
+
     MODEL = BaykeShopGoodsFollow
     GOODS_MODEL = BaykeShopGoods
     CACHE_PREFIX = "user_follows"
     ITEM_NAME = "商品"
     ACTION_NAME = "关注"
-    
+
     # Follow 特有：支持 notify_type 过滤
     EXTRA_FILTER_FIELDS_TEMPLATE = {}  # 运行时动态注入 notify_type
-    
+
     logger = logger
 
     @classmethod
@@ -48,7 +47,7 @@ class FollowService(UserInteractionServiceBase):
         extra_filters = {}
         if notify_type:
             extra_filters['notify_type'] = notify_type
-        
+
         result = cls.get_list(user, page_number, per_page, **extra_filters)
         return {
             'follows': result.get('follows', []),

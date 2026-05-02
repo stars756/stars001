@@ -91,7 +91,7 @@ class SystemConfigService:
 
         返回格式：[{name, icon, order, models: [{name, icon, ...}]}, ...]
         """
-        from django.urls import reverse, NoReverseMatch
+        from django.urls import NoReverseMatch, reverse
 
         perms = user.get_all_permissions()
         parent_groups = {}

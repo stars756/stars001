@@ -1,7 +1,7 @@
-from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.utils.deprecation import MiddlewareMixin
+from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.deprecation import MiddlewareMixin
 
 from baykeshop.contrib.member.models import BaykeShopUser, SecurityLog
 from baykeshop.contrib.member.security import get_client_ip, record_security_log

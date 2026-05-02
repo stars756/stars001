@@ -1,8 +1,8 @@
-from django.views.generic import ListView
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import ListView
 
-from baykeshop.contrib.shop.services.carts_service import CartsService
 from baykeshop.contrib.common.mixins import UserOwnedBaseView
+from baykeshop.contrib.shop.services.carts_service import CartsService
 
 
 def _checkout_steps(current):

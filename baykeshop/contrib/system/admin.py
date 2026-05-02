@@ -1,14 +1,15 @@
 from django.contrib import admin
-from django.contrib.sites.models import Site
-from django.contrib.sites.admin import SiteAdmin
 from django.contrib.auth.models import Permission
+from django.contrib.sites.admin import SiteAdmin
+from django.contrib.sites.models import Site
 from django.utils.translation import gettext_lazy as _
-from baykeshop.sites import admin as bayke_admin
 
 from baykeshop.conf import bayke_settings
+from baykeshop.contrib.shop.services.public_service import PublicService
+from baykeshop.sites import admin as bayke_admin
+
 from .models import *
 from .models.visit import Visit
-from baykeshop.contrib.shop.services.public_service import PublicService
 
 admin.site.unregister(Site)
 
@@ -78,7 +79,7 @@ class BaykeMenuInline(bayke_admin.TabularInline):
     model = BaykeMenus
     extra = 1
     autocomplete_fields = ("permission",)
-    
+
 
 @admin.register(Permission)
 class PermissionAdmin(bayke_admin.ModelAdmin):
@@ -104,19 +105,19 @@ class BaykeMenusAdmin(bayke_admin.ModelAdmin):
         if db_field.name == "parent":
             kwargs["queryset"] = BaykeMenus.objects.filter(parent__isnull=True, is_show=True)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-    
+
     def get_inlines(self, request, obj):
         """ 禁用子菜单 """
         if obj and obj.parent:
             return []
         return super().get_inlines(request, obj)
-    
+
     def get_readonly_fields(self, request, obj=None):
         """ 禁用子菜单 """
         if obj and obj.parent:
             return []
         return super().get_readonly_fields(request, obj)
-    
+
     def get_fields(self, request, obj=None):
         """ 编辑子菜单时允许修改父类和权限标识 """
         if obj and obj.parent:

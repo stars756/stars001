@@ -1,36 +1,35 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
-    PasswordResetView,
-    PasswordResetDoneView,
+    PasswordResetCompleteView,
     PasswordResetConfirmView,
-    PasswordResetCompleteView
+    PasswordResetDoneView,
+    PasswordResetView,
 )
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-from django.views.generic import FormView, View
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy
-from django.contrib.auth import login as auth_login
-from django.shortcuts import redirect
-
 from django.core.cache import cache
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import FormView, View
 
 from baykeshop.conf import bayke_settings
-
-from baykeshop.db.security import get_client_ip, add_trusted_ip
-from baykeshop.contrib.member.forms import LoginForm, RegisterForm, BaykePasswordResetForm, BaykePasswordResetConfirmForm
-from baykeshop.contrib.member.models import BaykeShopUser, SecurityLog
-from baykeshop.contrib.member.services.ip_verify import (
-    MemberAuthService,
+from baykeshop.contrib.common.mixins import BaykeLoginRequiredMixin
+from baykeshop.contrib.member.forms import (
+    BaykePasswordResetConfirmForm,
+    BaykePasswordResetForm,
+    LoginForm,
+    RegisterForm,
 )
 from baykeshop.contrib.member.services.email_verify import (
     MemberEmailService,
     MemberVerificationService,
 )
+from baykeshop.contrib.member.services.ip_verify import MemberAuthService
 from baykeshop.contrib.member.services.sms_verify import MemberSMSAuthService
-from baykeshop.contrib.common.mixins import BaykeLoginRequiredMixin
 
 User = get_user_model()
 
@@ -77,7 +76,9 @@ class BaykeShopUserRegisterView(FormView):
 
     def form_valid(self, form):
         """注册成功，调用业务服务层"""
-        from baykeshop.contrib.member.services.registration import MemberRegistrationService
+        from baykeshop.contrib.member.services.registration import (
+            MemberRegistrationService,
+        )
 
         # 调用注册服务
         result = MemberRegistrationService.register_user(form, self.request)
@@ -172,7 +173,7 @@ class ResendVerificationEmailView(BaykeLoginRequiredMixin, View):
                 messages.error(request, result['message'])
                 return redirect(result.get('redirect_url', reverse_lazy('member:profile')))
 
-        except Exception as e:
+        except Exception:
             messages.error(request, "发送验证邮件失败，请稍后再试")
             return redirect('member:profile')
 
@@ -200,5 +201,5 @@ class IPVerificationView(View):
             messages.success(request, result['message'])
         else:
             messages.error(request, result['message'])
-        
+
         return redirect(result['redirect_url'])

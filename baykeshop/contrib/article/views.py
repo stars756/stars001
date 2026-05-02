@@ -1,9 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, MonthArchiveView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.utils.translation import gettext_lazy as _
+
 # Create your views here.
-from baykeshop.contrib.article.models import BaykeArticleCategory, BaykeArticleTags, BaykeArticleContent
+from baykeshop.contrib.article.models import (
+    BaykeArticleCategory,
+    BaykeArticleContent,
+    BaykeArticleTags,
+)
 from baykeshop.contrib.article.services.article_service import article_service
 
 # Create your views here.
@@ -95,7 +100,7 @@ class BaykeArticleContentDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.object.title
         return context
-    
+
 
 class BaykeArticleArchiveView(MonthArchiveView):
     """ 归档 """
@@ -113,7 +118,7 @@ class BaykeArticleArchiveView(MonthArchiveView):
         context = super().get_context_data(**kwargs)
         context['title'] = _('文章归档')
         return context
-    
+
 
 class BaykeArticleUserListView(SingleObjectMixin, ListView):
     """ 用户文章 """

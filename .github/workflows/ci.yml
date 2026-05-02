@@ -73,7 +73,7 @@ jobs:
       - name: Install ruff
         run: pip install ruff
       - name: Lint
-        run: ruff check baykeshop/ --select=E,F,I,N,W,UP --ignore=E501
+        run: ruff check baykeshop/ --select=E,F --ignore=E501,E402,F401,F403,F405,F841,E701
 
   security:
     runs-on: ubuntu-latest

@@ -1,15 +1,16 @@
 from django.contrib import admin
 
-from baykeshop.forms import ModelForm
-from baykeshop.contrib.shop.services.analysis_service import (
-    UserAnalysisService,
-    OrderAnalysisService,
-    VisitAnalysisService,
-)
 from baykeshop.conf import bayke_settings
 from baykeshop.contrib.shop.models import BaykeShopOrders
+from baykeshop.contrib.shop.services.analysis_service import (
+    OrderAnalysisService,
+    UserAnalysisService,
+    VisitAnalysisService,
+)
 from baykeshop.contrib.system.services.config_service import SystemConfigService
-from .echarts import orders_chart, users_chart, user_pie_chart
+from baykeshop.forms import ModelForm
+
+from .echarts import orders_chart, user_pie_chart, users_chart
 
 
 class TabularInline(admin.TabularInline):

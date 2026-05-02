@@ -1,10 +1,11 @@
 import random
-from django.db import models
-from django.contrib.auth import get_user_model
-from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
-from .base import BaseModel, BaseManager
+from django.contrib.auth import get_user_model
+from django.db import models
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from .base import BaseManager, BaseModel
 
 User = get_user_model()
 
@@ -41,13 +42,13 @@ class BaseOrdersModel(BaseModel):
         REFUNDED = 6, _('已退款')
         # 待核销
         VERIFY = 7, _('待核销')
-    
+
 
     class PayType(models.IntegerChoices):
         ALIPAY = 0, _('支付宝')
         WECHATPAY = 1, _('微信支付')
-        CASH = 2, _('先用后付')    
-        
+        CASH = 2, _('先用后付')
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('用户'))
     order_sn = models.CharField(max_length=50, verbose_name=_('订单号'))
     # total_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('总价'))
@@ -82,8 +83,8 @@ class BaseOrdersModel(BaseModel):
 
     def get_order_sn(self):
         return '{}{}{}'.format(
-            timezone.now().strftime('%Y%m%d%H%M%S'), 
-            self.user.id, 
+            timezone.now().strftime('%Y%m%d%H%M%S'),
+            self.user.id,
             random.randint(10, 99)
         )
 
@@ -98,7 +99,7 @@ class BaseOrdersGoodsModel(BaseModel):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('价格'))
     quantity = models.IntegerField(default=1, verbose_name=_('数量'))
     specs = models.JSONField(
-        verbose_name=_('规格'), 
+        verbose_name=_('规格'),
         default=list,
         help_text=_('规格数据'),
         blank=True

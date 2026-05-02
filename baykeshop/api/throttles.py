@@ -20,7 +20,6 @@ API 限流策略 — 防刷、防滥用
 全局默认在 REST_FRAMEWORK 配置 DEFAULT_THROTTLE_CLASSES 和 DEFAULT_THROTTLE_RATES。
 """
 
-import time
 from rest_framework.throttling import SimpleRateThrottle
 
 
