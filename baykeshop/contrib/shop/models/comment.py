@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.contrib.shop.models import BaykeShopOrders, BaykeShopOrdersGoods
 from baykeshop.db import BaseModel
 
 User = get_user_model()
@@ -13,9 +12,6 @@ class BaykeShopOrdersComment(BaseModel):
     """
 
     class ScoreChoices(models.IntegerChoices):
-        """
-        评分
-        """
         ONE = 1, _('⭐')
         TWO = 2, _('⭐⭐')
         THREE = 3, _('⭐⭐⭐')
@@ -23,7 +19,7 @@ class BaykeShopOrdersComment(BaseModel):
         FIVE = 5, _('⭐⭐⭐⭐⭐')
 
     order = models.ForeignKey(
-        BaykeShopOrders,
+        'baykeshop.BaykeShopOrders',
         verbose_name=_('订单'),
         on_delete=models.CASCADE,
         related_name='comments'
@@ -71,6 +67,7 @@ class BaykeShopOrdersComment(BaseModel):
 
     @classmethod
     def get_spu_queryset(cls, spu):
+        from baykeshop.contrib.shop.models.orders import BaykeShopOrdersGoods
         orders = BaykeShopOrdersGoods.objects.filter(sku__goods=spu).values_list('orders', flat=True).distinct()
         queryset = cls.objects.select_related('user__baykeshopuser', 'order').filter(order_id__in=orders, status=True)
         return queryset.order_by('-created_time')
