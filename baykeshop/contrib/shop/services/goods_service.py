@@ -8,6 +8,7 @@ from baykeshop.contrib.shop.models import (
     BaykeShopOrdersComment,
 )
 from baykeshop.contrib.shop.services.cache_utils import CacheableService
+from baykeshop.contrib.shop.services.comment_service import CommentService
 from baykeshop.contrib.system.models import Visit
 
 logger = logging.getLogger("baykeshop.contrib.shop")
@@ -69,7 +70,7 @@ class GoodsService(CacheableService):
     @staticmethod
     def get_goods_comments(goods, page_number=1, per_page=20):
         """获取商品评论分页"""
-        queryset = BaykeShopOrdersComment.get_spu_queryset(goods)
+        queryset = CommentService.get_spu_queryset(goods)
         paginator = Paginator(queryset, per_page)
         return paginator.get_page(page_number)
 

@@ -507,7 +507,7 @@ class MemberVerificationServiceTestCase(TestCase):
         token = generate_verification_token()
         self.bayke_user.email_verification_token = token
         # 设为一个很早的时间，模拟过期
-        self.bayke_user.email_verify_at = timezone.now() - datetime.timedelta(days=7)
+        self.bayke_user.verification_token_created_at = timezone.now() - datetime.timedelta(days=7)
         self.bayke_user.save()
         self.bayke_user.refresh_from_db()
 
@@ -572,7 +572,7 @@ class CeleryPeriodicTasksTestCase(TestCase):
         # 创建一个有过期 Token 的用户
         bayke_user = _create_bayke_user(self.user)
         bayke_user.email_verification_token = generate_verification_token()
-        bayke_user.email_verify_at = timezone.now() - datetime.timedelta(days=7)
+        bayke_user.verification_token_created_at = timezone.now() - datetime.timedelta(days=7)
         bayke_user.is_email_verified = False
         bayke_user.save()
 

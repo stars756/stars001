@@ -248,7 +248,7 @@ def send_verification_email_to_user(user, request, client_ip, bayke_user):
 
     token = generate_verification_token()
     bayke_user.email_verification_token = token
-    bayke_user.email_verify_at = timezone.now()
+    bayke_user.verification_token_created_at = timezone.now()
     bayke_user.save()
 
     verify_url = reverse("member:verify_email", kwargs={"token": token})
@@ -331,10 +331,10 @@ def is_verification_token_valid(bayke_user, token):
 
 def is_email_verification_token_valid(bayke_user):
     """检查邮箱验证令牌是否在有效期内"""
-    if not bayke_user.email_verify_at:
+    if not bayke_user.verification_token_created_at:
         return False
     expire_seconds = bayke_settings.EMAIL_VERIFY_TOKEN_EXPIRE_SECONDS
-    return (timezone.now() - bayke_user.email_verify_at).total_seconds() < expire_seconds
+    return (timezone.now() - bayke_user.verification_token_created_at).total_seconds() < expire_seconds
 
 
 # ============================================================
