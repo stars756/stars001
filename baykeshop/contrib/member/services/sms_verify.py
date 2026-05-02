@@ -99,7 +99,7 @@ class MemberSMSAuthService:
                 message=f"您的验证码是：{code}"
             )
 
-            logger.info(f"短信验证码发送成功 - 用户: {user.id}, 操作类型: {operation_type}, 手机号: {phone_number}, 验证码: {code}")
+            logger.info("短信验证码发送成功 - 用户: %s, 操作类型: %s, 手机号: %s", user.id, operation_type, phone_number[-4:])
 
             return {
                 'success': True,

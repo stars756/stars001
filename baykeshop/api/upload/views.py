@@ -26,13 +26,18 @@ class UploadImageView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         image = serializer.validated_data["file"]
 
-        ext = image.name.rsplit('.', 1)[-1].lower() if '.' in image.name else 'jpg'
+        # 从已验证的 MIME 类型推导扩展名（防御深度）
+        MIME_EXT = {'image/jpeg': 'jpg', 'image/png': 'png',
+                     'image/gif': 'gif', 'image/webp': 'webp'}
+        content_type = getattr(image, 'content_type', '')
+        ext = MIME_EXT.get(content_type, 'jpg')
+
         safe_name = f"{uuid.uuid4()}.{ext}"
 
-        storeage = FileSystemStorage(
+        storage = FileSystemStorage(
             location=settings.MEDIA_ROOT / "uploads",
             base_url=settings.MEDIA_URL + "uploads/",
         )
-        file_name = storeage.save(safe_name, image)
-        url = storeage.url(file_name)
+        file_name = storage.save(safe_name, image)
+        url = storage.url(file_name)
         return Response({"location": url})

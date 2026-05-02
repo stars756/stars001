@@ -156,7 +156,7 @@ class MemberVerificationService:
         """
         try:
             logger.info("=== 开始验证邮箱 ===")
-            logger.info(f"Token: {token}")
+            logger.info("Token 验证请求处理中 (length=%s)", len(token) if token else 0)
 
             try:
                 logger.info(f"正在查找邮箱验证令牌为 '{token}' 的用户...")
@@ -164,9 +164,7 @@ class MemberVerificationService:
                 logger.info(f"找到用户: {bayke_user.user.username}")
                 logger.info(f"当前 token: {bayke_user.email_verification_token}")
             except BaykeShopUser.DoesNotExist:
-                logger.warning(f"未找到邮箱验证令牌为 '{token}' 的用户")
-                all_users = list(BaykeShopUser.objects.values_list('email_verification_token', 'user__username'))
-                logger.warning(f"数据库中所有 token: {all_users}")
+                logger.warning("未找到邮箱验证令牌对应的用户")
                 return {
                     'success': False,
                     'message': '验证链接无效或已过期。',
