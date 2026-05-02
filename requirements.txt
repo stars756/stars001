@@ -48,3 +48,6 @@ pytest-cov>=5.0,<6.0
 
 # 后台图表
 pyecharts>=2.0,<3.0
+
+# 防暴力破解
+django-axes>=6.0,<7.0

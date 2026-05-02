@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # drf-spectacular: OpenAPI/Swagger 文档
     # 'drf_spectacular.frontend',   # Swagger UI + ReDoc 通过 URL 路由提供，不需在 INSTALLED_APPS 中注册
+    'axes',                       # 防暴力破解
     *baykeshop.INSTALLED_APPS,
 ]
 
@@ -74,9 +75,22 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.AxesMiddleware',   # 防暴力破解 — 必须在 AuthenticationMiddleware 之后
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 认证后端（axes 防暴力破解）
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',   # 需要 axes
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# 防暴力破解配置
+AXES_FAILURE_LIMIT = 5              # 连续失败 5 次锁定
+AXES_COOLOFF_TIME = 0.5             # 锁定 30 分钟 (单位: 小时)
+AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
+AXES_RESET_ON_SUCCESS = True
 
 ROOT_URLCONF = 'project.urls'
 
