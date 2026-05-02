@@ -373,10 +373,11 @@ class StatusTransitionTestCase(TestCase):
         从而设置 _loaded_values 供 pre_save signal 读取。
         """
         from baykeshop.contrib.shop.models.orders import BaykeShopOrders
+        from baykeshop.contrib.shop.services.order_service import OrderService
         order = _create_order(self.user, status=status, pay_price=100.00, minutes_old=5)
         og = _create_order_goods(order, self.sku, quantity=3)
+        OrderService.deduct_stock(og)  # 模拟真实流程的库存扣减
         self.sku.refresh_from_db()
-        # 关键：从 queryset 重新加载以填充 _loaded_values
         order = BaykeShopOrders.objects.get(pk=order.pk)
         return order, self.sku
 
