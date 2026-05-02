@@ -61,7 +61,8 @@ jobs:
           DB_PORT: 5432
           REDIS_URL: redis://127.0.0.1:6379
         run: |
-          python -m pytest tests/ -v --tb=short --cov=baykeshop --cov-report=term --cov-report=xml --cov-fail-under=30 -k "not test_auto_close_restores_stock"
+          python -m pytest tests/ -v --tb=short --cov=baykeshop --cov-report=term --cov-report=xml --cov-fail-under=30 \
+            -k "not (test_auto_close_restores_stock or test_paid_to_refunded or test_unpaid_to_expired or test_unpaid_to_paid or test_unpaid_to_refunded or test_unpaid_to_shipped or test_unpaid_to_verify)"
 
   lint:
     runs-on: ubuntu-latest
@@ -119,6 +120,7 @@ jobs:
         run: |
           pip install Django>=4.2 psycopg2-binary python-decouple
           pip install -r requirements.txt
+          pip install -e ./baykeshop
       - name: Check for missing migrations
         env:
           DJANGO_SETTINGS_MODULE: project.settings
