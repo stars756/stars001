@@ -8,6 +8,7 @@ from baykeshop.contrib.shop.models import (
     BaykeShopOrdersComment,
 )
 from baykeshop.contrib.shop.services.cache_utils import CacheableService
+from baykeshop.contrib.shop.services.comment_service import CommentService
 from baykeshop.contrib.system.models import Visit
 
 logger = logging.getLogger("baykeshop.contrib.shop")
