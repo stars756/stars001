@@ -18,7 +18,7 @@ class BaykeShopUser(BaseUserModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_("用户"))     # 与Django内置User模型一对一关联
     is_email_verified = models.BooleanField(default=False, verbose_name=_("邮箱是否验证"))
     email_verified_at = models.DateTimeField(null=True, blank=True, verbose_name=_("邮箱验证时间"))
-    email_verify_at = models.DateTimeField(null=True, blank=True, verbose_name=_("邮箱验证令牌生成时间"))
+    verification_token_created_at = models.DateTimeField(null=True, blank=True, verbose_name=_("邮箱验证令牌生成时间"))
     email_verification_token = models.CharField(max_length=64, null=True, blank=True, verbose_name=_("邮箱验证令牌"))
     trusted_ips = models.TextField(default="[]", verbose_name="可信IP列表")
     ip_verify_token = models.CharField(max_length=64, blank=True, null=True, verbose_name="IP验证令牌")

@@ -263,34 +263,3 @@ class OrderService:
                 sku.stock = F("stock") + qty
                 sku.save(update_fields=['stock'])
 
-    # ============================================================
-    # 私有辅助方法
-    # ============================================================
-
-    @staticmethod
-    def _goods_format(item, goods_first_image=None):
-        """格式化商品数据"""
-        sku = item['sku']
-        image = ''
-        if goods_first_image:
-            image = goods_first_image.get(sku.goods_id, '')
-        if not image:
-            image = OrderService._get_image(sku)
-        return {
-            'sku': sku,
-            'quantity': item['quantity'],
-            'price': sku.price,
-            'sku_sn': sku.sku_sn,
-            'name': sku.goods.name,
-            'image': image,
-            'specs': sku.specs,
-            'detail': sku.goods.detail,
-        }
-
-    @staticmethod
-    def _get_image(sku):
-        """获取商品首图（单次查询兜底）"""
-        images = BaykeShopGoodsImages.objects.filter(goods=sku.goods)
-        if images.exists():
-            return images.first().image
-        return ''

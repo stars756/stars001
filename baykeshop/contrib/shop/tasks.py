@@ -231,17 +231,17 @@ def cleanup_expired_tokens(self):
         expire_seconds = bayke_settings.EMAIL_VERIFY_TOKEN_EXPIRE_SECONDS  # 默认86400秒(24h)
         cutoff = timezone.now() - timedelta(seconds=expire_seconds)
 
-        # 找到 token 过期但 still 未验证 且 email_verify_at 早于截止时间的用户
+        # 找到 token 过期但 still 未验证 且 verification_token_created_at 早于截止时间的用户
         stale_users = BaykeShopUser.objects.filter(
             is_email_verified=False,
             email_verification_token__isnull=False,
-            email_verify_at__lt=cutoff,
+            verification_token_created_at__lt=cutoff,
         )
 
         cleared_count = stale_users.count()
         if cleared_count > 0:
             # 只清除 token，不影响用户登录状态
-            stale_users.update(email_verification_token=None, email_verify_at=None)
+            stale_users.update(email_verification_token=None, verification_token_created_at=None)
 
             logger.info(f"[Token清理] 已清除 {cleared_count} 个过期验证Token")
         else:

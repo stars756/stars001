@@ -41,6 +41,9 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # 生产环境启用防暴力破解中间件
+    idx = MIDDLEWARE.index('django.contrib.auth.middleware.AuthenticationMiddleware')
+    MIDDLEWARE.insert(idx + 1, 'axes.middleware.AxesMiddleware')
 
 # 通用安全头（所有环境生效）
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -75,7 +78,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'axes.middleware.AxesMiddleware',   # 防暴力破解 — 必须在 AuthenticationMiddleware 之后
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -86,8 +88,10 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# 防暴力破解配置
+# 防暴力破解配置（仅在 DEBUG=False 时激活中间件来检查）
+AXES_ENABLED = not DEBUG
 AXES_FAILURE_LIMIT = 5              # 连续失败 5 次锁定
+# AxesMiddleware 在 MIDDLEWARE 中条件添加（见文件底部 DEBUG 检查后）
 AXES_COOLOFF_TIME = 0.5             # 锁定 30 分钟 (单位: 小时)
 AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']
 AXES_RESET_ON_SUCCESS = True
