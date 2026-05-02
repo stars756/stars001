@@ -1,13 +1,15 @@
-import re
 import json
 
 from django.db import models
-from django.db.utils import OperationalError
 from django.utils.translation import gettext_lazy as _
-from baykeshop.contrib.system.validators import (
-    validate_dict_value, is_bool, is_dict, is_json, is_list
-)
 
+from baykeshop.contrib.system.validators import (
+    is_bool,
+    is_dict,
+    is_json,
+    is_list,
+    validate_dict_value,
+)
 from baykeshop.db import BaseModel
 
 
@@ -22,7 +24,7 @@ class BaykeDictModel(BaseModel):
             键值对：key1:value1一行一对;
             list:value1,value2一行一个值;
             json:{"key1":"value1"}
-        ''' ), 
+        ''' ),
         validators=[validate_dict_value]
     )
 
@@ -36,7 +38,7 @@ class BaykeDictModel(BaseModel):
 
     def __str__(self):
         return self.name
-    
+
     @classmethod
     def get_key_value(cls, key):
         """ 获取字典值 """
@@ -60,4 +62,3 @@ class BaykeDictModel(BaseModel):
                 return json.loads(obj.value)
         except Exception:
             return None
-        

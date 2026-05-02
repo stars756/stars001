@@ -1,10 +1,10 @@
 from datetime import timedelta
+
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from django.db.models import F
 
 from baykeshop.contrib.shop.models import BaykeShopOrders
 from baykeshop.payment.alipay import TradePagePay
@@ -32,15 +32,6 @@ class BaykeShopOrdersPaySerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         if (timezone.now() - instance.created_time) > timedelta(hours=1):
-            # 回归库存
-            order_goods_list = instance.baykeshopordersgoods_set.all()
-            for order_goods in order_goods_list:
-                if order_goods.sku:  # 防止sku被删除
-                    sku = order_goods.sku
-                    sku.stock = F("stock") + order_goods.quantity
-                    sku.sales = F("sales") - order_goods.quantity  # 销量也需调整
-                    sku.save()
-
             instance.status = BaykeShopOrders.OrderStatus.EXPIRED
             instance.save()
             messages.error(self.context["request"], _("订单已超时, 请重新下单"))

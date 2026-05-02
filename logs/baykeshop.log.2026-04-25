@@ -1,0 +1,111 @@
+[2026-04-25T13:24:13]     INFO | baykeshop.perf:public_service:get_index_floors:34 | CACHE_HIT floors:index
+[2026-04-25T13:24:13]     INFO | baykeshop.perf:baykeshop:navs:283 | CACHE_MISS tt:navs:1
+[2026-04-25T13:24:14]     INFO | baykeshop.perf:baykeshop:navs:292 | CACHE_SET tt:navs:1 4 parents + 9 children (300s TTL)
+[2026-04-25T13:24:14]     INFO | baykeshop.perf:public_service:get_index_banners:129 | CACHE_SET banners:index empty (60s TTL)
+[2026-04-25T13:24:14]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:15]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:15]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:44]     INFO | baykeshop.perf:public_service:get_index_floors:34 | CACHE_HIT floors:index
+[2026-04-25T13:24:44]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:44]     INFO | baykeshop.perf:public_service:get_index_banners:120 | CACHE_HIT banners:index
+[2026-04-25T13:24:45]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:45]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:45]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:45]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:54]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:54]     INFO | baykeshop.perf:public_service:get_index_floors:34 | CACHE_HIT floors:index
+[2026-04-25T13:24:54]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:54]     INFO | baykeshop.perf:public_service:get_index_banners:120 | CACHE_HIT banners:index
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:public_service:get_index_floors:34 | CACHE_HIT floors:index
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:public_service:get_index_banners:120 | CACHE_HIT banners:index
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:public_service:get_index_floors:34 | CACHE_HIT floors:index
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:baykeshop:navs:280 | CACHE_HIT tt:navs:1 (4 categories)
+[2026-04-25T13:24:55]     INFO | baykeshop.perf:public_service:get_index_banners:120 | CACHE_HIT banners:index
+[2026-04-25T14:04:32]     INFO | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:67 | [自动关单] 已关闭 1 个超时未支付订单 (超时阈值: 30分钟)
+[2026-04-25T14:04:33]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-25T14:04:33]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-25T14:04:33]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:04:33]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:04:34]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:04:35]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:04:35]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:04:35]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-25T14:04:36]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:36]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:36]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:37]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:37]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:37]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:04:37]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: 1MZo3Sp1B2stZ0I7dj-AwYjj98peQvhFK7GXmhUJ-Gg
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 '1MZo3Sp1B2stZ0I7dj-AwYjj98peQvhFK7GXmhUJ-Gg' 的用户...
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-25T14:04:38]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: 1MZo3Sp1B2stZ0I7dj-AwYjj98peQvhFK7GXmhUJ-Gg
+[2026-04-25T14:04:38]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: mHkecegtnuHNFqNv1o47zRB65U0qIIhODzxPsJilzTw
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'mHkecegtnuHNFqNv1o47zRB65U0qIIhODzxPsJilzTw' 的用户...
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: mHkecegtnuHNFqNv1o47zRB65U0qIIhODzxPsJilzTw
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-25T14:04:39]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-25T14:04:39]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-25T14:04:39]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-25T14:04:39]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-25T14:04:49]     INFO | baykeshop.contrib.shop:comment_service:create_comment:116 | 用户 comment_user 评论订单 ORD202604250604498182
+[2026-04-25T14:04:59]     INFO | baykeshop.contrib.shop:public_service:update_banners_cache:104 | 轮播图缓存已删除: banners:index
+[2026-04-25T14:05:02]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 cancel_user 取消订单 ORD202604250605021525
+[2026-04-25T14:05:02]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 unknown 取消订单 ORD202604250605024572
+[2026-04-25T14:05:03]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604250605037354
+[2026-04-25T14:05:03]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604250605033171
+[2026-04-25T14:05:03]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042506050311120，金额 248.0
+[2026-04-25T14:05:04]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042506050411281，金额 198.0
+[2026-04-25T14:05:04]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042506050411483，金额 198.0
+[2026-04-25T14:05:29]     INFO | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:67 | [自动关单] 已关闭 1 个超时未支付订单 (超时阈值: 30分钟)
+[2026-04-25T14:05:29]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-25T14:05:30]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-25T14:05:30]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:05:30]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:05:31]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:05:32]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:05:32]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-25T14:05:32]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-25T14:05:32]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:33]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:33]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:33]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:34]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:34]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-25T14:05:34]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: ofT8IoGvaWY_WHMnaxTBspyXh2iugcZN6Aa8sfLZQh8
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'ofT8IoGvaWY_WHMnaxTBspyXh2iugcZN6Aa8sfLZQh8' 的用户...
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: ofT8IoGvaWY_WHMnaxTBspyXh2iugcZN6Aa8sfLZQh8
+[2026-04-25T14:05:35]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: xlAlYi9Z-6OMt4IL9ptM-vhPouvjMrBHdb3tgL8-C-I
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'xlAlYi9Z-6OMt4IL9ptM-vhPouvjMrBHdb3tgL8-C-I' 的用户...
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: xlAlYi9Z-6OMt4IL9ptM-vhPouvjMrBHdb3tgL8-C-I
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-25T14:05:35]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-25T14:05:35]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-25T14:05:36]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-25T14:05:36]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-25T14:05:36]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-25T14:05:36]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-25T14:05:36]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]

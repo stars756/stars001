@@ -1,0 +1,66 @@
+{% load i18n %}
+<div id="recently-viewed" class="bk-box mt-4" style="display:none;">
+    <h3 class="bk-is-size-5 bk-has-text-weight-bold mb-3">
+        <span class="mdi mdi-history"></span> {% translate '最近浏览' %}
+    </h3>
+    <div class="bk-fixed-grid bk-has-6-cols">
+        <div class="bk-grid" id="recently-grid"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var MAX_ITEMS = 6;
+    var STORAGE_KEY = 'bayke_recently_viewed';
+
+    // 从当前页面收集商品信息
+    var currentProduct = null;
+    var spuCard = document.querySelector('[data-goods-id]');
+    var spuName = document.querySelector('h1.bk-is-size-3');
+    var spuPrice = document.querySelector('.bk-is-size-4.bk-has-text-danger');
+    var spuImage = document.querySelector('.bk-image img');
+
+    if (spuCard && spuName) {
+        currentProduct = {
+            id: spuCard.dataset.goodsId || (spuCard.closest('[data-goods-id]') || {}).dataset.goodsId,
+            name: spuName.textContent.trim(),
+            price: spuPrice ? spuPrice.textContent.trim() : '',
+            image: spuImage ? spuImage.src : '',
+            url: window.location.pathname,
+        };
+    }
+
+    var stored = [];
+    try {
+        stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    } catch(e) { stored = []; }
+
+    if (currentProduct && currentProduct.id) {
+        stored = stored.filter(function(p) { return p.id !== currentProduct.id; });
+        stored.unshift(currentProduct);
+        stored = stored.slice(0, MAX_ITEMS);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    }
+
+    // 渲染最近浏览
+    var container = document.getElementById('recently-viewed');
+    var grid = document.getElementById('recently-grid');
+    if (!container || !grid || stored.length < 2) return;
+
+    container.style.display = 'block';
+    stored.forEach(function(p) {
+        if (p.id === (currentProduct || {}).id) return;
+        var cell = document.createElement('div');
+        cell.className = 'bk-cell bk-is-2';
+        cell.innerHTML = '<a href="' + p.url + '" class="bk-box">' +
+            '<figure class="bk-image bk-is-1by1">' +
+            '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy" ' +
+            '    onerror="this.closest(\'.bk-cell\').style.display=\'none\'" />' +
+            '</figure>' +
+            '<h1 class="py-1 bk-is-size-7" title="' + p.name + '">' + p.name.substring(0, 10) + '</h1>' +
+            '<span class="bk-has-text-danger bk-has-text-weight-bold bk-is-size-7">' + p.price + '</span>' +
+            '</a>';
+        grid.appendChild(cell);
+    });
+})();
+</script>

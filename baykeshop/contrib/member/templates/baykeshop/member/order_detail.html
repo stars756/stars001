@@ -10,6 +10,41 @@
 
 {% block profile_content %}
 <div id="orderDetailContent">
+
+    {# 订单状态时间线 #}
+    <div class="p-6 bk-box bk-has-background-light mb-5">
+        <h1 class="bk-is-size-4 mb-4">
+            <span class="bk-icon"><i class="mdi mdi-timeline-clock"></i></span>
+            {% translate '订单进度' %}
+        </h1>
+        <div class="order-timeline">
+            {% for step in order_timeline %}
+            <div class="timeline-item {% if step.done %}is-done{% endif %} {% if step.active %}is-active{% endif %}">
+                <div class="timeline-marker">
+                    {% if step.done %}
+                    <span class="mdi mdi-check-circle bk-has-text-success"></span>
+                    {% elif step.active %}
+                    <span class="mdi mdi-loading mdi-spin bk-has-text-primary"></span>
+                    {% else %}
+                    <span class="mdi mdi-circle-outline bk-has-text-grey"></span>
+                    {% endif %}
+                </div>
+                <div class="timeline-content">
+                    <div class="bk-has-text-weight-bold {% if step.active %}bk-has-text-primary{% elif step.done %}bk-has-text-success{% endif %}">
+                        {{ step.label }}
+                    </div>
+                    {% if step.time %}
+                    <small class="bk-has-text-grey">{{ step.time|date:"Y-m-d H:i" }}</small>
+                    {% endif %}
+                    {% if step.active and not step.done %}
+                    <small class="bk-has-text-primary">{% translate '当前状态' %}</small>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
     <div class="p-6 bk-box bk-has-background-light">
         <h1 class="bk-is-size-4">
             <span class="bk-icon">
@@ -25,8 +60,24 @@
             <li>{% translate '支付方式' %}: {{ order.get_pay_type_display }}</li>
             <li>{% translate '下单时间' %}: {{ order.created_time }}</li>
             <li>{% translate '支付时间' %}: {{ order.pay_time|default:"~" }}</li>
+            {% if order.cancel_reason %}
+            <li>{% translate '取消原因' %}: <span class="bk-has-text-danger">{{ order.cancel_reason }}</span></li>
+            {% endif %}
         </ul>
     </div>
+    {% if order.carrier and order.tracking_number %}
+    <div class="p-6 bk-box bk-has-background-light" style="border-left: 3px solid #48c774;">
+        <h1 class="bk-is-size-4">
+            <span class="bk-icon"><i class="mdi mdi-truck-delivery"></i></span>
+            {% translate '物流追踪' %}
+        </h1>
+        <hr class="my-2 bk-has-background-white">
+        <ul>
+            <li>{% translate '快递公司' %}: <strong>{{ order.carrier }}</strong></li>
+            <li>{% translate '运单号' %}: <strong>{{ order.tracking_number }}</strong></li>
+        </ul>
+    </div>
+    {% endif %}
     {% if not order.is_virtual %}
     <div class="p-6 bk-box bk-has-background-light">
         <h1 class="bk-is-size-4">
@@ -112,6 +163,53 @@
 <style>
     #orderDetailContent ul li{
         line-height: 30px;
+    }
+    .order-timeline {
+        position: relative;
+        padding-left: 0;
+    }
+    .timeline-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 0;
+        position: relative;
+        opacity: 0.45;
+    }
+    .timeline-item.is-done,
+    .timeline-item.is-active {
+        opacity: 1;
+    }
+    .timeline-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 11px;
+        top: 36px;
+        width: 2px;
+        height: calc(100% - 12px);
+        background: #dbdbdb;
+    }
+    .timeline-item.is-done:not(:last-child)::after {
+        background: #48c774;
+    }
+    .timeline-marker {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+    .timeline-marker .mdi {
+        font-size: 1.2rem;
+    }
+    .timeline-content {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
     }
 </style>
 {% endblock %}

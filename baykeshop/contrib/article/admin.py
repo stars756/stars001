@@ -1,8 +1,15 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+
 # Register your models here.
 from baykeshop.sites import admin as bayke_admin
-from .models import BaykeArticleContent, BaykeArticleCategory, BaykeArticleTags, BaykeSidebar
+
+from .models import (
+    BaykeArticleCategory,
+    BaykeArticleContent,
+    BaykeArticleTags,
+    BaykeSidebar,
+)
 
 
 class BaykeArticleCategoryInline(bayke_admin.TabularInline):
@@ -51,7 +58,7 @@ class BaykeArticleContentAdmin(bayke_admin.ModelAdmin):
         if db_field.name == 'category':
             kwargs['queryset'] = BaykeArticleCategory.objects.filter(parent__isnull=False)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-    
+
 
 @admin.register(BaykeArticleTags)
 class BaykeArticleTagsAdmin(bayke_admin.ModelAdmin):

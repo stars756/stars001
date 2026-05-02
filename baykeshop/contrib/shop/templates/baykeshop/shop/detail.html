@@ -1,6 +1,10 @@
 {% extends 'baykeshop/base_site.html' %}
 {% load i18n static baykeshop %}
 
+{% block breadcrumb %}
+{% include 'baykeshop/shop/includes/breadcrumb.html' with breadcrumbs=breadcrumbs %}
+{% endblock %}
+
 {% block main %}
 <section class="bk-section">
     <div class="bk-container">
@@ -16,8 +20,14 @@
                 </div>
             </div>
             <div class="bk-column bk-is-7">
-                <div class="bk-is-flex bk-is-align-items-center">
-                    <h1 class="bk-is-size-3 ml-2">{{ spu.name }}</h1> 
+                <div class="bk-is-flex bk-is-align-items-center bk-is-justify-content-space-between">
+                    <h1 class="bk-is-size-3 ml-2">{{ spu.name }}</h1>
+                    <button class="bk-button bk-is-text favorite-toggle-btn"
+                            data-goods-id="{{ spu.id }}"
+                            title="{% translate '收藏' %}">
+                        <span class="mdi mdi-heart-outline bk-has-text-grey" style="font-size:1.5rem;"></span>
+                        <span class="ml-1">{% translate '收藏' %}</span>
+                    </button>
                 </div>
                 {% sku_template spu %}
                 {% include 'baykeshop/shop/includes/content.html' with spu=spu %}
@@ -34,5 +44,6 @@
         </div>
     </div>
 </section>
+{% include 'baykeshop/shop/includes/recently_viewed.html' %}
 {% endblock %}
     

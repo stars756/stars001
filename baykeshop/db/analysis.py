@@ -1,9 +1,10 @@
-from django.db.models import Sum, F, Q
-from django.db.models.functions import TruncDate
 from django.contrib.auth import get_user_model
+from django.db.models import Q, Sum
+from django.db.models.functions import TruncDate
 from django.utils import timezone
-from baykeshop.contrib.system.models import Visit
+
 from baykeshop.contrib.shop.models import BaykeShopOrders
+from baykeshop.contrib.system.models import Visit
 
 User = get_user_model()
 

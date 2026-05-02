@@ -1,7 +1,7 @@
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-from baykeshop.contrib.shop.services.cash_service import CashService
+
 from baykeshop.contrib.common.mixins import BaykeLoginRequiredMixin
+from baykeshop.contrib.shop.services.cash_service import CashService
 
 
 class BaykeShopCashView(BaykeLoginRequiredMixin, TemplateView):
@@ -12,11 +12,14 @@ class BaykeShopCashView(BaykeLoginRequiredMixin, TemplateView):
     }
 
     def get_context_data(self, **kwargs):
+        from baykeshop.contrib.shop.views.carts import _checkout_steps
         context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
         context['has_carts'] = self.has_carts()
-        context['skus'] = self.get_queryset()
-        context['total'] = self.get_total_price()
-        context['count'] = self.get_total_count()
+        context['skus'] = queryset
+        context['total'] = CashService.get_total_price(queryset)
+        context['count'] = CashService.get_total_count(queryset)
+        context['checkout_steps'] = _checkout_steps(1)
         return context
 
     def has_carts(self):
@@ -26,9 +29,3 @@ class BaykeShopCashView(BaykeLoginRequiredMixin, TemplateView):
     def get_queryset(self):
         """获取商品数据"""
         return CashService.get_cash_queryset(self.kwargs, self.request.user)
-
-    def get_total_price(self):
-        return CashService.get_total_price(self.get_queryset())
-
-    def get_total_count(self):
-        return CashService.get_total_count(self.get_queryset())

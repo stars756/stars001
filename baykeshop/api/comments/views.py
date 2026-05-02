@@ -1,12 +1,12 @@
-from rest_framework import mixins, viewsets
-from rest_framework import authentication, permissions
+from rest_framework import authentication, mixins, permissions, viewsets
+
 from baykeshop.api.throttles import WriteRateThrottle
 from baykeshop.contrib.shop.models import BaykeShopOrdersComment
+
 from .serializers import BaykeShopOrdersCommentSerializer
 
 
-
-class BaykeShopOrdersCommentViewSet(mixins.CreateModelMixin, 
+class BaykeShopOrdersCommentViewSet(mixins.CreateModelMixin,
                                     viewsets.GenericViewSet):
     """订单评论"""
     queryset = BaykeShopOrdersComment.objects.all()
@@ -16,4 +16,3 @@ class BaykeShopOrdersCommentViewSet(mixins.CreateModelMixin,
     # 写操作限流：20次/分钟，防止评论刷屏
     throttle_classes = [WriteRateThrottle]
 
-    

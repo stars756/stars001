@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-
 from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress
 from baykeshop.db import validators
 
@@ -27,6 +26,7 @@ class BaykeShopUserAddressSerializer(serializers.ModelSerializer):
 class BaykeShopUserSerializer(serializers.ModelSerializer):
     """用户信息序列化器"""
 
+    email = serializers.CharField(source='user.email', read_only=True)
     address_count = serializers.SerializerMethodField()
     default_address = serializers.SerializerMethodField()
 

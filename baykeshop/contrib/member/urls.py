@@ -1,6 +1,5 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.views.generic import RedirectView
-from django.urls import reverse_lazy
 
 from . import views
 
@@ -23,14 +22,14 @@ urlpatterns = [
     ),
     # 个人中心修改密码
     path(
-        "password/", 
-        views.BaykeShopUserPasswordView.as_view(), 
+        "password/",
+        views.BaykeShopUserPasswordView.as_view(),
         name="password"
     ),
     # 地址列表
     path(
-        "address/", 
-        views.BaykeShopUserAddressListView.as_view(), 
+        "address/",
+        views.BaykeShopUserAddressListView.as_view(),
         name="address-list"
     ),
     # 添加地址
@@ -51,10 +50,22 @@ urlpatterns = [
         views.BaykeShopUserAddressDeleteView.as_view(),
         name="address-delete",
     ),
+    # 收藏列表
+    path(
+        "favorites/",
+        views.BaykeShopFavoritesView.as_view(),
+        name="favorites-list",
+    ),
+    # 消息中心
+    path(
+        "notifications/",
+        views.BaykeShopNotificationsView.as_view(),
+        name="notifications",
+    ),
     # 订单列表
     path(
-        "orders/", 
-        views.BaykeShopOrdersListView.as_view(), 
+        "orders/",
+        views.BaykeShopOrdersListView.as_view(),
         name="orders-list"
     ),
     # 订单详情
@@ -75,7 +86,7 @@ urlpatterns = [
         views.OrderStatusActionView.as_view(),
         name="orders-receipt",
     ),
-     
+
     # 邮箱验证
     path(
         "verify-email/<str:token>/",
@@ -97,7 +108,7 @@ urlpatterns = [
         ),
         name="send_verification_redirect",
     ),
-    
+
     # IP验证
     path(
         "verify-ip/<str:token>/",
@@ -110,7 +121,7 @@ urlpatterns = [
         views.SendSMSVerificationView.as_view(),
         name="send_sms_verification",
     ),
-    
+
     # 忘记密码
     path(
         "password/reset/",
@@ -134,5 +145,5 @@ urlpatterns = [
         views.BaykePasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    
+
 ]

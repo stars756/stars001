@@ -1,15 +1,16 @@
 from functools import wraps
-from django.shortcuts import redirect
+
 from django.contrib import messages
+from django.shortcuts import redirect
 from django.urls import reverse
 
 from baykeshop.db.security import (
-    get_client_ip,
-    verify_user_extensions,
     check_email_verified,
     check_ip_trusted,
     check_phone_bound,
+    get_client_ip,
     record_security_operation,
+    verify_user_extensions,
 )
 
 
@@ -101,24 +102,3 @@ class SecurityCheckBuilder:
 
             return wrapped_view
         return decorator
-
-
-# ============================================================
-# 向后兼容别名 — 保持原有导入路径可用
-# 注意：当前3个装饰器均无实际使用方（死代码），
-# 保留别名是为了防止将来有人通过字符串引用或动态导入
-# ============================================================
-
-def sensitive_operation_required(operation_type):
-    """兼容别名：敏感操作装饰器（IP + 邮箱 + 日志）"""
-    return SecurityCheckBuilder.require('ip', 'email', log_type=operation_type)
-
-
-def sms_verification_required(view_func):
-    """兼容别名：SMS验证装饰器（IP + 邮箱 + 手机号）"""
-    return SecurityCheckBuilder.require('ip', 'email', 'phone')(view_func)
-
-
-def email_verified_and_ip_trusted(view_func):
-    """兼容别名：邮箱+IP验证装饰器"""
-    return SecurityCheckBuilder.require('ip', 'email')(view_func)

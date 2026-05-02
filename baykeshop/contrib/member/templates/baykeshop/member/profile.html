@@ -31,9 +31,9 @@
                         <div class="bk-is-flex bk-is-flex-direction-column bk-is-align-items-center">
                             <figure class="bk-image bk-is-64x64">
                                 {% if user.baykeshopuser and user.baykeshopuser.avatar %}
-                                    <img class="bk-is-rounded" src="{{ user.baykeshopuser.avatar.url }}">
+                                    <img class="bk-is-rounded" src="{{ user.baykeshopuser.avatar.url }}" alt="用户头像">
                                 {% else %}
-                                    <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}">
+                                    <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}" alt="默认头像">
                                 {% endif %}
                             </figure>
                             <p class="bk-title bk-is-4 mt-2">{{ user.username }}</p>
@@ -64,6 +64,22 @@
                                         <li>
                                             <a class="{% if '/address/' in request.path %} bk-is-active {% endif %}" href="{% url 'member:address-list' %}">
                                                 {% translate '收货地址' %}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="bk-has-text-weight-bold">
+                                        <span class="bk-icon">
+                                            <i class="mdi mdi-heart"></i>
+                                        </span>
+                                        {% translate '我的收藏' %}
+                                    </div>
+                                    <ul class="bk-menu-list">
+                                        <li>
+                                            <a class="{% if '/favorites/' in request.path %} bk-is-active {% endif %}"
+                                               href="{% url 'member:favorites-list' %}">
+                                                {% translate '收藏的商品' %}
                                             </a>
                                         </li>
                                     </ul>
@@ -111,9 +127,9 @@
                                 <span>{% translate '头像' %}: </span>
                                 <figure class="bk-image bk-is-64x64 bk-is-relative">
                                     {% if user.baykeshopuser and user.baykeshopuser.avatar %}
-                                    <img class="bk-is-rounded" src="{{ user.baykeshopuser.avatar.url }}">
+                                    <img class="bk-is-rounded" src="{{ user.baykeshopuser.avatar.url }}" alt="用户头像">
                                     {% else %}
-                                    <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}">
+                                    <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}" alt="默认头像">
                                     {% endif %}
                                 </figure>
                             </li>

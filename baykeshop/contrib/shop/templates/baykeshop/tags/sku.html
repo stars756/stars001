@@ -25,9 +25,16 @@ input[type=number] {
     <section class="bk-hero bk-is-link bk-is-bold bk-is-small">
         <div class="bk-hero-body">
             <div class="bk-is-flex bk-is-justify-content-space-between bk-is-align-items-center">
-                <p class="bk-is-size-3 bk-has-text-weight-bold">
-                ￥{% verbatim %}{{ sku.price }}{% endverbatim %}
-                </p>
+                <div>
+                    <span class="bk-is-size-3 bk-has-text-weight-bold bk-has-text-danger">
+                        ￥{% verbatim %}{{ sku.price }}{% endverbatim %}
+                    </span>
+                    <span v-if="sku.line_price && sku.line_price > sku.price"
+                          class="bk-has-text-grey bk-is-size-6 ml-2"
+                          style="text-decoration:line-through;">
+                        ￥{% verbatim %}{{ sku.line_price }}{% endverbatim %}
+                    </span>
+                </div>
                 <p class="">销量：{% verbatim %}{{ sku.sales }}{% endverbatim %}</p>
             </div>
         </div>
@@ -94,10 +101,13 @@ input[type=number] {
                 </p>
             </div>
             <div class="bk-field">
-                <p class="bk-control">
+                <p class="bk-control" v-if="sku.stock > 0">
                     <button class="bk-button bk-is-small bk-is-text px-0" style="text-decoration: none;color: rgb(142, 142, 142);">
                         库存：{% verbatim %}{{ sku.stock }}{% endverbatim %}
                     </button>
+                </p>
+                <p class="bk-control" v-else>
+                    <span class="bk-tag bk-is-danger bk-is-light">已售罄</span>
                 </p>
             </div>
         </div>

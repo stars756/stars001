@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.signals import setting_changed
 from django.utils.module_loading import import_string
-from .defaults import DEFAULTS, IMPORT_STRINGS, REMOVED_SETTINGS
 
+from .defaults import DEFAULTS, IMPORT_STRINGS, REMOVED_SETTINGS
 
 DEFAULTS = DEFAULTS
 IMPORT_STRINGS = IMPORT_STRINGS

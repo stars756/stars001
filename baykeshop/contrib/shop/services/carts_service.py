@@ -26,6 +26,8 @@ class CartsService:
             'sku__price', 'sku__stock', 'sku__sales', 'quantity'
         ))
         for item in queryset:
-            item['specs'] = json.loads(item['specs'])
+            specs = item['specs']
+            if isinstance(specs, str):
+                item['specs'] = json.loads(specs)
             item['total_price'] = round(item['total_price'], 2)
         return queryset

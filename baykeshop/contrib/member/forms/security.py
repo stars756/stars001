@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db.validators import sms_code_validator, sms_code_field
+from baykeshop.db.validators import sms_code_field, sms_code_validator
 
 
 class SMSVerificationForm(forms.Form):

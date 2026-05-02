@@ -1,11 +1,18 @@
 import logging
-from django.core.cache import cache
-from django.utils import timezone
-from django.urls import reverse
 
-from baykeshop.contrib.member.models import BaykeShopUser
-from baykeshop.db.security import send_verification_email_to_user, get_client_ip, generate_verification_token, is_verification_token_valid, is_email_verification_token_valid
+from django.core.cache import cache
+from django.urls import reverse
+from django.utils import timezone
+
 from baykeshop.conf import bayke_settings
+from baykeshop.contrib.member.models import BaykeShopUser
+from baykeshop.db.security import (
+    generate_verification_token,
+    get_client_ip,
+    is_email_verification_token_valid,
+    is_verification_token_valid,
+    send_verification_email_to_user,
+)
 
 logger = logging.getLogger("baykeshop.contrib.member")
 
@@ -26,12 +33,12 @@ class MemberEmailService:
         Returns:
             dict: 包含是否发送成功
         """
-        logger.info(f"=== 开始发送验证邮件 ===")
+        logger.info("=== 开始发送验证邮件 ===")
         logger.info(f"用户: {user.username}, 邮箱: {user.email}")
 
         client_ip = get_client_ip(request) if request else "unknown"
         result = send_verification_email_to_user(user, request, client_ip, bayke_user)
-        logger.info(f"已更新发送时间")
+        logger.info("已更新发送时间")
 
         # 使用配置化的缓存键和超时
         email_verify_prefix = bayke_settings.CACHE_PREFIX_EMAIL_VERIFY_LIMIT
@@ -43,7 +50,7 @@ class MemberEmailService:
         # resend 方法中的频率限制也使用配置值
         cache.set(f"{email_resend_prefix}:{user.id}", 1, timeout=bayke_settings.EMAIL_RESEND_COOLDOWN_SECONDS)
 
-        logger.info(f"邮件发送任务已提交到队列")
+        logger.info("邮件发送任务已提交到队列")
         return result
 
     @staticmethod
@@ -59,9 +66,10 @@ class MemberEmailService:
             dict: 包含是否成功、错误信息等
         """
         try:
-            from baykeshop.contrib.member.tasks import send_email_task
-            from django.utils.translation import gettext as _
             from django.conf import settings as django_settings
+            from django.utils.translation import gettext as _
+
+            from baykeshop.contrib.member.tasks import send_email_task
 
             bayke_user = user.baykeshopuser
 
@@ -147,7 +155,7 @@ class MemberVerificationService:
             dict: 包含验证结果
         """
         try:
-            logger.info(f"=== 开始验证邮箱 ===")
+            logger.info("=== 开始验证邮箱 ===")
             logger.info(f"Token: {token}")
 
             try:
@@ -173,25 +181,25 @@ class MemberVerificationService:
                     'redirect_url': reverse('member:register')
                 }
 
-            logger.info(f"验证 token 完整性...")
+            logger.info("验证 token 完整性...")
             if not is_verification_token_valid(bayke_user, token):
-                logger.warning(f"Token 完整性验证失败")
+                logger.warning("Token 完整性验证失败")
                 return {
                     'success': False,
                     'message': "验证链接无效，请重新获取",
                     'redirect_url': reverse('member:register')
                 }
 
-            logger.info(f"检查令牌是否过期...")
+            logger.info("检查令牌是否过期...")
             if not is_email_verification_token_valid(bayke_user):
-                logger.warning(f"Token 已过期")
+                logger.warning("Token 已过期")
                 return {
                     'success': False,
                     'message': "验证链接已过期，请重新发送",
                     'redirect_url': reverse('member:register')
                 }
 
-            logger.info(f"开始验证邮箱...")
+            logger.info("开始验证邮箱...")
             bayke_user.is_email_verified = True
             bayke_user.email_verified_at = timezone.now()
             bayke_user.email_verification_token = None

@@ -1,0 +1,15 @@
+{% extends 'baykeshop/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<section class="bk-section">
+    <div class="bk-container">
+        <div class="bk-has-text-centered" style="padding: 6rem 0;">
+            <p class="bk-is-size-1 has-text-grey-light">500</p>
+            <h1 class="bk-is-size-3 mb-3">{% translate '服务器错误' %}</h1>
+            <p class="has-text-grey mb-5">{% translate '服务器暂时无法处理您的请求，请稍后再试。' %}</p>
+            <a href="/" class="bk-button bk-is-link">{% translate '返回首页' %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -3,9 +3,18 @@
 <swiper-container navigation="true" pagination="true" loop="true" autoplay="true">
     {% for item in banners %}
     <swiper-slide>
-        <a href="{{ item.url }}" _target="blank">
-            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+        {% if item._is_goods_carousel %}
+        {# 商品降级轮播 #}
+        <a href="{% url 'shop:detail' item.id %}">
+            <img src="{{ MEDIA_URL }}{{ item.image_url }}" alt="{{ item.name }}"
+                 style="width:100%;height:400px;object-fit:cover;" />
         </a>
+        {% else %}
+        {# 后台配置的 Banner #}
+        <a href="{{ item.url }}" target="_blank">
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" />
+        </a>
+        {% endif %}
     </swiper-slide>
     {% endfor %}
 </swiper-container>

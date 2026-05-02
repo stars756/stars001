@@ -1,9 +1,12 @@
-from .member import (
-    BaykeShopUserAddressForm,
-    BaykeShopUserProfileForm,
-    BaykeShopOrdersCommentForm,
-)
 from .auth import (
-    LoginForm, RegisterForm, ChangePasswordForm, 
-    BaykePasswordResetForm, BaykePasswordResetConfirmForm
+                   BaykePasswordResetConfirmForm,
+                   BaykePasswordResetForm,
+                   ChangePasswordForm,
+                   LoginForm,
+                   RegisterForm,
+)
+from .member import (
+                   BaykeShopOrdersCommentForm,
+                   BaykeShopUserAddressForm,
+                   BaykeShopUserProfileForm,
 )

@@ -2,7 +2,6 @@ from django.template import Library
 
 from baykeshop.contrib.article.models import BaykeSidebar
 
-
 register = Library()
 
 @register.simple_tag

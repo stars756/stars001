@@ -20,69 +20,56 @@ API 限流策略 — 防刷、防滥用
 全局默认在 REST_FRAMEWORK 配置 DEFAULT_THROTTLE_CLASSES 和 DEFAULT_THROTTLE_RATES。
 """
 
-import time
 from rest_framework.throttling import SimpleRateThrottle
 
 
-class UserRateThrottle(SimpleRateThrottle):
-    """
-    [全局默认] 按用户限流
-    
-    已登录用户按 user.id 限流，
-    未登录用户按 IP 地址限流。
-    """
-    scope = 'user'
-
-
-class SensitiveRateThrottle(SimpleRateThrottle):
-    """
-    [敏感接口] 严格限流 — 用于注册、登录、短信发送、邮箱验证等接口
-    
-    限制：每分钟 10 次，每小时 30 次
-    防止暴力破解、短信轰炸
-    """
-    scope = 'sensitive'
-
+class _IdentThrottle(SimpleRateThrottle):
+    """通用限流基类 — 按 user.id 或 IP 生成 cache key"""
     def get_cache_key(self, request, view):
-        """
-        优先使用 user id，未登录则 fallback 到 IP
-        """
         if request.user and request.user.is_authenticated:
             ident = f"user:{request.user.pk}"
         else:
-            # IP 限流（需配合代理头部）
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forwarded_for:
                 ip = x_forwarded_for.split(',')[0].strip()
             else:
                 ip = request.META.get('REMOTE_ADDR', 'unknown')
             ident = f"ip:{ip}"
-
-        return self.cache_format % {
-            'scope': self.scope,
-            'ident': ident,
-        }
+        return self.cache_format % {'scope': self.scope, 'ident': ident}
 
 
-class WriteRateThrottle(SimpleRateThrottle):
+class UserRateThrottle(_IdentThrottle):
+    """
+    [全局默认] 按用户限流
+
+    已登录用户按 user.id 限流，
+    未登录用户按 IP 地址限流。
+    """
+    scope = 'user'
+
+
+class SensitiveRateThrottle(_IdentThrottle):
+    """
+    [敏感接口] 严格限流 — 用于注册、登录、短信发送、邮箱验证等接口
+    限制：每分钟 10 次
+    """
+    scope = 'sensitive'
+
+
+class WriteRateThrottle(_IdentThrottle):
     """
     [写操作] 中等限流 — 用于订单创建、购物车添加、评论等接口
-    
     限制：每分钟 20 次
-    防止恶意批量操作（如批量下单、刷评论）
     """
     scope = 'write'
 
 
-# 向后兼容别名
 WriteOperationThrottle = WriteRateThrottle
 
 
-class UploadRateThrottle(SimpleRateThrottle):
+class UploadRateThrottle(_IdentThrottle):
     """
     [上传接口] 限流 — 文件上传资源消耗大
-    
-    限制：每分钟 5 次，每小时 20 次
-    防止存储空间被恶意占满
+    限制：每分钟 5 次
     """
     scope = 'upload'

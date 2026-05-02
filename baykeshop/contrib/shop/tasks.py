@@ -14,10 +14,12 @@ Celery Beat 周期性任务
 
 import logging
 from datetime import timedelta
+
 from celery import shared_task
+
+# cache 不再通过此文件直接操作，统一由 Service 层管理
+from django.db.models import Sum
 from django.utils import timezone
-from django.core.cache import cache as django_cache
-from django.db.models import Sum, Count
 
 logger = logging.getLogger("baykeshop.periodic_tasks")
 
@@ -39,42 +41,48 @@ def auto_close_expired_orders(self):
     支持在 BAYKE_SETTINGS 中配置 ORDER_EXPIRE_MINUTES 覆盖默认值
     """
     try:
-        from baykeshop.db.orders import BaseOrdersModel
-        from baykeshop.contrib.shop.models.orders import BaykeShopOrders
         from baykeshop.conf import bayke_settings
-        
+        from baykeshop.contrib.shop.models.orders import BaykeShopOrders
+        from baykeshop.db.orders import BaseOrdersModel
+
         # 从配置读取过期时间，默认30分钟
         expire_minutes = getattr(bayke_settings, 'ORDER_EXPIRE_MINUTES', None)
         if expire_minutes is None:
             expire_minutes = 30
-            
+
         # 查找所有待支付且已过期的订单
         # 注意：StatusChoices 定义在 BaseOrdersModel 上
         cutoff = timezone.now() - timedelta(minutes=expire_minutes)
-        
+
         expired_orders = BaykeShopOrders.objects.filter(
             status=BaseOrdersModel.OrderStatus.UNPAID,
             created_time__lte=cutoff,
         )
-        
+
         expired_count = expired_orders.count()
         if expired_count == 0:
             return {'status': 'ok', 'closed': 0}
-            
-        # 批量关闭（标记为已取消/EXPIRED）
-        updated = expired_orders.update(status=BaseOrdersModel.OrderStatus.EXPIRED)
-        
+
+        # 逐条 save 触发 pre_save 信号 → apply_status_transition 恢复库存
+        from django.db import transaction
+        with transaction.atomic():
+            updated = 0
+            for order in expired_orders:
+                order.status = BaseOrdersModel.OrderStatus.EXPIRED
+                order.save(update_fields=['status'])
+                updated += 1
+
         logger.info(
             f"[自动关单] 已关闭 {updated} 个超时未支付订单 "
             f"(超时阈值: {expire_minutes}分钟)"
         )
-        
+
         return {
             'status': 'ok',
             'closed': updated,
             'expire_minutes': expire_minutes,
         }
-        
+
     except Exception as e:
         logger.exception(f"[自动关单] 任务执行失败: {str(e)}")
         raise self.retry(exc=e, countdown=300)
@@ -93,9 +101,9 @@ def daily_order_statistics(self):
     结果写入 Redis，供后台仪表盘读取
     """
     try:
-        from baykeshop.db.orders import BaseOrdersModel
         from baykeshop.contrib.shop.models.orders import BaykeShopOrders
-        
+        from baykeshop.db.orders import BaseOrdersModel
+
         today = timezone.now().date()
         yesterday = today - timedelta(days=1)
         day_start = timezone.make_aware(
@@ -106,17 +114,17 @@ def daily_order_statistics(self):
             datetime.combine(yesterday, time.max),
             timezone.get_current_timezone()
         )
-        
+
         # 当日订单统计
         orders = BaykeShopOrders.objects.filter(created_time__range=[day_start, day_end])
-        
+
         total_count = orders.count()
         paid_count = orders.filter(status__in=[
             BaseOrdersModel.OrderStatus.PAID,
             BaseOrdersModel.OrderStatus.SHIPPED,
             BaseOrdersModel.OrderStatus.DONE,
         ]).count()
-        
+
         total_amount = orders.filter(
             status__in=[
                 BaseOrdersModel.OrderStatus.PAID,
@@ -124,11 +132,11 @@ def daily_order_statistics(self):
                 BaseOrdersModel.OrderStatus.DONE,
             ]
         ).aggregate(total=Sum('pay_price'))['total'] or 0  # pay_price 是实际数据库字段
-        
+
         canceled_count = orders.filter(
             status=BaseOrdersModel.OrderStatus.EXPIRED
         ).count()
-        
+
         stats = {
             'date': str(yesterday),
             'total_orders': total_count,
@@ -138,17 +146,14 @@ def daily_order_statistics(self):
             'avg_order_value': round(float(total_amount / paid_count), 2) if paid_count > 0 else 0,
             'cancel_rate': round(canceled_count / total_count * 100, 2) if total_count > 0 else 0,
         }
-        
-        # 写入 Redis（保留90天）
-        django_cache.set(f"stats:daily:{yesterday}", stats, timeout=90 * 86400)
-        
+
         logger.info(
             f"[日统计] {yesterday} — 总订单: {total_count}, "
             f"已支付: {paid_count}, 成交额: ¥{total_amount}, 取消率: {stats['cancel_rate']}%"
         )
-        
+
         return stats
-        
+
     except Exception as e:
         logger.exception(f"[日统计] 任务执行失败: {str(e)}")
         raise self.retry(exc=e, countdown=3600)
@@ -166,52 +171,35 @@ def daily_order_statistics(self):
 def cache_warmup_homepage(self):
     """
     [每10分钟] 首页热点数据缓存预热
-    
+
     预热数据：
-    - 轮播图列表
-    - 首页楼层商品
-    - 热门/推荐商品
-    
-    目的：避免用户访问首页时触发冷查询
+    - 轮播图列表 (banners:index)
+    - 首页楼层商品 (floors:index)
+
+    注意：预热 key 必须与页面实际读取的 key 一致。
+    页面读取路径：
+    - 轮播图：baykeconfig.py → PublicService.get_index_banners() → "banners:index"
+    - 导航分类：header.html → {% navs %} → "tt:navs:{is_nav}"（模板标签自带 5 分钟缓存，无需预热）
     """
     try:
         warmed_keys = []
+        from baykeshop.contrib.shop.services.public_service import PublicService
 
-        # 1. 预热轮播图（模型名是 BaykeBanners，字段名 is_show）
-        from baykeshop.contrib.system.models.banners import BaykeBanners
-        banners = list(BaykeBanners.objects.filter(is_show=True, is_delete=False).values())
-        django_cache.set('banners:active', banners, timeout=600)
-        warmed_keys.append('banners:active')
+        # 轮播图和楼层 — Service 方法内部已写缓存，直接调用即可
+        PublicService.get_index_banners()
+        warmed_keys.append(PublicService._BANNERS_CACHE_KEY)
 
-        # 2. 预热推荐商品（模型名是 BaykeShopGoods，用 status 字段）
-        from baykeshop.contrib.shop.models.goods import BaykeShopGoods
-        recommended = list(
-            BaykeShopGoods.objects.filter(
-                status=1,  # ONLINE
-                is_delete=False,
-            ).select_related().order_by('-created_time')[:20]
-        )
-        django_cache.set('goods:recommended_top20', recommended, timeout=300)
-        warmed_keys.append('goods:recommended_top20')
+        PublicService.get_index_floors()
+        warmed_keys.append(PublicService._FLOORS_CACHE_KEY)
 
-        # 3. 预热分类导航（M2M 反向关系名需要查实际模型）
-        from baykeshop.contrib.shop.models.goods import BaykeShopCategory, BaykeShopGoods
-        categories_with_counts = list(
-            BaykeShopCategory.objects.annotate(
-                goods_count=Count('baykeshopgoods')
-            ).filter(goods_count__gt=0)[:15]
-        )
-        django_cache.set('nav:categories_with_counts', categories_with_counts, timeout=300)
-        warmed_keys.append('nav:categories_with_counts')
-        
         logger.info(f"[缓存预热] 首页数据预热完成, 共 {len(warmed_keys)} 个key: {warmed_keys}")
-        
+
         return {
             'status': 'ok',
             'warmed_keys': warmed_keys,
             'count': len(warmed_keys),
         }
-        
+
     except Exception as e:
         logger.exception(f"[缓存预热] 任务执行失败: {str(e)}")
         raise self.retry(exc=e, countdown=60)
@@ -237,30 +225,30 @@ def cleanup_expired_tokens(self):
     注意：此任务不会删除用户，只清除无效 token
     """
     try:
-        from baykeshop.contrib.member.models import BaykeShopUser
         from baykeshop.conf import bayke_settings
-        
+        from baykeshop.contrib.member.models import BaykeShopUser
+
         expire_seconds = bayke_settings.EMAIL_VERIFY_TOKEN_EXPIRE_SECONDS  # 默认86400秒(24h)
         cutoff = timezone.now() - timedelta(seconds=expire_seconds)
-        
+
         # 找到 token 过期但 still 未验证 且 email_verify_at 早于截止时间的用户
         stale_users = BaykeShopUser.objects.filter(
             is_email_verified=False,
             email_verification_token__isnull=False,
             email_verify_at__lt=cutoff,
         )
-        
+
         cleared_count = stale_users.count()
         if cleared_count > 0:
             # 只清除 token，不影响用户登录状态
             stale_users.update(email_verification_token=None, email_verify_at=None)
-            
+
             logger.info(f"[Token清理] 已清除 {cleared_count} 个过期验证Token")
         else:
             logger.debug("[Token清理] 无需清理")
-            
+
         return {'status': 'ok', 'cleared': cleared_count}
-        
+
     except Exception as e:
         logger.exception(f"[Token清理] 任务执行失败: {str(e)}")
         raise self.retry(exc=e, countdown=1800)

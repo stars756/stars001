@@ -62,13 +62,18 @@
         </div>
         <div class="bk-dropdown-divider bk-has-background-grey-dark"></div>
         <div class="bk-has-text-centered">
-            
             <p class="bk-is-size-5">{% dict_value 'COPYRIGHT' %}</p>
-            <p class="bk-has-text-grey-light mt-3">
+            <p class="bk-has-text-grey-light mt-2">
+                <a class="bk-has-text-grey-light" href="{% url 'article:list' %}">{% translate '帮助中心' %}</a>
+                &nbsp;|&nbsp;
+                <a class="bk-has-text-grey-light" href="{% url 'shop:list' %}">{% translate '全部商品' %}</a>
+                &nbsp;|&nbsp;
+                <a class="bk-has-text-grey-light" href="{% url 'member:profile' %}">{% translate '个人中心' %}</a>
+            </p>
+            <p class="bk-has-text-grey-light mt-2">
                 <a class="bk-has-text-grey-light" href="https://beian.miit.gov.cn/" target="_blank">
                     <span>{% dict_value 'ICP' %}</span>
                 </a>
-                <!-- / <a class="bk-has-text-grey-light" href="">SiteMap</a>  -->
             </p>
         </div>
     </div>

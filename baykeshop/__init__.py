@@ -10,4 +10,5 @@ INSTALLED_APPS = [
 __VERSION__ = "1.3.20"
 
 from .celery import app as celery_app
+
 __all__ = ('celery_app',)

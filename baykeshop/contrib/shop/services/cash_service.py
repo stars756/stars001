@@ -1,9 +1,10 @@
 import logging
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Sum
-from django.core.exceptions import ValidationError
 
-from baykeshop.contrib.shop.models import BaykeShopGoodsSKU, BaykeShopCarts
+from baykeshop.contrib.shop.models import BaykeShopCarts, BaykeShopGoodsSKU
 
 logger = logging.getLogger("baykeshop.contrib.shop")
 

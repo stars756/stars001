@@ -1,14 +1,13 @@
-from django.views.generic.detail import SingleObjectMixin
 from django.contrib import messages
-from django.views.generic.edit import ProcessFormView
-from django.utils.translation import gettext_lazy as _
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import ProcessFormView
 
-from baykeshop.contrib.shop.models import BaykeShopOrders
-from baykeshop.contrib.member.forms import BaykeShopOrdersCommentForm
 from baykeshop.contrib.common.mixins import UserOwnedBaseView
+from baykeshop.contrib.member.forms import BaykeShopOrdersCommentForm
+from baykeshop.contrib.shop.models import BaykeShopOrders
 
 
 class OrderStatusActionView(UserOwnedBaseView, SingleObjectMixin, ProcessFormView):

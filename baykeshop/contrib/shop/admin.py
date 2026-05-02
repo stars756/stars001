@@ -1,15 +1,20 @@
 import json
-from django.contrib import admin
-from django.utils.translation import gettext_lazy as _
-from django.utils.html import format_html
-from django.utils import timezone
-from django.template.loader import render_to_string
-from .models import *
-from .forms import BaykeShopGoodsSKUForm
 
-from baykeshop.contrib.shop.services.public_service import PublicService
+from django.contrib import admin
+from django.core.cache import cache
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
+
+from baykeshop.contrib.common.export import CSVExportMixin
 from baykeshop.contrib.shop.services.goods_service import GoodsService
+from baykeshop.contrib.shop.services.public_service import PublicService
 from baykeshop.sites import admin as bayke_admin
+
+from .forms import BaykeShopGoodsSKUForm
+from .models import *
+
 
 class BaykeShopCategoryInline(bayke_admin.TabularInline):
     model = BaykeShopCategory
@@ -59,6 +64,7 @@ class BaykeShopCategoryAdmin(bayke_admin.ModelAdmin):
         """
         super().save_model(request, obj, form, change)
         PublicService.update_goods_categories_cache()
+        PublicService.update_floors_cache()
 
     def delete_model(self, request, obj):
         """
@@ -66,6 +72,7 @@ class BaykeShopCategoryAdmin(bayke_admin.ModelAdmin):
         """
         super().delete_model(request, obj)
         PublicService.update_goods_categories_cache()
+        PublicService.update_floors_cache()
 
 
 class BaykeShopGoodsSKUInline(bayke_admin.StackedInline):
@@ -81,7 +88,10 @@ class BaykeShopGoodsImagesInline(bayke_admin.TabularInline):
 
 
 @admin.register(BaykeShopGoods)
-class BaykeShopGoodsAdmin(bayke_admin.ModelAdmin):
+class BaykeShopGoodsAdmin(CSVExportMixin, bayke_admin.ModelAdmin):
+    csv_fields = ['id', 'name', 'status', 'goods_type', 'is_virtual',
+                  'is_recommend', 'created_time']
+    csv_filename = 'goods_export.csv'
     list_display = (
         "id",
         "name",
@@ -98,6 +108,7 @@ class BaykeShopGoodsAdmin(bayke_admin.ModelAdmin):
     list_editable = ("is_recommend",)
     list_filter = ("category", "brand")
     search_fields = ("name", "category__name", "brand__name")
+    actions = ["export_as_csv"]
     inlines = [BaykeShopGoodsSKUInline, BaykeShopGoodsImagesInline]
     fieldsets = (
         (
@@ -132,8 +143,8 @@ class BaykeShopGoodsAdmin(bayke_admin.ModelAdmin):
         super().save_model(request, obj, form, change)
         # 清除商品SPU详情缓存
         GoodsService.update_goods_spu_detail_cache(obj.id)
-        # 清除热门商品缓存（因为推荐状态可能改变）
-        PublicService.update_hot_goods_cache()
+        # 清除首页楼层缓存（商品变更影响楼层展示）
+        PublicService.update_floors_cache()
         # 清除所有SKU详情缓存
         for sku in obj.baykeshopgoodssku_set.all():
             GoodsService.update_goods_detail_cache(sku.id)
@@ -147,8 +158,8 @@ class BaykeShopGoodsAdmin(bayke_admin.ModelAdmin):
         super().delete_model(request, obj)
         # 清除商品SPU详情缓存
         GoodsService.update_goods_spu_detail_cache(obj.id)
-        # 清除热门商品缓存
-        PublicService.update_hot_goods_cache()
+        # 清除首页楼层缓存
+        PublicService.update_floors_cache()
         # 清除所有SKU详情缓存
         for sku_id in sku_ids:
             GoodsService.update_goods_detail_cache(sku_id)
@@ -217,7 +228,7 @@ class BaykeShopOrdersGoodsInline(bayke_admin.TabularInline):
 
 
 @admin.register(BaykeShopOrders)
-class BaykeShopOrdersAdmin(bayke_admin.ModelAdmin):
+class BaykeShopOrdersAdmin(CSVExportMixin, bayke_admin.ModelAdmin):
     list_display = (
         "id",
         "user",
@@ -226,13 +237,16 @@ class BaykeShopOrdersAdmin(bayke_admin.ModelAdmin):
         "status",
         "pay_type",
         "pay_price",
+        "carrier",
+        "tracking_number",
         "is_verify",
         "is_comment",
         "created_time",
         "pay_time",
     )
     list_display_links = ("id", "user", "order_sn")
-    search_fields = ("id", "user__username", "user__nickname")
+    list_editable = ("carrier", "tracking_number")
+    search_fields = ("id", "user__username", "user__nickname", "tracking_number")
     list_filter = ("status", "pay_type", "is_verify", "is_comment")
     readonly_fields = (
         "order_sn",
@@ -247,14 +261,18 @@ class BaykeShopOrdersAdmin(bayke_admin.ModelAdmin):
     inlines = [
         BaykeShopOrdersGoodsInline,
     ]
-    actions = ["shipments", "verify"]
+    csv_fields = ['id', 'user', 'order_sn', 'status', 'pay_price',
+                  'pay_type', 'carrier', 'tracking_number',
+                  'cancel_reason', 'receiver', 'phone', 'address',
+                  'created_time', 'pay_time', 'pay_sn']
+    csv_filename = 'orders_export.csv'
+    actions = ["shipments", "verify", "refund", "export_as_csv"]
 
     def has_add_permission(self, request):
         return False
 
     def has_change_permission(self, request, obj=None):
-        # 未支付和未发货订单可操作修改
-        if obj and obj.status in [0]:
+        if obj and obj.status in [0, 1]:
             return super().has_change_permission(request, obj)
         return False
 
@@ -284,6 +302,23 @@ class BaykeShopOrdersAdmin(bayke_admin.ModelAdmin):
             item.pay_time = timezone.now()
             item.save()
         self.message_user(request, "核销成功")
+
+    @admin.action(description="所选订单 退款（恢复库存+回滚销量）")
+    def refund(self, request, queryset):
+        """退款操作 — pre_save 信号自动触发 apply_status_transition 恢复库存/销量"""
+        refundable = [
+            BaykeShopOrders.OrderStatus.PAID,
+            BaykeShopOrders.OrderStatus.SHIPPED,
+            BaykeShopOrders.OrderStatus.SIGNED,
+        ]
+        count = 0
+        for item in queryset:
+            if item.status not in refundable:
+                continue
+            item.status = BaykeShopOrders.OrderStatus.REFUNDED
+            item.save()
+            count += 1
+        self.message_user(request, f"已退款 {count} 个订单，库存和销量已自动恢复")
 
 
 # 规格值
@@ -342,9 +377,27 @@ class BaykeShopOrdersCommentAdmin(bayke_admin.ModelAdmin):
         (_("回复信息"), {"fields": ("reply_user", "reply_content", "status")}),
     )
 
+    def _invalidate_comment_cache(self, comment):
+        """清除评论关联商品（SPU）的评分缓存"""
+        order_good = comment.order.baykeshopordersgoods_set.first()
+        if order_good and order_good.sku:
+            from baykeshop.contrib.shop.services.comment_service import CommentService
+            spu_id = order_good.sku.goods_id
+            cache.delete_many([
+                CommentService._cache_key(spu_id, 'avg'),
+                CommentService._cache_key(spu_id, 'count'),
+                CommentService._cache_key(spu_id, 'rate'),
+            ])
+
     def save_model(self, request, obj, form, change):
         obj.reply_user = request.user
-        return super().save_model(request, obj, form, change)
+        result = super().save_model(request, obj, form, change)
+        self._invalidate_comment_cache(obj)
+        return result
+
+    def delete_model(self, request, obj):
+        self._invalidate_comment_cache(obj)
+        return super().delete_model(request, obj)
 
     def has_add_permission(self, request, obj=None):
         return False

@@ -1,20 +1,21 @@
 import logging
 
 from django import forms
+from django.contrib.auth import get_user_model, password_validation
 from django.contrib.auth.forms import (
-    UserCreationForm,
     AuthenticationForm,
     PasswordChangeForm,
     PasswordResetForm,
-    SetPasswordForm
+    SetPasswordForm,
+    UserCreationForm,
 )
-from django.contrib.auth import password_validation, get_user_model
-from django.utils.translation import gettext_lazy as _
 from django.template import loader
+from django.utils.translation import gettext_lazy as _
 
+from baykeshop.db.validators import sms_code_field, sms_code_validator
 from baykeshop.forms.mixins import BaseFormMixins
 from baykeshop.forms.widgets import WF  # WidgetFactory 别名
-from baykeshop.db.validators import sms_code_validator, sms_code_field
+
 from ..tasks import send_reset_password_email_task
 
 logger = logging.getLogger("baykeshop.contrib.member")

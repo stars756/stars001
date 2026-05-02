@@ -1,12 +1,13 @@
-from django.db import models
-from django.contrib.sites.managers import CurrentSiteManager
+import ipaddress
+import json
+
 import django.db.models.deletion
 from django.contrib.auth import get_user_model
+from django.contrib.sites.managers import CurrentSiteManager
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from baykeshop.db import BaseModel, BaseUserModel
-from baykeshop.db import validators
-
+from baykeshop.db import BaseModel, BaseUserModel, validators
 
 User = get_user_model()
 
@@ -39,7 +40,10 @@ class BaykeShopUser(BaseUserModel):
 
     def is_ip_trusted(self, ip_address):
         """
-        检查IP是否在可信列表中（模型方法）
+        检查IP是否在可信列表中
+
+        IPv4/IPv6 地址自动归一化后再比较，
+        避免同一地址的不同文本表示（如 ::ffff:192.168.1.1 vs 192.168.1.1）被误判。
 
         Args:
             ip_address: 要检查的IP地址
@@ -47,13 +51,22 @@ class BaykeShopUser(BaseUserModel):
         Returns:
             tuple: (是否可信, 错误信息)
         """
-        import json
+        try:
+            normalized = str(ipaddress.ip_address(ip_address.strip()))
+        except ValueError:
+            normalized = ip_address.strip()
+
         try:
             trusted_ips = json.loads(self.trusted_ips)
             if not trusted_ips:
                 return False, "IP不在可信列表中"
-            if ip_address in trusted_ips:
-                return True, None
+            for tip in trusted_ips:
+                try:
+                    if str(ipaddress.ip_address(tip.strip())) == normalized:
+                        return True, None
+                except ValueError:
+                    if tip.strip() == normalized:
+                        return True, None
             return False, f"IP {ip_address} 不在可信列表中"
         except Exception:
             return False, "可信IP列表解析失败"
@@ -100,12 +113,7 @@ class BaykeShopUserAddress(BaseModel):
         return self.name
 
     def get_full_address(self):
-        return "{province}{city}{district}{address}".format(
-            province=self.province,
-            city=self.city,
-            district=self.district,
-            address=self.address,
-        )
+        return f"{self.province}{self.city}{self.district}{self.address}"
 
 
 class SecurityLog(BaseModel):
@@ -156,3 +164,24 @@ class SecurityLog(BaseModel):
 
     def __str__(self):
         return f"{self.user.username} - {self.get_action_type_display()} - {self.get_status_display()}"
+
+
+class UserNotification(BaseModel):
+    """用户通知"""
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name=_('用户')
+    )
+    title = models.CharField(max_length=100, verbose_name=_('标题'))
+    content = models.TextField(verbose_name=_('内容'), blank=True, default='')
+    is_read = models.BooleanField(default=False, verbose_name=_('已读'))
+    related_url = models.CharField(
+        max_length=255, verbose_name=_('关联链接'), blank=True, default=''
+    )
+
+    class Meta:
+        verbose_name = _('用户通知')
+        verbose_name_plural = _('用户通知')
+        ordering = ['-created_time']
+
+    def __str__(self):
+        return self.title

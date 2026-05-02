@@ -1,24 +1,21 @@
-from rest_framework import viewsets, mixins, views
+from django.utils.translation import gettext_lazy as _
+from rest_framework import mixins, views, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from django.utils.translation import gettext_lazy as _
-
-from baykeshop.api.throttles import WriteRateThrottle, SensitiveRateThrottle
 
 from baykeshop.api.member.serializers import (
-    BaykeShopUserSerializer,
-    BaykeShopUserAddressSerializer,
     BaykeShopEmailVerifySerializer,
-    BaykeShopSMSVerifySerializer,
     BaykeShopProfileUpdateSerializer,
+    BaykeShopSMSVerifySerializer,
+    BaykeShopUserAddressSerializer,
+    BaykeShopUserSerializer,
 )
+from baykeshop.api.throttles import SensitiveRateThrottle, WriteRateThrottle
 from baykeshop.contrib.member.models import BaykeShopUser, BaykeShopUserAddress
 from baykeshop.contrib.member.services.email_verify import MemberVerificationService
-from baykeshop.contrib.member.services.sms_verify import MemberSMSAuthService
 from baykeshop.contrib.member.services.profile import MemberProfileService
+from baykeshop.contrib.member.services.sms_verify import MemberSMSAuthService
 from baykeshop.db.security import get_client_ip
-
 
 
 class BaykeShopUserViewSet(mixins.RetrieveModelMixin,
@@ -62,7 +59,7 @@ class BaykeShopEmailVerifyView(views.APIView):
         """验证邮箱"""
         serializer = BaykeShopEmailVerifySerializer(
             data=request.data,
-            context={'request': request}        
+            context={'request': request}
         )
         serializer.is_valid(raise_exception=True)
 
@@ -98,7 +95,7 @@ class BaykeShopSMSVerifyView(views.APIView):
 
         result = MemberSMSAuthService.send_verification_code(
             serializer.validated_data['user'],
-            request,        
+            request,
             serializer.validated_data.get('operation_type', 'general')          # 默认操作类型为'general'，可以根据需要调整或扩展
         )
 
@@ -121,50 +118,42 @@ class BaykeShopProfileUpdateView(views.APIView):
 
     def post(self, request):
         """更新个人资料"""
-
         serializer = BaykeShopProfileUpdateSerializer(
             data=request.data,
             context={'request': request}
         )
         serializer.is_valid(raise_exception=True)
 
-        client_ip = self.get_client_ip()
+        client_ip = get_client_ip(request)
         user = request.user
+        errors = {}
 
-        # 更新手机号（需要SMS验证）
+        # 敏感字段更新 — 委托 Service 层（内部已含短信验证码校验）
+        email = serializer.validated_data.get('email')
+        if email and email != user.email:
+            result = MemberProfileService.update_email(user, email, client_ip, request)
+            if not result['success']:
+                errors.update(result.get('error_fields', {}))
+
         mobile = serializer.validated_data.get('mobile')
         if mobile:
-            result = MemberProfileService.update_mobile(
-                user,
-                mobile,
-                client_ip,
-                request
-            )
-
+            result = MemberProfileService.update_mobile(user, mobile, client_ip, request)
             if not result['success']:
-                return Response({
-                    'code': 1,
-                    'msg': result.get('message')
-                }, status=400)
+                errors.update(result.get('error_fields', {}))
 
-        # 更新昵称
-        nickname = serializer.validated_data.get('nickname')
-        if nickname:
-            user.baykeshopuser.nickname = nickname
-            user.baykeshopuser.save()
+        if errors:
+            return Response({
+                'code': 1,
+                'msg': '; '.join(errors.values()),
+                'errors': errors,
+            }, status=400)
 
-        # 更新邮箱
-        email = serializer.validated_data.get('email')
-        if email and email != request.user.email:
-            user.email = email
-            user.save()
-
-        # 更新其他字段
+        # 非敏感字段 — 直接更新
         profile = user.baykeshopuser
-        for field in ['gender', 'birthday', 'qq', 'wechat', 'description', 'avatar']:
+        for field in ['nickname', 'gender', 'birthday', 'qq', 'wechat', 'description', 'avatar']:
             value = serializer.validated_data.get(field)
             if value is not None:
-                setattr(profile, field, value)     
+                setattr(profile, field, value)
         profile.save()
 
         return Response({

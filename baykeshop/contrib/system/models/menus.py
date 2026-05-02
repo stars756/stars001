@@ -1,17 +1,6 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-"""
-@文件    :menus.py
-@说明    :自定义菜单模型
-@时间    :2024/12/12 09:37:13
-@作者    :幸福关中&轻编程
-@版本    :1.0
-@微信    :baywanyun
-"""
-
+from django.contrib.auth.models import Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import Permission
 
 from baykeshop.db import BaseModel
 

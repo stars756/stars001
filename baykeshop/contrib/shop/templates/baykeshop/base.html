@@ -31,6 +31,15 @@
     <header>{% block header %}{% endblock %}</header>
     <main>{% block main %}{% endblock %}</main>
     <footer>{% block footer %}{% endblock %}</footer>
+
+    {# 回到顶部 #}
+    <button id="back-to-top" class="bk-button bk-is-primary"
+            style="display:none;position:fixed;bottom:30px;right:30px;z-index:999;
+                   width:44px;height:44px;border-radius:50%;padding:0;box-shadow:0 2px 8px rgba(0,0,0,0.15);"
+            title="{% translate '回到顶部' %}">
+        <span class="mdi mdi-chevron-up bk-is-size-5"></span>
+    </button>
+
     {% block extrajs %}{% endblock %}
     {% block javascript %}{% endblock %}
     
@@ -53,5 +62,19 @@
             }
         </script>
     {% endif %}
+    <script>
+    (function() {
+        var btn = document.getElementById('back-to-top');
+        if (!btn) return;
+        window.addEventListener('scroll', function() {
+            btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+        });
+        btn.addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+    })();
+    </script>
 </body>
 </html>

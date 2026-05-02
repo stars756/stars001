@@ -1,8 +1,10 @@
-from .goods import (
-    BaykeShopGoodsListView, BaykeShopCategoryListView, 
-    BaykeShopGoodsDetailView, BaykeShopSearchView
-)
 from .carts import BaykeShopCartsListView
 from .cash import BaykeShopCashView
-from .pay import BaykeShopOrdersPayView, AlipayCallbackView
+from .goods import (
+                    BaykeShopCategoryListView,
+                    BaykeShopGoodsDetailView,
+                    BaykeShopGoodsListView,
+                    BaykeShopSearchView,
+)
+from .pay import AlipayCallbackView, BaykeShopOrdersPayView
 from .public import BaykeShopIndexView

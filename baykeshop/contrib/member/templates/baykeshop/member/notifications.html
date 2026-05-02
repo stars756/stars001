@@ -1,0 +1,84 @@
+{% extends 'baykeshop/member/profile.html' %}
+{% load i18n %}
+
+{% block profile_header %}
+<div class="bk-is-flex bk-is-align-items-center bk-is-justify-content-space-between" style="width:100%;">
+    <h1 class="bk-is-size-4 bk-has-text-weight-bold">
+        <span class="mdi mdi-bell"></span> {% translate '消息中心' %}
+    </h1>
+    {% if notifications %}
+    <button class="bk-button bk-is-text bk-is-small mark-all-read-btn">
+        {% translate '全部已读' %}
+    </button>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block profile_content %}
+{% if notifications %}
+<div class="notification-list">
+    {% for notif in notifications %}
+    <div class="bk-box mb-2 {% if not notif.is_read %}bk-has-background-link-light{% endif %}"
+         style="border-left:3px solid {% if notif.is_read %}#dbdbdb{% else %}#485fc7{% endif %};">
+        <div class="bk-is-flex bk-is-align-items-center bk-is-justify-content-space-between">
+            <div>
+                <div class="bk-has-text-weight-bold {% if not notif.is_read %}bk-has-text-link-dark{% endif %}">
+                    {{ notif.title }}
+                </div>
+                {% if notif.content %}
+                <p class="bk-has-text-grey bk-is-size-7 mt-1">{{ notif.content }}</p>
+                {% endif %}
+                <small class="bk-has-text-grey-light">{{ notif.created_time|date:"Y-m-d H:i" }}</small>
+            </div>
+            <div class="bk-is-flex bk-is-align-items-center">
+                {% if notif.related_url %}
+                <a href="{{ notif.related_url }}" class="bk-button bk-is-small bk-is-text">查看</a>
+                {% endif %}
+                {% if not notif.is_read %}
+                <button class="bk-button bk-is-small bk-is-text mark-read-btn"
+                        data-id="{{ notif.id }}">已读</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if total_pages > 1 %}
+<nav class="bk-pagination bk-is-centered mt-5">
+    <ul class="bk-pagination-list">
+        {% for p in page_range %}
+        <li><a class="bk-pagination-link {% if p == page %}bk-is-current{% endif %}"
+               href="?page={{ p }}">{{ p }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}
+{% else %}
+<div class="bk-has-text-centered py-6">
+    <span class="mdi mdi-bell-outline bk-has-text-grey" style="font-size:3rem;"></span>
+    <p class="bk-has-text-grey mt-3">{% translate '暂无消息' %}</p>
+</div>
+{% endif %}
+
+<script>
+const csrfToken = Cookies.get('csrftoken');
+function postAction(data) {
+    return fetch('', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': csrfToken},
+        body: new URLSearchParams(data),
+    });
+}
+document.querySelectorAll('.mark-read-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        postAction({action: 'mark_read', id: this.dataset.id}).then(() => location.reload());
+    });
+});
+const markAllBtn = document.querySelector('.mark-all-read-btn');
+if (markAllBtn) {
+    markAllBtn.addEventListener('click', function() {
+        postAction({action: 'mark_all_read'}).then(() => location.reload());
+    });
+}
+</script>
+{% endblock %}

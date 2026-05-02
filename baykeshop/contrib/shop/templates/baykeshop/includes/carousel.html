@@ -60,6 +60,17 @@
         height: 100%;
         object-fit: cover;
     }
+
+    .mySwiper swiper-slide {
+        overflow: hidden;
+        cursor: crosshair;
+    }
+    .mySwiper swiper-slide img {
+        transition: transform 0.3s ease;
+    }
+    .mySwiper swiper-slide:hover img {
+        transform: scale(1.5);
+    }
 </style>
 <script src="{% static 'baykeshop/js/swiper-element-bundle.min.js' %}"></script>
 <div class="gallery">
@@ -67,7 +78,7 @@
         thumbs-swiper=".mySwiper2" space-between="10">
         {% for gallery in images %}
         <swiper-slide>
-            <img src="{{ gallery.image.url }}" />
+            <img src="{{ gallery.image.url }}" alt="{{ gallery.goods.name }}" />
         </swiper-slide>
         {% endfor %}
     </swiper-container>
@@ -76,7 +87,7 @@
         watch-slides-progress="true" navigation="true">
         {% for gallery in images %}
         <swiper-slide>
-            <img class="bk-is-clickable" src="{{ gallery.image.url }}" />
+            <img class="bk-is-clickable" src="{{ gallery.image.url }}" alt="{{ gallery.goods.name }}" />
         </swiper-slide>
         {% endfor %}
     </swiper-container> 

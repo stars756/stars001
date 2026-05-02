@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from baykeshop.db import BaseModel
 
 
@@ -17,6 +18,6 @@ class BaykeBanners(BaseModel):
         verbose_name = _('轮播图')
         verbose_name_plural = _('轮播图')
         ordering = ('-order',)
-    
+
     def __str__(self):
         return self.title

@@ -2,9 +2,15 @@
 # BaykeShop 生产依赖
 # ============================================================
 
+# 环境变量管理
+python-decouple>=3.8,<4.0
+
 # Web 框架
 Django>=4.2,<5.3
 djangorestframework>=3.15,<4.0
+
+# HTTP 客户端
+requests>=2.31,<3.0
 
 # 数据库
 psycopg2-binary>=2.9,<3.0
@@ -16,6 +22,9 @@ redis>=5.0,<8.0
 # Celery 异步任务 & 定时调度
 celery[redis]>=5.3,<6.0
 django-celery-beat>=2.6,<3.0
+
+# Celery 监控面板
+flower>=2.0,<3.0
 
 # API 文档
 drf-spectacular>=0.27,<1.0
@@ -31,3 +40,11 @@ gunicorn>=22.0,<24.0
 
 # baykeshop（自定义电商包，通过 pip install -e 或 COPY 安装）
 # baykeshop
+
+# 测试
+pytest>=8.0,<9.0
+pytest-django>=4.8,<5.0
+pytest-cov>=5.0,<6.0
+
+# 后台图表
+pyecharts>=2.0,<3.0

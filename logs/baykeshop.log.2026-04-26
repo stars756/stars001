@@ -1,0 +1,211 @@
+[2026-04-26T11:06:40]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:102 | verify_trade: 签名失败: Short substrate on input
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\pay_service.py", line 100, in verify_trade
+    sign = sign_with_rsa2(app_private_key, sign_content, "utf-8")
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\alipay\aop\api\util\SignatureUtils.py", line 49, in sign_with_rsa2
+    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 125, in load_pkcs1
+    return method(keyfile)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 613, in _load_pkcs1_pem
+    return cls._load_pkcs1_der(der)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 527, in _load_pkcs1_der
+    (priv, _) = decoder.decode(keyfile)
+                ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\pyasn1\codec\ber\decoder.py", line 2125, in __call__
+    raise error.SubstrateUnderrunError('Short substrate on input')
+pyasn1.error.SubstrateUnderrunError: Short substrate on input
+[2026-04-26T11:06:40]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:06:40]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:102 | verify_trade: 签名失败: Short substrate on input
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\pay_service.py", line 100, in verify_trade
+    sign = sign_with_rsa2(app_private_key, sign_content, "utf-8")
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\alipay\aop\api\util\SignatureUtils.py", line 49, in sign_with_rsa2
+    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 125, in load_pkcs1
+    return method(keyfile)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 613, in _load_pkcs1_pem
+    return cls._load_pkcs1_der(der)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 527, in _load_pkcs1_der
+    (priv, _) = decoder.decode(keyfile)
+                ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\pyasn1\codec\ber\decoder.py", line 2125, in __call__
+    raise error.SubstrateUnderrunError('Short substrate on input')
+pyasn1.error.SubstrateUnderrunError: Short substrate on input
+[2026-04-26T11:06:40]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:102 | verify_trade: 签名失败: Short substrate on input
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\pay_service.py", line 100, in verify_trade
+    sign = sign_with_rsa2(app_private_key, sign_content, "utf-8")
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\alipay\aop\api\util\SignatureUtils.py", line 49, in sign_with_rsa2
+    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 125, in load_pkcs1
+    return method(keyfile)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 613, in _load_pkcs1_pem
+    return cls._load_pkcs1_der(der)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 527, in _load_pkcs1_der
+    (priv, _) = decoder.decode(keyfile)
+                ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\pyasn1\codec\ber\decoder.py", line 2125, in __call__
+    raise error.SubstrateUnderrunError('Short substrate on input')
+pyasn1.error.SubstrateUnderrunError: Short substrate on input
+[2026-04-26T11:06:41]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:102 | verify_trade: 签名失败: Short substrate on input
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\pay_service.py", line 100, in verify_trade
+    sign = sign_with_rsa2(app_private_key, sign_content, "utf-8")
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\alipay\aop\api\util\SignatureUtils.py", line 49, in sign_with_rsa2
+    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 125, in load_pkcs1
+    return method(keyfile)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 613, in _load_pkcs1_pem
+    return cls._load_pkcs1_der(der)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 527, in _load_pkcs1_der
+    (priv, _) = decoder.decode(keyfile)
+                ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\pyasn1\codec\ber\decoder.py", line 2125, in __call__
+    raise error.SubstrateUnderrunError('Short substrate on input')
+pyasn1.error.SubstrateUnderrunError: Short substrate on input
+[2026-04-26T11:06:41]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:102 | verify_trade: 签名失败: Short substrate on input
+Traceback (most recent call last):
+  File "C:\Users\34902\baykeshop\baykeshop\contrib\shop\services\pay_service.py", line 100, in verify_trade
+    sign = sign_with_rsa2(app_private_key, sign_content, "utf-8")
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\alipay\aop\api\util\SignatureUtils.py", line 49, in sign_with_rsa2
+    signature = rsa.sign(sign_content, rsa.PrivateKey.load_pkcs1(private_key, format='PEM'), 'SHA-256')
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 125, in load_pkcs1
+    return method(keyfile)
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 613, in _load_pkcs1_pem
+    return cls._load_pkcs1_der(der)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\rsa\key.py", line 527, in _load_pkcs1_der
+    (priv, _) = decoder.decode(keyfile)
+                ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\34902\baykeshop\venv\Lib\site-packages\pyasn1\codec\ber\decoder.py", line 2125, in __call__
+    raise error.SubstrateUnderrunError('Short substrate on input')
+pyasn1.error.SubstrateUnderrunError: Short substrate on input
+[2026-04-26T11:07:45]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:07:45]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260307453240): timeout
+[2026-04-26T11:08:31]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:08:31]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260308317253): timeout
+[2026-04-26T11:09:38]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:131 | verify_trade: 响应解析失败 (order_sn=ORD202604260309383863): Expecting value
+[2026-04-26T11:09:38]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:09:38]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260309385809): timeout
+[2026-04-26T11:09:39]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260309394046 | trade_no=None | status=TRADE_SUCCESS
+[2026-04-26T11:09:39]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260309391913 | trade_no=2026... | status=TRADE_SUCCESS
+[2026-04-26T11:10:48]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:131 | verify_trade: 响应解析失败 (order_sn=ORD202604260310487635): Expecting value
+[2026-04-26T11:10:48]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:10:49]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260310491769): timeout
+[2026-04-26T11:10:49]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260310495926 | trade_no=None | status=TRADE_SUCCESS
+[2026-04-26T11:10:49]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260310492952 | trade_no=2026... | status=TRADE_SUCCESS
+[2026-04-26T11:11:00]     INFO | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:67 | [自动关单] 已关闭 1 个超时未支付订单 (超时阈值: 30分钟)
+[2026-04-26T11:11:00]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-26T11:11:00]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-26T11:11:01]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:01]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:01]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:02]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:02]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:02]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:03]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: rBjIdSK4ZlSso3_3LfyfGxWYEkcFeBqc-u8eNtiayg0
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'rBjIdSK4ZlSso3_3LfyfGxWYEkcFeBqc-u8eNtiayg0' 的用户...
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: rBjIdSK4ZlSso3_3LfyfGxWYEkcFeBqc-u8eNtiayg0
+[2026-04-26T11:11:04]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: d5KPz1686OBVeAsFT1nzRlsk1TsZI5r79qObJVMqulo
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'd5KPz1686OBVeAsFT1nzRlsk1TsZI5r79qObJVMqulo' 的用户...
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: d5KPz1686OBVeAsFT1nzRlsk1TsZI5r79qObJVMqulo
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-26T11:11:04]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-26T11:11:04]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-26T11:11:05]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:05]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-26T11:11:05]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-26T11:11:05]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-26T11:11:05]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-26T11:11:12]     INFO | baykeshop.contrib.shop:comment_service:create_comment:116 | 用户 comment_user 评论订单 ORD202604260311128057
+[2026-04-26T11:11:18]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:131 | verify_trade: 响应解析失败 (order_sn=ORD202604260311189213): Expecting value
+[2026-04-26T11:11:19]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:11:19]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260311194962): timeout
+[2026-04-26T11:11:19]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260311191384 | trade_no=None | status=TRADE_SUCCESS
+[2026-04-26T11:11:19]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260311196324 | trade_no=2026... | status=TRADE_SUCCESS
+[2026-04-26T11:11:20]     INFO | baykeshop.contrib.shop:public_service:update_banners_cache:104 | 轮播图缓存已删除: banners:index
+[2026-04-26T11:11:22]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 cancel_user 取消订单 ORD202604260311224972
+[2026-04-26T11:11:23]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 unknown 取消订单 ORD202604260311237024
+[2026-04-26T11:11:23]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604260311235535
+[2026-04-26T11:11:23]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604260311231493
+[2026-04-26T11:11:24]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603112411757，金额 248.0
+[2026-04-26T11:11:24]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603112411898，金额 198.0
+[2026-04-26T11:11:24]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603112412049，金额 198.0
+[2026-04-26T11:11:39]     INFO | baykeshop.periodic_tasks:tasks:auto_close_expired_orders:67 | [自动关单] 已关闭 1 个超时未支付订单 (超时阈值: 30分钟)
+[2026-04-26T11:11:40]     INFO | baykeshop.periodic_tasks:tasks:cache_warmup_homepage:207 | [缓存预热] 首页数据预热完成, 共 3 个key: ['banners:active', 'goods:recommended_top20', 'nav:categories_with_counts']
+[2026-04-26T11:11:40]     INFO | baykeshop.periodic_tasks:tasks:cleanup_expired_tokens:258 | [Token清理] 已清除 1 个过期验证Token
+[2026-04-26T11:11:40]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:40]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:41]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:41]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:42]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 fav_user 收藏了商品 收藏测试商品
+[2026-04-26T11:11:42]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 fav_user 取消收藏商品ID 8
+[2026-04-26T11:11:42]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:42]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:43]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:43]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:43]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:43]     INFO | baykeshop.contrib.shop:base:add:72 | 用户 follow_user 关注了商品 关注测试商品
+[2026-04-26T11:11:43]     INFO | baykeshop.contrib.shop:base:remove:93 | 用户 follow_user 取消关注商品ID 14
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:29 | === 开始发送验证邮件 ===
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:30 | 用户: email_user, 邮箱: email@test.com
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:34 | 已更新发送时间
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:send_verification_email:46 | 邮件发送任务已提交到队列
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: v9bWlOvUdfkJLccjVic9MHjhjoI-nmL2U1V-A_1XQqQ
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'v9bWlOvUdfkJLccjVic9MHjhjoI-nmL2U1V-A_1XQqQ' 的用户...
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: v9bWlOvUdfkJLccjVic9MHjhjoI-nmL2U1V-A_1XQqQ
+[2026-04-26T11:11:44]  WARNING | baykeshop.contrib.member:email_verify:verify_email:169 | 用户 verify_user 已经验证过邮箱
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: s_52dNh4iyql3vcyWWlnX89SQJgaMouDfBZqzPes-1I
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 's_52dNh4iyql3vcyWWlnX89SQJgaMouDfBZqzPes-1I' 的用户...
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:156 | 找到用户: verify_user
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:157 | 当前 token: s_52dNh4iyql3vcyWWlnX89SQJgaMouDfBZqzPes-1I
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:176 | 验证 token 完整性...
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:185 | 检查令牌是否过期...
+[2026-04-26T11:11:44]  WARNING | baykeshop.contrib.member:email_verify:verify_email:187 | Token 已过期
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:150 | === 开始验证邮箱 ===
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:151 | Token: INVALID_TOKEN_12345
+[2026-04-26T11:11:44]     INFO | baykeshop.contrib.member:email_verify:verify_email:154 | 正在查找邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户...
+[2026-04-26T11:11:44]  WARNING | baykeshop.contrib.member:email_verify:verify_email:159 | 未找到邮箱验证令牌为 'INVALID_TOKEN_12345' 的用户
+[2026-04-26T11:11:44]  WARNING | baykeshop.contrib.member:email_verify:verify_email:161 | 数据库中所有 token: [(None, 'verify_user')]
+[2026-04-26T11:11:52]     INFO | baykeshop.contrib.shop:comment_service:create_comment:116 | 用户 comment_user 评论订单 ORD202604260311521809
+[2026-04-26T11:11:58]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:131 | verify_trade: 响应解析失败 (order_sn=ORD202604260311584374): Expecting value
+[2026-04-26T11:11:58]    ERROR | baykeshop.contrib.shop:pay_service:verify_trade:71 | verify_trade: Alipay 配置缺失（APPID/密钥）
+[2026-04-26T11:11:58]  WARNING | baykeshop.contrib.shop:pay_service:verify_trade:120 | verify_trade: 查询失败 (order_sn=ORD202604260311582472): timeout
+[2026-04-26T11:11:59]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260311597532 | trade_no=None | status=TRADE_SUCCESS
+[2026-04-26T11:11:59]     INFO | baykeshop.contrib.shop:pay_service:verify_trade:174 | verify_trade: 交易确认 | order_sn=ORD202604260311593112 | trade_no=2026... | status=TRADE_SUCCESS
+[2026-04-26T11:12:00]     INFO | baykeshop.contrib.shop:public_service:update_banners_cache:104 | 轮播图缓存已删除: banners:index
+[2026-04-26T11:12:02]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 cancel_user 取消订单 ORD202604260312021531
+[2026-04-26T11:12:02]     INFO | baykeshop.contrib.shop:order_service:cancel_order:145 | 用户 unknown 取消订单 ORD202604260312024250
+[2026-04-26T11:12:03]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604260312037152
+[2026-04-26T11:12:03]     INFO | baykeshop.contrib.shop:order_service:confirm_receipt:162 | 用户 confirm_user 确认收货 ORD202604260312034380
+[2026-04-26T11:12:03]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603120311739，金额 248.0
+[2026-04-26T11:12:03]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603120311850，金额 198.0
+[2026-04-26T11:12:04]     INFO | baykeshop.contrib.shop:order_service:create_order:125 | 用户 create_user 创建订单 2026042603120412030，金额 198.0

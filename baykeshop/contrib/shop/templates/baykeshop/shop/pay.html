@@ -1,6 +1,9 @@
 {% extends 'baykeshop/base_site.html' %}
 {% load i18n baykeshop %}
 
+{% block breadcrumb %}
+{% include 'baykeshop/shop/includes/checkout_steps.html' with steps=checkout_steps %}
+{% endblock %}
 
 {% block main %}
 <section class="bk-section">

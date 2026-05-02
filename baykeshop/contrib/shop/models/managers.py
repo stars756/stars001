@@ -25,6 +25,10 @@ class BaykeShopGoodsManager(BaseManager):
             )
         ).prefetch_related('baykeshopgoodssku_set', 'baykeshopgoodsimages_set')
 
+    def raw(self):
+        """返回不带聚合/子查询的 QuerySet，用于不需要 price/image_url 的查询"""
+        return super().get_queryset()
+
 
 class BaykeShopCartsManager(BaseManager):
     """购物车管理器"""
@@ -50,7 +54,7 @@ class BaykeShopCartsManager(BaseManager):
             ),
             price=models.F('price'),
         )
-    
+
 
 class BaykeShopGoodsSKUManager(models.Manager):
     """ sku 管理器 """
