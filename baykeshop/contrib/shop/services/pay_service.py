@@ -2,6 +2,7 @@ import json
 import logging
 import re
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 
 import requests
 from django.conf import settings
@@ -10,6 +11,7 @@ from django.utils import timezone
 
 from alipay.aop.api.util.SignatureUtils import sign_with_rsa2, verify_with_rsa
 from baykeshop.contrib.shop.models.orders import BaykeShopOrders
+from baykeshop.contrib.shop.services.order_service import OrderService
 from baykeshop.db.orders import BaseOrdersModel  # OrderStatus 定义在基类上
 from baykeshop.contrib.system.models import BaykeDictModel
 from baykeshop.db.security import security_logger
@@ -34,6 +36,9 @@ class PayService:
         sign = data.pop("sign")
         sign_type = data.pop("sign_type")
         alipay_public_key = BaykeDictModel.get_key_value("ALIPAY_PUBLIC_KEY")
+        if not alipay_public_key:
+            logger.error("has_verify_sign: ALIPAY_PUBLIC_KEY 未配置，验签中止")
+            return False
         # 去除sign和sign_type参数之后进行升序排列，拼装请求参数用支付宝公钥进行验签
         message = "&".join(
             [
@@ -140,25 +145,20 @@ class PayService:
             )
             return None
 
-        # 验证响应签名
+        # 验证响应签名 — 从原始文本中移除 sign 字段，保留原始字段顺序
         try:
-            match = re.search(
-                r'"alipay_trade_query_response":(\{.*\}),"sign"',
-                resp.text,
-                re.DOTALL,
-            )
-            if match:
-                body_str = match.group(1)
-                if not verify_with_rsa(
-                    alipay_public_key,
-                    body_str.encode("utf-8"),
-                    resp_sign,
-                ):
-                    security_logger.critical(
-                        "TRADE_QUERY_SIGN_MISMATCH | order_sn=%s | "
-                        "响应签名验证失败",
-                        order_sn,
-                    )
+            cleaned = re.sub(r',"sign":"[^"]*"', '', resp.text)
+            cleaned = re.sub(r'"sign":"[^"]*",?', '', cleaned)
+            if not verify_with_rsa(
+                alipay_public_key,
+                cleaned.encode("utf-8"),
+                resp_sign,
+            ):
+                security_logger.critical(
+                    "TRADE_QUERY_SIGN_MISMATCH | order_sn=%s | "
+                    "响应签名验证失败",
+                    order_sn,
+                )
         except Exception as e:
             logger.warning(
                 "verify_trade: 响应签名验证异常 (order_sn=%s): %s",
@@ -188,9 +188,8 @@ class PayService:
 
     @staticmethod
     def is_virtual_order(order):
-        """判断订单是否为虚拟商品订单"""
-        order_goods = order.baykeshopordersgoods_set.first()
-        return bool(order_goods and getattr(order_goods.sku, 'goods', None) and order_goods.sku.goods.is_virtual)
+        """判断订单是否为虚拟商品订单，委托给 OrderService（唯一规范来源）"""
+        return OrderService.is_virtual_goods(order)
 
     @staticmethod
     def handle_payment_success(order_sn, data):
@@ -218,6 +217,22 @@ class PayService:
                     BaseOrdersModel.OrderStatus.EXPIRED,
                 ):
                     return True, "已支付，无需重复处理"
+
+                # 金额校验：防御签名绕过或金额篡改
+                try:
+                    paid_amount = Decimal(data.get("total_amount", "0"))
+                except InvalidOperation:
+                    security_logger.critical(
+                        "PAYMENT_AMOUNT_PARSE_ERROR | order_sn=%s | raw=%s",
+                        order_sn, data.get("total_amount")
+                    )
+                    return False, "支付金额格式异常"
+                if paid_amount != order.pay_price:
+                    security_logger.critical(
+                        "PAYMENT_AMOUNT_MISMATCH | order_sn=%s | expected=%s | got=%s",
+                        order_sn, order.pay_price, paid_amount
+                    )
+                    return False, "支付金额与订单不匹配"
 
                 order.pay_time = timezone.now()
                 order.pay_sn = data.get("trade_no")

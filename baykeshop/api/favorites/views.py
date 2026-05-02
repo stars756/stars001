@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from baykeshop.contrib.shop.services.favorite_service import FavoriteService
+from .serializers import FavoriteToggleSerializer, FavoriteListSerializer
 
 
 class FavoriteToggleView(APIView):
@@ -12,12 +13,9 @@ class FavoriteToggleView(APIView):
     throttle_scope = 'write'
 
     def post(self, request):
-        goods_id = request.data.get('goods_id')
-        if not goods_id:
-            return Response(
-                {'success': False, 'message': '请提供商品ID'},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        serializer = FavoriteToggleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        goods_id = serializer.validated_data['goods_id']
 
         if FavoriteService.is_favorited(request.user, goods_id):
             result = FavoriteService.remove_favorite(request.user, goods_id)
@@ -35,6 +33,9 @@ class FavoriteListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        page = int(request.query_params.get('page', 1))
+        serializer = FavoriteListSerializer(data=request.query_params)
+        serializer.is_valid(raise_exception=True)
+        page = serializer.validated_data['page']
+
         result = FavoriteService.get_user_favorites(request.user, page_number=page, per_page=20)
         return Response(result)

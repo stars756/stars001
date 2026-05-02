@@ -47,8 +47,8 @@ class ArticleService:
         return queryset.get(pk=pk)
 
     def get_article_list_queryset(self):
-        """获取文章列表的基础查询集"""
-        return BaykeArticleContent.objects.all().order_by('-created_time')
+        """获取文章列表的基础查询集（预取标签避免模板 N+1）"""
+        return BaykeArticleContent.objects.prefetch_related('tags').order_by('-created_time')
 
     def get_archive_months(self):
         """获取文章归档月份列表"""
@@ -62,7 +62,9 @@ class ArticleService:
     def get_sidebar_data(self):
         """获取侧边栏数据"""
         sidebar_items = BaykeSidebar.objects.filter(is_show=True).order_by('order')
-        categories = BaykeArticleCategory.objects.filter(parent__isnull=True)
+        categories = BaykeArticleCategory.objects.filter(
+            parent__isnull=True
+        ).prefetch_related('baykearticlecategory_set')
         tags = self.get_sidebar_tags()
         archive_months = BaykeArticleContent.objects.dates(
             field_name="created_time", kind="month"

@@ -50,7 +50,7 @@ class AlipayCallbackView(AlipayCallBackVerifySignMixin, View):
     """支付宝支付结果通知"""
 
     def get(self, request, *args, **kwargs):
-        """支付宝同步通知"""
+        """支付宝同步通知 — 验签即代表支付宝身份，无需 CSRF"""
         data = request.GET.dict()
         success = self.has_verify_sign(data)
         order_sn = data.get("out_trade_no")
@@ -61,6 +61,9 @@ class AlipayCallbackView(AlipayCallBackVerifySignMixin, View):
             return HttpResponseRedirect(
                 reverse("member:orders-detail", kwargs={"order_sn": order_sn})
             )
+        logger.warning(
+            "Alipay sync callback: sign verification failed for order_sn=%s", order_sn
+        )
         return HttpResponse("success")
 
     def post(self, request, *args, **kwargs):

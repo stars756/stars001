@@ -29,10 +29,10 @@ class GoodsService(CacheableService):
     @staticmethod
     def get_category_goods(category, request_params):
         """根据分类获取商品（补上 select_related 避免模板遍历 brand N+1）"""
-        queryset = BaykeShopGoods.objects.select_related('brand').filter(category__id=category.id)
+        queryset = BaykeShopGoods.objects.raw().select_related('brand').filter(category__id=category.id)
         if category.parent is None:
             baykeshopcategory_set = category.baykeshopcategory_set.all()
-            queryset = BaykeShopGoods.objects.select_related('brand').filter(category__in=baykeshopcategory_set)
+            queryset = BaykeShopGoods.objects.raw().select_related('brand').filter(category__in=baykeshopcategory_set)
             return GoodsService.filter_goods_queryset(queryset, request_params)
         return GoodsService.filter_goods_queryset(queryset, request_params)
 
@@ -59,10 +59,10 @@ class GoodsService(CacheableService):
         """获取同类别推荐商品"""
         cates = goods.category.all()
         return list(
-            BaykeShopGoods.objects.filter(
+            BaykeShopGoods.objects.raw().filter(
                 is_recommend=True,
                 category__in=cates
-            ).exclude(id=goods.id).order_by('-sales')[:limit]
+            ).exclude(id=goods.id).order_by('-created_time')[:limit]
         )
 
     @staticmethod

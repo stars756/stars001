@@ -1,3 +1,6 @@
+import ipaddress
+import json
+
 from django.db import models
 from django.contrib.sites.managers import CurrentSiteManager
 import django.db.models.deletion
@@ -39,7 +42,10 @@ class BaykeShopUser(BaseUserModel):
 
     def is_ip_trusted(self, ip_address):
         """
-        检查IP是否在可信列表中（模型方法）
+        检查IP是否在可信列表中
+
+        IPv4/IPv6 地址自动归一化后再比较，
+        避免同一地址的不同文本表示（如 ::ffff:192.168.1.1 vs 192.168.1.1）被误判。
 
         Args:
             ip_address: 要检查的IP地址
@@ -47,13 +53,22 @@ class BaykeShopUser(BaseUserModel):
         Returns:
             tuple: (是否可信, 错误信息)
         """
-        import json
+        try:
+            normalized = str(ipaddress.ip_address(ip_address.strip()))
+        except ValueError:
+            normalized = ip_address.strip()
+
         try:
             trusted_ips = json.loads(self.trusted_ips)
             if not trusted_ips:
                 return False, "IP不在可信列表中"
-            if ip_address in trusted_ips:
-                return True, None
+            for tip in trusted_ips:
+                try:
+                    if str(ipaddress.ip_address(tip.strip())) == normalized:
+                        return True, None
+                except ValueError:
+                    if tip.strip() == normalized:
+                        return True, None
             return False, f"IP {ip_address} 不在可信列表中"
         except Exception:
             return False, "可信IP列表解析失败"

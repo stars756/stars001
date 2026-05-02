@@ -163,6 +163,36 @@ services:
 
   # ==================== 生产环境额外服务 ====================
 
+  # 数据库备份（仅 prod profile 启动，每日凌晨 2:00）
+  backup:
+    profiles: ["prod"]
+    image: postgres:15-alpine
+    container_name: baykeshop-backup
+    restart: unless-stopped
+    environment:
+      PGHOST: postgres
+      DB_USER: ${POSTGRES_USER:-baykeuser}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-baykepass123}
+      DB_NAME: ${POSTGRES_DB:-baykeshop}
+      RETENTION_DAYS: 7
+    volumes:
+      - ./scripts:/scripts:ro
+      - backups_data:/app/backups
+      - media_data:/app/media:ro
+    entrypoint: /bin/sh
+    command: |
+      -c "
+      while true; do
+        sleep \$(( \$(date -d 'tomorrow 02:00' +\%s) - \$(date +\%s) ))
+        /scripts/backup.sh
+        sleep 86400
+      done
+      "
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
   # Nginx 反向代理（仅 prod profile 启动）
   nginx:
     profiles: ["prod"]
@@ -198,6 +228,8 @@ volumes:
   beat_schedule:
     driver: local
   cert_data:
+    driver: local
+  backups_data:
     driver: local
 
 

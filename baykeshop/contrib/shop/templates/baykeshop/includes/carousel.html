@@ -78,7 +78,7 @@
         thumbs-swiper=".mySwiper2" space-between="10">
         {% for gallery in images %}
         <swiper-slide>
-            <img src="{{ gallery.image.url }}" />
+            <img src="{{ gallery.image.url }}" alt="{{ gallery.goods.name }}" />
         </swiper-slide>
         {% endfor %}
     </swiper-container>
@@ -87,7 +87,7 @@
         watch-slides-progress="true" navigation="true">
         {% for gallery in images %}
         <swiper-slide>
-            <img class="bk-is-clickable" src="{{ gallery.image.url }}" />
+            <img class="bk-is-clickable" src="{{ gallery.image.url }}" alt="{{ gallery.goods.name }}" />
         </swiper-slide>
         {% endfor %}
     </swiper-container> 

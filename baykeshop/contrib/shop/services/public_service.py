@@ -48,7 +48,7 @@ class PublicService:
         if all_sub_cat_ids:
             # 一次性预取所有楼层商品
             all_floor_goods = list(
-                BaykeShopGoods.objects.filter(category__id__in=all_sub_cat_ids)
+                BaykeShopGoods.objects.raw().filter(category__id__in=all_sub_cat_ids)
             )
             # 按 分类ID 分组
             goods_by_category = {}

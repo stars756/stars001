@@ -16,7 +16,7 @@ import logging
 from datetime import timedelta
 from celery import shared_task
 from django.utils import timezone
-from django.core.cache import cache as django_cache
+# cache 不再通过此文件直接操作，统一由 Service 层管理
 from django.db.models import Sum, Count
 
 logger = logging.getLogger("baykeshop.periodic_tasks")
@@ -183,19 +183,11 @@ def cache_warmup_homepage(self):
         warmed_keys = []
         from baykeshop.contrib.shop.services.public_service import PublicService
 
-        # 轮播图和楼层统一通过 Service 方法预热，避免查询逻辑重复
-        banners = PublicService.get_index_banners()
-        django_cache.set(
-            PublicService._BANNERS_CACHE_KEY, banners,
-            timeout=PublicService._BANNERS_CACHE_TTL
-        )
+        # 轮播图和楼层 — Service 方法内部已写缓存，直接调用即可
+        PublicService.get_index_banners()
         warmed_keys.append(PublicService._BANNERS_CACHE_KEY)
 
-        floors = PublicService.get_index_floors()
-        django_cache.set(
-            PublicService._FLOORS_CACHE_KEY, floors,
-            timeout=PublicService._FLOORS_CACHE_TTL
-        )
+        PublicService.get_index_floors()
         warmed_keys.append(PublicService._FLOORS_CACHE_KEY)
 
         logger.info(f"[缓存预热] 首页数据预热完成, 共 {len(warmed_keys)} 个key: {warmed_keys}")

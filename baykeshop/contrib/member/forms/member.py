@@ -45,7 +45,7 @@ class BaykeShopUserProfileForm(BaseFormMixins, forms.ModelForm):
 
     class Meta:
         model = BaykeShopUser
-        fields = ['avatar', 'gender', 'nickname', 'email', 'mobile', 'qq', 'wechat', 'description', 'sms_code']
+        fields = ['avatar', 'gender', 'nickname', 'email', 'mobile', 'qq', 'wechat', 'description']
         widgets = {
             'nickname': WF.nickname_field(),
             'mobile': WF.phone_field(placeholder=_('请输入手机号码')),

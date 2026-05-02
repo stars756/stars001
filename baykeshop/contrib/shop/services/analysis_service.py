@@ -157,8 +157,6 @@ class AnalysisService(DateService):
             "yesterday_count": self.yesterday_count(),
             "last_week_count": self.last_week_count(),
             "last_month_count": self.last_month_count(),
-            # 'last_week_data': self.get_last_week_data(),
-            # 'last_month_data': self.get_last_month_data(),
             "last_week_data_dict": self.get_last_week_data_dict(format),
             "last_month_data_dict": self.get_last_month_data_dict(format),
             "ratio": self.get_ratio(),

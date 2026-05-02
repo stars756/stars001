@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
 from django.db import models
 from django.db.utils import IntegrityError
 from django.contrib.auth import get_user_model

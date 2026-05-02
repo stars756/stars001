@@ -167,19 +167,17 @@ class OrderService:
     @staticmethod
     def ship_orders(queryset):
         """
-        批量发货
+        批量发货 — 单条 SQL 批量更新（PAID→SHIPPED 不触发库存联动，安全）
 
         Args:
             queryset: BaykeShopOrders QuerySet（仅处理已支付订单）
         """
-        count = 0
-        for order in queryset:
-            if order.status != BaykeShopOrders.OrderStatus.PAID:
-                continue
-            order.status = BaykeShopOrders.OrderStatus.SHIPPED
-            order.save(update_fields=['status'])
-            count += 1
-        return count
+        to_ship = [o for o in queryset if o.status == BaykeShopOrders.OrderStatus.PAID]
+        for o in to_ship:
+            o.status = BaykeShopOrders.OrderStatus.SHIPPED
+        if to_ship:
+            BaykeShopOrders.objects.bulk_update(to_ship, ['status'])
+        return len(to_ship)
 
     # ============================================================
     # 库存/销量管理（替代原 signals.py 中的业务逻辑）

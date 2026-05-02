@@ -28,9 +28,9 @@
                         <figure class="bk-media-left">
                             <p class="bk-image bk-is-32x32">
                                 {% if comment.user.baykeshopuser.avatar %}
-                                <img class="bk-is-rounded" src="{{ comment.user.baykeshopuser.avatar.url }}">
+                                <img class="bk-is-rounded" src="{{ comment.user.baykeshopuser.avatar.url }}" alt="用户头像">
                                 {% else %}
-                                <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}">
+                                <img class="bk-is-rounded" src="{% static 'baykeshop/images/logo.jpg' %}" alt="默认头像">
                                 {% endif %}
                             </p>
                         </figure>

@@ -19,15 +19,38 @@ LOGIN_URL = reverse_lazy('member:login')
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-in-production')
 
+# 生产环境保护：使用默认 SECRET_KEY 时拒绝启动，强制通过 .env 配置
+if not DEBUG and SECRET_KEY == 'django-insecure-dev-key-change-in-production':
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured(
+        '生产环境必须设置 SECRET_KEY，请在 .env 中配置随机密钥。\n'
+        '生成方式: python -c "import secrets; print(secrets.token_urlsafe(50))"'
+    )
+
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+
+# ============================================================
+# 生产环境安全设置（Nginx 反向代理终止 TLS，需设置 PROXY_SSL_HEADER）
+# ============================================================
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# 通用安全头（所有环境生效）
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    # django.contrib.admin 被 baykeshop.sites.AdminConfig 替代（自定义 AdminSite）
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

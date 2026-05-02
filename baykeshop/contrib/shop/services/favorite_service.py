@@ -32,7 +32,12 @@ class FavoriteService(UserInteractionServiceBase):
 
     @classmethod
     def get_user_favorites(cls, user, page_number=1, per_page=20):
-        """获取用户收藏列表，含商品完整信息（图片/价格）"""
+        """获取用户收藏列表，含商品完整信息（图片/价格），2分钟缓存"""
+        cache_key = f"{cls.CACHE_PREFIX}:detail_list:{user.id}"
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return cached
+
         from django.core.paginator import Paginator
         favorites = BaykeShopGoodsFavorite.objects.filter(
             user=user
@@ -44,7 +49,6 @@ class FavoriteService(UserInteractionServiceBase):
         items = []
         for fav in page_obj:
             goods = fav.goods
-            # goods 自带 image_url / price 注解（来自 BaykeShopGoodsManager）
             items.append({
                 'id': fav.id,
                 'goods_id': goods.id,
@@ -53,12 +57,14 @@ class FavoriteService(UserInteractionServiceBase):
                 'image_url': str(getattr(goods, 'image_url', '') or ''),
             })
 
-        return {
+        result = {
             'favorites': items,
             'total': total,
             'page': page_number,
             'total_pages': paginator.num_pages,
         }
+        cache.set(cache_key, result, timeout=120)
+        return result
 
     @classmethod
     def is_favorited(cls, user, goods_id):
@@ -74,3 +80,4 @@ class FavoriteService(UserInteractionServiceBase):
     def _invalidate_user_favorites_cache(cls, user_id):
         """清除缓存（兼容旧接口）"""
         cls._invalidate_cache(user_id)
+        cache.delete(f"{cls.CACHE_PREFIX}:detail_list:{user_id}")

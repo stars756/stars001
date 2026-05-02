@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-
 from django.core.cache import cache
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _

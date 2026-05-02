@@ -7,6 +7,7 @@ from baykeshop.sites import admin as bayke_admin
 
 from baykeshop.conf import bayke_settings
 from .models import *
+from .models.visit import Visit
 from baykeshop.contrib.shop.services.public_service import PublicService
 
 admin.site.unregister(Site)
@@ -121,4 +122,18 @@ class BaykeMenusAdmin(bayke_admin.ModelAdmin):
         if obj and obj.parent:
             return ("name", "icon", "parent", "permission", "order", "is_show")
         return super().get_fields(request, obj)
-    
+
+
+@admin.register(Visit)
+class VisitAdmin(bayke_admin.ModelAdmin):
+    list_display = ('content_object', 'date', 'pv', 'uv')
+    list_filter = ('date', 'content_type')
+    date_hierarchy = 'date'
+    readonly_fields = ('content_type', 'object_id', 'ip', 'pv', 'uv', 'date')
+    list_per_page = 50
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False

@@ -1,14 +1,3 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
-"""
-@文件    :base.py
-@说明    :封装支付宝支付基础类
-@时间    :2024/12/10 15:35:39
-@作者    :幸福关中&轻编程
-@版本    :1.3.15
-@微信    :baywanyun
-"""
-
 import logging
 import traceback
 
@@ -101,9 +90,9 @@ class TradePagePay(Alipay):
         """
         if self.instance is None and not kwargs:
             # traceback.print_exc()
-            logger.error(f"订单对象或参数必须传入其中一个")
-            messages.error(self.request, f"订单对象或参数必须传入其中一个")
-            raise ValueError(f"订单对象或参数必须传入其中一个")
+            logger.error("订单对象或参数必须传入其中一个")
+            messages.error(self.request, "订单对象或参数必须传入其中一个")
+            raise ValueError("订单对象或参数必须传入其中一个")
 
         model = AlipayTradePagePayModel()
         model.product_code = "FAST_INSTANT_TRADE_PAY"
@@ -116,9 +105,9 @@ class TradePagePay(Alipay):
                 return model
             except KeyError:
                 # traceback.print_exc()
-                logger.error(f"参数必须包含out_trade_no, total_amount, subject")
-                messages.error(self.request, f"参数必须包含out_trade_no, total_amount, subject")
-                raise ValueError(f"参数必须包含out_trade_no, total_amount, subject")
+                logger.error("参数必须包含out_trade_no, total_amount, subject")
+                messages.error(self.request, "参数必须包含out_trade_no, total_amount, subject")
+                raise ValueError("参数必须包含out_trade_no, total_amount, subject")
 
         model.out_trade_no = self.instance.order_sn
         model.total_amount = str(self.instance.pay_price)

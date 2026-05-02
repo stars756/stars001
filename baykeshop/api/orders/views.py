@@ -28,6 +28,9 @@ class BaykeShopOrdersViewSet(mixins.CreateModelMixin,
     lookup_url_kwarg = 'order_sn'
     lookup_field = 'order_sn'
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
     def perform_destroy(self, instance):
         # 订单删除时同步释放库存（需在serializer或service中实现）
         super().perform_destroy(instance)

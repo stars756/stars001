@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler404 = 'baykeshop.contrib.shop.views.public.handler404'
+handler500 = 'baykeshop.contrib.shop.views.public.handler500'
+
 urlpatterns = [
     # django admin
     path('admin/', admin.site.urls),

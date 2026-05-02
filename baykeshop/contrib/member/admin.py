@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 # Register your models here.
 
-from .models import BaykeShopUser
+from .models import BaykeShopUser, SecurityLog, UserNotification
 
 User = get_user_model()
 admin.site.unregister(User)
@@ -65,3 +65,28 @@ class BaseUserAdmin(UserAdmin):
     @admin.display(description="手机")
     def mobile(self, obj):
         return obj.baykeshopuser.mobile
+
+
+@admin.register(SecurityLog)
+class SecurityLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'ip_address', 'action_type', 'status', 'created_time')
+    list_filter = ('action_type', 'status', 'created_time')
+    search_fields = ('user__username', 'ip_address', 'action_detail')
+    readonly_fields = ('user', 'ip_address', 'action_type', 'action_detail', 'status', 'created_time')
+    date_hierarchy = 'created_time'
+    list_per_page = 50
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(UserNotification)
+class UserNotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'title', 'is_read', 'created_time')
+    list_filter = ('is_read', 'created_time')
+    search_fields = ('user__username', 'title', 'content')
+    date_hierarchy = 'created_time'
+    list_per_page = 50

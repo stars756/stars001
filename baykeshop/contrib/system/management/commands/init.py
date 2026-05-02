@@ -68,21 +68,18 @@ class Command(BaseCommand):
             site_id, 'EMAIL_USE_SSL', "SMTP 服务器是否使用 SSL", 
             bayke_settings.EMAIL_USE_SSL
         )
-        management.call_command(
-            "add_dict", 
-            site_id, 'ALIPAY_APPID', "支付宝 APPID", 
-            bayke_settings.ALIPAY_APPID
-        )
-        management.call_command(
-            "add_dict", 
-            site_id, 'ALIPAY_PUBLIC_KEY', "支付宝公钥", 
-            bayke_settings.ALIPAY_PUBLIC_KEY
-        )
-        management.call_command(
-            "add_dict", 
-            site_id, 'ALIPAY_PRIVATE_KEY', "支付宝私钥", 
-            bayke_settings.ALIPAY_PRIVATE_KEY
-        )
+        # 支付宝密钥 — 仅写入非空值，防止硬编码密钥进入数据库
+        alipay_keys = {
+            'ALIPAY_APPID': '支付宝 APPID',
+            'ALIPAY_PUBLIC_KEY': '支付宝公钥',
+            'ALIPAY_PRIVATE_KEY': '支付宝私钥',
+        }
+        for key, desc in alipay_keys.items():
+            value = getattr(bayke_settings, key, '')
+            if value:
+                management.call_command("add_dict", site_id, key, desc, value)
+            else:
+                self.stderr.write(f"提示: {desc}({key}) 未配置，请通过 .env 或在管理后台手动设置")
         management.call_command(
             "add_dict", 
             site_id, 'ICP', "备案号", 
